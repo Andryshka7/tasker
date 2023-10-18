@@ -9,11 +9,17 @@ export class UsersService {
     constructor(@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>) {}
 
     async fetchUsers() {
-        const users = await this.usersRepository.find()
+        const users = await this.usersRepository.find({ relations: ['tasks'] })
         return users
     }
-    async createUser(user: Omit<User, 'id'>) {
+    async createUser(user: Omit<User, 'id' | 'tasks'>) {
         const created = this.usersRepository.create(user)
         return await this.usersRepository.save(created)
+    }
+    async updateUser(id: number, fieldsToUpdate: Partial<User>) {
+        await this.usersRepository.update({ id }, fieldsToUpdate)
+    }
+    async deleteUser(id: number) {
+        await this.usersRepository.delete({ id })
     }
 }
