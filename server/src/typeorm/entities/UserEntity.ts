@@ -6,9 +6,6 @@ export class UserEntity {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: number
 
-    @Column({ nullable: true })
-    avatar: string
-
     @Column()
     name: string
 
@@ -16,11 +13,16 @@ export class UserEntity {
     surname: string
 
     @Column()
+    email: string
+
+    @Column()
     password: string
 
     @Column()
     role: string
 
+    @Column({ nullable: true })
+    avatar: string
     @OneToMany(() => TaskEntity, (task) => task.user)
     tasks: TaskEntity[]
 }

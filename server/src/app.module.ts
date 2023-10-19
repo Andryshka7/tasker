@@ -4,6 +4,7 @@ import { UsersModule } from 'modules/users/users.module'
 import { TasksModule } from './modules/tasks/tasks.module'
 import { UserEntity, TaskEntity } from 'typeorm/entities'
 import { host, username, password, database } from 'config'
+import { AuthModule } from './modules/auth/auth.module'
 
 @Module({
     imports: [
@@ -17,7 +18,8 @@ import { host, username, password, database } from 'config'
             synchronize: true
         }),
         UsersModule,
-        TasksModule
+        TasksModule,
+        AuthModule
     ],
     controllers: [],
     providers: []

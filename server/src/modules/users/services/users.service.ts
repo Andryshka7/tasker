@@ -16,10 +16,4 @@ export class UsersService {
         const created = this.usersRepository.create(user)
         return await this.usersRepository.save(created)
     }
-    async updateUser(id: number, fieldsToUpdate: Partial<User>) {
-        await this.usersRepository.update({ id }, fieldsToUpdate)
-    }
-    async deleteUser(id: number) {
-        await this.usersRepository.delete({ id })
-    }
 }

@@ -8,6 +8,9 @@ class CreateUserDto {
     surname: string
 
     @IsNotEmpty()
+    email: string
+
+    @IsNotEmpty()
     password: string
 
     @IsNotEmpty()
