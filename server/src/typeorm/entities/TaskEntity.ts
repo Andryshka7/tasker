@@ -12,6 +12,15 @@ export class TaskEntity {
     @Column()
     description: string
 
+    @Column()
+    priority: number
+
+    @Column()
+    due: Date
+
     @ManyToOne(() => UserEntity, (user) => user.tasks)
     user: UserEntity
+
+    @ManyToOne(() => UserEntity, (user) => user.createdTasks)
+    creator: UserEntity
 }

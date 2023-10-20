@@ -12,9 +12,11 @@ export class TaskService {
         return await this.tasksRepository.find({ relations: ['user'] })
     }
 
-    async createTask(user: User, task: Omit<Task, 'id' | 'user'>) {
+    async createTask(creator: User, task: Omit<Task, 'id' | 'user' | 'creator'>) {
         const created = this.tasksRepository.create(task)
-        created.user = user
+        created.creator = creator
+        console.log(created)
+
         return await this.tasksRepository.save(created)
     }
 }

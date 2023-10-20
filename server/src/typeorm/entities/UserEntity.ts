@@ -12,7 +12,7 @@ export class UserEntity {
     @Column()
     surname: string
 
-    @Column()
+    @Column({ unique: true })
     email: string
 
     @Column()
@@ -23,6 +23,10 @@ export class UserEntity {
 
     @Column({ nullable: true })
     avatar: string
+
     @OneToMany(() => TaskEntity, (task) => task.user)
     tasks: TaskEntity[]
+
+    @OneToMany(() => TaskEntity, (task) => task.creator)
+    createdTasks: TaskEntity[]
 }

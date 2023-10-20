@@ -1,13 +1,16 @@
 import { Request } from 'express'
 
-export interface Task {
+interface Task {
     id: number
     title: string
     description: string
+    priority: number
+    due: Date
     user: User
+    creator: User
 }
 
-export interface User {
+interface User {
     id: number
     name: string
     surname: string
@@ -16,6 +19,9 @@ export interface User {
     password: string
     avatar: string
     tasks: Task[]
+    createdTasks: Task[]
 }
 
-export type RequestWithUser = { user: User } & Request
+type RequestWithUser = { user: User } & Request
+
+export { Task, User, RequestWithUser }
