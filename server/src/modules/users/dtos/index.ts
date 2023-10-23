@@ -1,1 +1,2 @@
-export { default as CreateUserDto } from './CreateUser.dto'
+export { CreateUserDto } from './CreateUser/CreateUser.dto'
+export { UpdateUserDto } from './UpdateUser/UpdateUser.dto'

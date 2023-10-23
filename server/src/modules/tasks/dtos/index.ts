@@ -1,1 +1,2 @@
-export { CreateTaskDto } from './CreateTaskDto.dto'
+export { CreateTaskDto } from './CreateTask/CreateTask.dto'
+export { UpdateTaskDto } from './UpdateTask/UpdateTask.dto'

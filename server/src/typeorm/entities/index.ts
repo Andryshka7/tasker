@@ -1,2 +1,3 @@
-export { TaskEntity } from './TaskEntity'
-export { UserEntity } from './UserEntity'
+export { UserEntity } from './User/User.entity'
+export { TaskEntity } from './Task/Task.entity'
+export { RefreshTokenEntity } from './RefreshToken/RefreshToken.entity'

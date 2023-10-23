@@ -22,6 +22,16 @@ interface User {
     createdTasks: Task[]
 }
 
-type RequestWithUser = { user: User } & Request
+interface RefreshToken {
+    token: string
+    user: User
+}
 
-export { Task, User, RequestWithUser }
+interface JwtPayload {
+    id: number
+    gmail: string
+    iat: number
+    exp: number
+}
+
+export { Task, User, RefreshToken, JwtPayload }
