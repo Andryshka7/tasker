@@ -20,16 +20,4 @@ interface User {
     createdTasks: Task[]
 }
 
-interface RefreshToken {
-    token: string
-    user: User
-}
-
-interface JwtPayload {
-    id: number
-    gmail: string
-    iat: number
-    exp: number
-}
-
-export { type Task, type User, type RefreshToken, type JwtPayload }
+export { type Task, type User }

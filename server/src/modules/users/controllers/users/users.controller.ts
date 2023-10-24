@@ -11,8 +11,18 @@ export class UsersController {
     constructor(private usersService: UsersService) {}
 
     @Get()
-    fetchUsers() {
-        return this.usersService.fetchUsers()
+    async fetchUsers() {
+        const users = await this.usersService.fetchUsers()
+        return users
+    }
+    @Get(':id')
+    async fetchUser(@Param('id', ParseIntPipe) id: number) {
+        const users = await this.usersService.fetchUsers()
+
+        const user = users.find(({ id: userId }) => id === userId)
+        console.log(user, users)
+
+        return user
     }
 
     @Post()

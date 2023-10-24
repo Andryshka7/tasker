@@ -3,7 +3,7 @@ import { UserEntity } from '..'
 
 @Entity({ name: 'tasks' })
 export class TaskEntity {
-    @PrimaryGeneratedColumn({ type: 'bigint' })
+    @PrimaryGeneratedColumn()
     id: number
 
     @Column()

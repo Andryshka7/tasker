@@ -4,7 +4,7 @@ import { User } from 'types'
 
 @Entity({ name: 'refreshtokens' })
 export class RefreshTokenEntity {
-    @PrimaryGeneratedColumn({ type: 'bigint' })
+    @PrimaryGeneratedColumn()
     id: number
 
     @Column()

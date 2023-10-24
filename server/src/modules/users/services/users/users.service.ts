@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities/User/User.entity'
@@ -13,6 +13,11 @@ export class UsersService {
         return users
     }
 
+    async fetchUserById(id: number) {
+        const user = await this.usersRepository.findOne({ where: { id }, relations: ['tasks'] })
+        return user
+    }
+
     async createUser(
         userDetails: Omit<User, 'id' | 'tasks' | 'createdTasks' | 'avatar'> & { avatar?: string }
     ) {
@@ -20,7 +25,7 @@ export class UsersService {
         return await this.usersRepository.save(user)
     }
 
-    async updateUser(id, updateFields: Partial<User>) {
+    async updateUser(id: number, updateFields: Partial<User>) {
         await this.usersRepository.update({ id }, updateFields)
         return `User with id ${id} has been updated`
     }
