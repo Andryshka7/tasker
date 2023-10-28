@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    color: white;
-    background: #000c2b;
+input:focus {
+    outline: none;
 }

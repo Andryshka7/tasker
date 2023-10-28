@@ -1,9 +1,6 @@
-import { Metadata } from 'next'
 import { ReactNode } from 'react'
-import { Inter } from 'next/font/google'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import { Metadata } from 'next'
+import './index.css'
 
 export const metadata: Metadata = {
     title: 'Tasker',
@@ -12,7 +9,10 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => (
     <html lang='en'>
-        <body className={inter.className}>{children}</body>
+        <head>
+            <link rel='icon' href='/icon.png' />
+        </head>
+        <body className='bg-secondary tracking-wide text-white'>{children}</body>
     </html>
 )
 
