@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
+import ReduxProvider from 'redux-toolkit/provider'
 import './index.css'
 
 export const metadata: Metadata = {
@@ -7,12 +8,18 @@ export const metadata: Metadata = {
     description: 'Stay effective'
 }
 
-const RootLayout = ({ children }: { children: ReactNode }) => (
+interface Props {
+    children: ReactNode
+}
+
+const RootLayout = ({ children }: Props) => (
     <html lang='en'>
         <head>
             <link rel='icon' href='/icon.png' />
         </head>
-        <body className='bg-secondary tracking-wide text-white'>{children}</body>
+        <body className='bg-secondary tracking-wide text-white'>
+            <ReduxProvider>{children}</ReduxProvider>
+        </body>
     </html>
 )
 

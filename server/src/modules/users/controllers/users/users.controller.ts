@@ -12,28 +12,21 @@ export class UsersController {
 
     @Get()
     async fetchUsers() {
-        const users = await this.usersService.fetchUsers()
-        return users
-    }
-    @Get(':id')
-    async fetchUser(@Param('id', ParseIntPipe) id: number) {
-        const users = await this.usersService.fetchUsers()
-
-        const user = users.find(({ id: userId }) => id === userId)
-        console.log(user, users)
-
-        return user
+        return await this.usersService.fetchUsers()
     }
 
     @Post()
     @UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard, EmailIsUnique)
-    createUser(@Body(HashPasswordPipe) createUserDto: CreateUserDto) {
-        return this.usersService.createUser(createUserDto)
+    async createUser(@Body(HashPasswordPipe) createUserDto: CreateUserDto) {
+        return await this.usersService.createUser(createUserDto)
     }
 
     @Patch(':id')
     @UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
-    updateUser(@Param('id', ParseIntPipe) id: number, @Body(HashPasswordPipe) updateUserDto: UpdateUserDto) {
-        return this.usersService.updateUser(id, updateUserDto)
+    async updateUser(
+        @Param('id', ParseIntPipe) id: number,
+        @Body(HashPasswordPipe) updateUserDto: UpdateUserDto
+    ) {
+        return await this.usersService.updateUser(id, updateUserDto)
     }
 }

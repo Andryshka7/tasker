@@ -1,5 +1,5 @@
 import { Response } from 'express'
-import { Res, Body, Post, Controller, UseGuards, HttpException, HttpStatus } from '@nestjs/common'
+import { Res, Body, Get, Post, Controller, UseGuards, HttpException, HttpStatus } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { GetRefreshToken, GetUser } from 'common/decorators'
 import { SignInDto } from 'modules/auth/dtos'
@@ -12,6 +12,12 @@ export class AuthController {
         private authService: AuthService,
         private tokensService: TokensService
     ) {}
+
+    @Get()
+    @UseGuards(AuthGuard('jwt-refresh-token'))
+    async getMe(@GetUser() user: User) {
+        return await this.authService.fetchMe(user.id)
+    }
 
     @Post()
     async signIn(@Res({ passthrough: true }) response: Response, @Body() credentials: SignInDto) {

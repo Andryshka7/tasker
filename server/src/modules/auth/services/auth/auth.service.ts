@@ -18,4 +18,9 @@ export class AuthService {
 
         return user
     }
+
+    async fetchMe(id: number) {
+        const user = await this.usersRepository.findOneBy({ id })
+        return user
+    }
 }

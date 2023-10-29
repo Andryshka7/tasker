@@ -12,7 +12,7 @@ const Seacrh = () => {
                 <FaSearch color='white' size={15} />
             </label>
             <input
-                className='bg-transparent font-semibold h-5'
+                className='bg-transparent font-semibold h-4.5 text-sm'
                 id='search'
                 value={value}
                 onChange={(e) => setValue(e.target.value)}

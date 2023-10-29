@@ -1,9 +1,9 @@
 import { FaSignOutAlt } from 'react-icons/fa'
 
 const SignOut = () => (
-    <div className='w-fit mt-7 mb-3 mx-auto flex items-center gap-2'>
+    <div className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2'>
         <FaSignOutAlt size={20} />
-        <h3 className='text-lg font-bold'>Sign out</h3>
+        <h3 className='font-bold'>Sign out</h3>
     </div>
 )
 
