@@ -1,6 +1,8 @@
 'use client'
 
 import API from 'api'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormState = {
@@ -9,11 +11,20 @@ type FormState = {
 }
 
 const Page = () => {
+    const router = useRouter()
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const { register, handleSubmit } = useForm<FormState>()
 
     const onSubmit = async (data: FormState) => {
-        const response = await API.post('auth', data)
-        console.log(response.data)
+        setIsSubmitting(true)
+        try {
+            const response = await API.post('auth', data)
+            router.push('/')
+            console.log(response.data)
+        } catch (error) {
+            console.log('Error while auth')
+        }
+        setIsSubmitting(false)
     }
 
     return (
@@ -25,18 +36,19 @@ const Page = () => {
             <input
                 {...register('email')}
                 type='text'
-                className='mt-8 w-80 border-b-2 border-slate-500 bg-transparent px-4 py-2 text-xl font-semibold'
+                className='mt-8 w-2/3 border-b-2 border-slate-500 bg-transparent px-4 py-2 text-xl font-semibold'
                 placeholder='Email'
             />
             <input
                 {...register('password')}
                 type='password'
-                className='mt-6 w-80 border-b-2 border-slate-500 bg-transparent px-4 py-2 text-xl font-semibold'
+                className='mt-6 w-2/3 border-b-2 border-slate-500 bg-transparent px-4 py-2 text-xl font-semibold'
                 placeholder='Password'
             />
             <button
                 type='submit'
-                className='my-12 rounded bg-green-600 px-8 py-1 font-semibold duration-200 hover:bg-opacity-90'
+                className='my-12 rounded bg-green-600 px-8 py-1 font-semibold duration-200 hover:bg-opacity-90 disabled:bg-opacity-70'
+                disabled={isSubmitting}
             >
                 Login
             </button>

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { TaskService } from './services/tasks/tasks.service'
-import { TaskController } from './controllers/tasks/tasks.controller'
+import { TaskService } from './services'
+import { TaskController } from './controllers'
 import { TaskEntity } from 'typeorm/entities'
 
 @Module({

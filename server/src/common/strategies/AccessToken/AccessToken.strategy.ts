@@ -9,7 +9,10 @@ import { JwtPayload } from 'types'
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt-access-token') {
     constructor() {
         super({
-            jwtFromRequest: (req: Request) => req.cookies['accessToken'],
+            jwtFromRequest: (req: Request) => {
+                console.log(req.cookies)
+                return req.cookies['accessToken']
+            },
             secretOrKey: jwt_secret
         })
     }

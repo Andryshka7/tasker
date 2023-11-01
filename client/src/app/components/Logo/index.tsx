@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const Logo = () => (
-    <Link href='/team'>
+    <Link href='/'>
         <header className='ml-20 mt-20 flex h-fit w-fit items-center gap-2'>
             <Image width={60} height={60} src='/icon.png' alt=''></Image>
             <div className='flex flex-col items-center'>

@@ -13,8 +13,8 @@ export class AuthController {
         private tokensService: TokensService
     ) {}
 
-    @Get()
-    @UseGuards(AuthGuard('jwt-refresh-token'))
+    @Get('me')
+    @UseGuards(AuthGuard('jwt-access-token'))
     async getMe(@GetUser() user: User) {
         return await this.authService.fetchMe(user.id)
     }

@@ -6,7 +6,7 @@ import { client } from 'config'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
-    app.enableCors({ origin: client })
+    app.enableCors({ origin: client, credentials: true })
 
     app.use(cookieParser())
     app.useGlobalPipes(new ValidationPipe())
