@@ -7,20 +7,20 @@ import { compare } from 'bcrypt'
 
 @Injectable()
 export class AuthService {
-    constructor(@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>) {}
+	constructor(@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>) {}
 
-    async signIn({ email, password }: Pick<User, 'email' | 'password'>) {
-        const user = await this.usersRepository.findOneBy({ email })
+	async signIn({ email, password }: Pick<User, 'email' | 'password'>) {
+		const user = await this.usersRepository.findOneBy({ email })
 
-        if (!user || !(await compare(password, user.password))) {
-            throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
-        }
+		if (!user || !(await compare(password, user.password))) {
+			throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
+		}
 
-        return user
-    }
+		return user
+	}
 
-    async fetchMe(id: number) {
-        const user = await this.usersRepository.findOneBy({ id })
-        return user
-    }
+	async fetchMe(id: number) {
+		const user = await this.usersRepository.findOneBy({ id })
+		return user
+	}
 }

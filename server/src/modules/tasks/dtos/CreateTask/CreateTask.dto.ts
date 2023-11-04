@@ -3,19 +3,19 @@ import { Type } from 'class-transformer'
 import { User } from 'types'
 
 export class CreateTaskDto {
-    @IsNotEmpty()
-    title: string
+	@IsNotEmpty()
+	title: string
 
-    @IsNotEmpty()
-    description: string
+	@IsNotEmpty()
+	description: string
 
-    @IsNotEmpty()
-    priority: number
+	@IsNotEmpty()
+	priority: number
 
-    @IsNotEmpty()
-    due: Date
+	@IsNotEmpty()
+	due: Date
 
-    @Type()
-    @IsOptional()
-    user: User
+	@Type()
+	@IsOptional()
+	user: User
 }

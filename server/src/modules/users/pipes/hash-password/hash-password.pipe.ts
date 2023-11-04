@@ -4,8 +4,8 @@ import { hash } from 'bcrypt'
 
 @Injectable()
 export class HashPasswordPipe implements PipeTransform {
-    async transform(user: CreateUserDto) {
-        user.password = await hash(user.password, 10)
-        return user
-    }
+	async transform(user: CreateUserDto) {
+		user.password = await hash(user.password, 10)
+		return user
+	}
 }

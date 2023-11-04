@@ -7,15 +7,15 @@ import { JwtPayload } from 'types'
 
 @Injectable()
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt-access-token') {
-    constructor() {
-        super({
-            jwtFromRequest: (req: Request) => req.cookies['accessToken'],
-            secretOrKey: jwt_secret
-        })
-    }
+	constructor() {
+		super({
+			jwtFromRequest: (req: Request) => req.cookies['accessToken'],
+			secretOrKey: jwt_secret
+		})
+	}
 
-    validate(payload: JwtPayload) {
-        const { id, gmail } = payload
-        return { id, gmail }
-    }
+	validate(payload: JwtPayload) {
+		const { id, gmail } = payload
+		return { id, gmail }
+	}
 }

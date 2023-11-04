@@ -8,25 +8,25 @@ import { HashPasswordPipe } from '../../pipes'
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService) {}
+	constructor(private usersService: UsersService) {}
 
-    @Get()
-    async fetchUsers() {
-        return await this.usersService.fetchUsers()
-    }
+	@Get()
+	async fetchUsers() {
+		return await this.usersService.fetchUsers()
+	}
 
-    @Post()
-    @UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard, EmailIsUnique)
-    async createUser(@Body(HashPasswordPipe) createUserDto: CreateUserDto) {
-        return await this.usersService.createUser(createUserDto)
-    }
+	@Post()
+	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard, EmailIsUnique)
+	async createUser(@Body(HashPasswordPipe) createUserDto: CreateUserDto) {
+		return await this.usersService.createUser(createUserDto)
+	}
 
-    @Patch(':id')
-    @UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
-    async updateUser(
-        @Param('id', ParseIntPipe) id: number,
-        @Body(HashPasswordPipe) updateUserDto: UpdateUserDto
-    ) {
-        return await this.usersService.updateUser(id, updateUserDto)
-    }
+	@Patch(':id')
+	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	async updateUser(
+		@Param('id', ParseIntPipe) id: number,
+		@Body(HashPasswordPipe) updateUserDto: UpdateUserDto
+	) {
+		return await this.usersService.updateUser(id, updateUserDto)
+	}
 }

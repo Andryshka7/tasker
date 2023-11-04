@@ -6,37 +6,37 @@ import { useRouter } from 'next/navigation'
 import API from 'api'
 
 interface Props {
-    children: ReactNode
+	children: ReactNode
 }
 
 const AuthRedirector = ({ children }: Props) => {
-    const router = useRouter()
+	const router = useRouter()
 
-    const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(true)
 
-    const login = async () => {
-        setLoading(true)
-        try {
-            await API.get('auth/me')
-            setLoading(false)
-        } catch {
-            router.push('sign-in')
-        }
-    }
+	const login = async () => {
+		setLoading(true)
+		try {
+			await API.get('auth/me')
+			setLoading(false)
+		} catch {
+			router.push('sign-in')
+		}
+	}
 
-    useEffect(() => {
-        router.prefetch('sign-in')
-    }, [router])
+	useEffect(() => {
+		router.prefetch('sign-in')
+	}, [router])
 
-    useEffect(() => {
-        login()
-    }, [])
+	useEffect(() => {
+		login()
+	}, [])
 
-    if (loading) {
-        return <h1>Loading</h1>
-    }
+	if (loading) {
+		return <h1>Loading</h1>
+	}
 
-    return children
+	return children
 }
 
 export default AuthRedirector

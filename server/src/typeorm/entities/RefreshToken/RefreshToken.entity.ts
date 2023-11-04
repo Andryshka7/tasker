@@ -4,13 +4,13 @@ import { User } from 'types'
 
 @Entity({ name: 'refreshtokens' })
 export class RefreshTokenEntity {
-    @PrimaryGeneratedColumn()
-    id: number
+	@PrimaryGeneratedColumn()
+	id: number
 
-    @Column()
-    token: string
+	@Column()
+	token: string
 
-    @OneToOne(() => UserEntity)
-    @JoinColumn()
-    user: User
+	@OneToOne(() => UserEntity)
+	@JoinColumn()
+	user: User
 }

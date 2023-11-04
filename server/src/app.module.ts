@@ -6,8 +6,8 @@ import { AuthModule } from './modules/auth/auth.module'
 import config from 'typeorm/config'
 
 @Module({
-    imports: [TypeOrmModule.forRoot(config), UsersModule, TasksModule, AuthModule],
-    controllers: [],
-    providers: []
+	imports: [TypeOrmModule.forRoot(config), UsersModule, TasksModule, AuthModule],
+	controllers: [],
+	providers: []
 })
 export class AppModule {}

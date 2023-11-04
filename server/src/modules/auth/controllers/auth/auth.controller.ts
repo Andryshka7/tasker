@@ -8,58 +8,60 @@ import { User } from 'types'
 
 @Controller('auth')
 export class AuthController {
-    constructor(
-        private authService: AuthService,
-        private tokensService: TokensService
-    ) {}
+	constructor(
+		private authService: AuthService,
+		private tokensService: TokensService
+	) {}
 
-    @Get()
-    @UseGuards(AuthGuard('jwt-refresh-token'))
-    async getMe(@GetUser() user: User) {
-        return await this.authService.fetchMe(user.id)
-    }
+	@Get('me')
+	@UseGuards(AuthGuard('jwt-access-token'))
+	async getMe(@GetUser() user: User) {
+		return await this.authService.fetchMe(user.id)
+	}
 
-    @Post()
-    async signIn(@Res({ passthrough: true }) response: Response, @Body() credentials: SignInDto) {
-        const user = await this.authService.signIn(credentials)
+	@Post()
+	async signIn(@Res({ passthrough: true }) response: Response, @Body() credentials: SignInDto) {
+		const user = await this.authService.signIn(credentials)
 
-        const { accessToken, refreshToken } = await this.tokensService.generateTokens(user)
+		const { accessToken, refreshToken } = await this.tokensService.generateTokens(user)
 
-        const tokenExists = await this.tokensService.tokenExists({ user })
-        if (tokenExists) {
-            await this.tokensService.updateRefreshToken(refreshToken, user)
-        } else {
-            await this.tokensService.saveRefreshToken(refreshToken, user)
-        }
+		const tokenExists = await this.tokensService.tokenExists({ user })
+		if (tokenExists) {
+			await this.tokensService.updateRefreshToken(refreshToken, user)
+		} else {
+			await this.tokensService.saveRefreshToken(refreshToken, user)
+		}
 
-        response.cookie('accessToken', accessToken, {
-            maxAge: 1000 * 60 * 15,
-            secure: true,
-            httpOnly: true
-        })
-        response.cookie('refreshToken', refreshToken, {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-            secure: true,
-            httpOnly: true,
-            path: '/auth/refresh'
-        })
+		response.cookie('accessToken', accessToken, {
+			maxAge: 1000 * 60 * 15,
+			secure: true,
+			httpOnly: true
+		})
+		response.cookie('refreshToken', refreshToken, {
+			maxAge: 1000 * 60 * 60 * 24 * 7,
+			secure: true,
+			httpOnly: true,
+			path: '/auth/refresh'
+		})
 
-        return user
-    }
+		return user
+	}
 
-    @Post('refresh')
-    @UseGuards(AuthGuard('jwt-refresh-token'))
-    async refreshTokens(@GetRefreshToken() refreshToken: string, @GetUser() user: User) {
-        const tokenExists = await this.tokensService.tokenExists({ refreshToken, user })
-        if (!tokenExists) {
-            throw new HttpException('Refresh token malformed', HttpStatus.BAD_REQUEST)
-        }
-        await this.tokensService.updateRefreshToken(refreshToken, user)
-    }
+	@Post('refresh')
+	@UseGuards(AuthGuard('jwt-refresh-token'))
+	async refreshTokens(@GetRefreshToken() refreshToken: string, @GetUser() user: User) {
+		const tokenExists = await this.tokensService.tokenExists({ refreshToken, user })
+		if (!tokenExists) {
+			throw new HttpException('Refresh token malformed', HttpStatus.BAD_REQUEST)
+		}
+		await this.tokensService.updateRefreshToken(refreshToken, user)
+	}
 
-    @Post('logout')
-    @UseGuards(AuthGuard('jwt-access-token'))
-    async logout(@GetUser() user: User) {
-        await this.tokensService.revokeRefreshToken({ user })
-    }
+	@Post('logout')
+	@UseGuards(AuthGuard('jwt-access-token'))
+	async logout(@Res({ passthrough: true }) response: Response, @GetUser() user: User) {
+		await this.tokensService.revokeRefreshToken({ user })
+		response.clearCookie('accessToken')
+		response.clearCookie('refreshToken')
+	}
 }
