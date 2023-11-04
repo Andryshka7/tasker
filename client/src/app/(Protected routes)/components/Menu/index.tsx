@@ -21,18 +21,18 @@ const Menu = () => {
 			<h3 className='mt-4 text-xs font-bold'>TASKS</h3>
 			<div className='my-1'>
 				<MenuItem icon={LuCalendarRange} title='Task list' to='/' />
-				<MenuItem icon={RiFileListLine} title='My tasks' to='/my-tasks' />
-				<MenuItem icon={TbSquareCheck} title='Completed' to='/completed' />
+				<MenuItem icon={RiFileListLine} title='My tasks' to='/' />
+				<MenuItem icon={TbSquareCheck} title='Completed' to='/' />
 				<MenuItem icon={BiMessageSquareAdd} title='Create task' to='/' />
 			</div>
 			<h3 className='mt-4 text-xs font-bold'>TEAM</h3>
 			<div className='my-1'>
-				<MenuItem icon={IoPeopleSharp} title='Team' to='/team' />
-				<MenuItem icon={BiMessageSquareEdit} title='Edit team' to='/edit-team' />
+				<MenuItem icon={IoPeopleSharp} title='Team' to='/' />
+				<MenuItem icon={BiMessageSquareEdit} title='Edit team' to='/' />
 			</div>
 			<h3 className='mt-4 text-xs font-bold'>TOOLS</h3>
 			<div className='my-1'>
-				<MenuItem icon={BiHelpCircle} title='About tasker' to='/about' />
+				<MenuItem icon={BiHelpCircle} title='About tasker' to='/' />
 				<MenuItem icon={AiFillBug} title='Report a bug' to='/' />
 			</div>
 			<SignOut />
