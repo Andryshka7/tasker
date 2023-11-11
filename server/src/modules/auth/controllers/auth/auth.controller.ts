@@ -57,9 +57,9 @@ export class AuthController {
 		await this.tokensService.updateRefreshToken(refreshToken, user)
 	}
 
-	@Post('logout')
+	@Post('signout')
 	@UseGuards(AuthGuard('jwt-access-token'))
-	async logout(@Res({ passthrough: true }) response: Response, @GetUser() user: User) {
+	async signOut(@Res({ passthrough: true }) response: Response, @GetUser() user: User) {
 		await this.tokensService.revokeRefreshToken({ user })
 		response.clearCookie('accessToken')
 		response.clearCookie('refreshToken')

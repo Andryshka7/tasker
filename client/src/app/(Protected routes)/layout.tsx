@@ -1,21 +1,18 @@
 import { ReactNode } from 'react'
-import { Menu, AuthRedirector } from './components'
-import { Logo } from '../components'
+import { Logo, Menu } from 'app/components'
 
 interface Props {
 	children: ReactNode
 }
 
 const Layout = ({ children }: Props) => (
-	<AuthRedirector>
-		<div className='flex'>
-			<div>
-				<Logo />
-				<Menu />
-			</div>
-			<main>{children}</main>
+	<div className='flex'>
+		<div>
+			<Logo />
+			<Menu />
 		</div>
-	</AuthRedirector>
+		<main>{children}</main>
+	</div>
 )
 
 export default Layout

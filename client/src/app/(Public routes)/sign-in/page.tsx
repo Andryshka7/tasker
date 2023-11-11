@@ -1,9 +1,10 @@
 'use client'
 
-import API from 'api'
-import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { User } from 'types'
+import API from 'api'
 
 type FormState = {
 	email: string
@@ -15,14 +16,14 @@ const Page = () => {
 	const router = useRouter()
 
 	const onSubmit = async (credentials: FormState) => {
-		const response = await API.post('auth', credentials)
-		console.log(response.data)
+		await API.post<User>('auth', credentials)
+		router.refresh()
 		router.push('/')
 	}
 
 	useEffect(() => {
 		router.prefetch('/')
-	}, [])
+	}, [router])
 
 	return (
 		<form

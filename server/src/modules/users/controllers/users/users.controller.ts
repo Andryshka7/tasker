@@ -11,6 +11,7 @@ export class UsersController {
 	constructor(private usersService: UsersService) {}
 
 	@Get()
+	@UseGuards(AuthGuard('jwt-access-token'))
 	async fetchUsers() {
 		return await this.usersService.fetchUsers()
 	}

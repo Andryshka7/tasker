@@ -9,3 +9,32 @@ body {
 input:focus {
 	outline: none;
 }
+
+.loader div {
+	animation: bounce 1s ease-in-out infinite;
+}
+
+.loader div:nth-child(1) {
+	background-color: #3498db;
+	animation-delay: 0.1s;
+}
+.loader div:nth-child(2) {
+	background-color: #f39c12;
+	animation-delay: 0.2s;
+}
+.loader div:nth-child(3) {
+	background-color: #27ae60;
+	animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-15px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}

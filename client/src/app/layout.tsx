@@ -1,6 +1,5 @@
-import { ReactNode } from 'react'
 import { Metadata } from 'next'
-import ReduxProvider from 'redux-toolkit/provider'
+import { ReactNode } from 'react'
 import './index.css'
 
 export const metadata: Metadata = {
@@ -17,9 +16,7 @@ const RootLayout = ({ children }: Props) => (
 		<head>
 			<link rel='icon' href='/icon.png' />
 		</head>
-		<body className='bg-secondary tracking-wide text-white'>
-			<ReduxProvider>{children}</ReduxProvider>
-		</body>
+		<body className='bg-secondary tracking-wide text-white'>{children}</body>
 	</html>
 )
 
