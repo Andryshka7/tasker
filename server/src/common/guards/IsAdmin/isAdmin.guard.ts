@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common'
-import { User } from 'types'
+import { type User } from 'types'
 
 export class IsAdminGuard implements CanActivate {
 	canActivate(context: ExecutionContext) {

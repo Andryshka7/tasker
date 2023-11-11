@@ -5,7 +5,7 @@ import { GetUser } from 'common/decorators'
 import { TaskService } from '../../services'
 import { CreateTaskDto, UpdateTaskDto } from '../../dtos'
 import { ValidateTaskPipe } from '../../pipes'
-import { User } from 'types'
+import { type User } from 'types'
 
 @Controller('tasks')
 export class TaskController {

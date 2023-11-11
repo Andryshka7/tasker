@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { User } from 'types'
+import { type User } from 'types'
 import API from 'api'
 
 type FormState = {

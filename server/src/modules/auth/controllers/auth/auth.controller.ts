@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport'
 import { GetRefreshToken, GetUser } from 'common/decorators'
 import { SignInDto } from 'modules/auth/dtos'
 import { TokensService, AuthService } from '../../services'
-import { User } from 'types'
+import { type User } from 'types'
 
 @Controller('auth')
 export class AuthController {

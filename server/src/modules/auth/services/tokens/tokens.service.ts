@@ -5,7 +5,7 @@ import { compare, hash } from 'bcrypt'
 import { jwt_secret } from 'config'
 import { Repository } from 'typeorm'
 import { RefreshTokenEntity, UserEntity } from 'typeorm/entities'
-import { RefreshToken, User } from 'types'
+import { type RefreshToken, type User } from 'types'
 
 @Injectable()
 export class TokensService {

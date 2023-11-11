@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional } from 'class-validator'
 import { Type } from 'class-transformer'
-import { User } from 'types'
+import { type User } from 'types'
 
 export class CreateTaskDto {
 	@IsNotEmpty()
