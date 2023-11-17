@@ -1,11 +1,7 @@
-import { Logo } from 'app/components'
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
+import { Logo } from 'app/components/ui'
 
-interface Props {
-	children: ReactNode
-}
-
-const Layout = ({ children }: Props) => (
+const Layout = ({ children }: PropsWithChildren) => (
 	<>
 		<Logo />
 		<main>{children}</main>

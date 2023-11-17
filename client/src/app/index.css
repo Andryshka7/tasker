@@ -9,6 +9,9 @@ body {
 input:focus {
 	outline: none;
 }
+textarea:focus {
+	outline: none;
+}
 
 .loader div {
 	animation: bounce 1s ease-in-out infinite;

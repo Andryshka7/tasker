@@ -1,17 +1,16 @@
-import { ReactNode } from 'react'
-import { Logo, Menu } from 'app/components'
+import { PropsWithChildren } from 'react'
+import { Menu } from 'app/components'
+import { Logo } from 'app/components/ui'
+import Modals from 'app/components/Modals'
 
-interface Props {
-	children: ReactNode
-}
-
-const Layout = ({ children }: Props) => (
+const Layout = ({ children }: PropsWithChildren) => (
 	<div className='flex'>
 		<div>
 			<Logo />
 			<Menu />
 		</div>
 		<main>{children}</main>
+		<Modals />
 	</div>
 )
 

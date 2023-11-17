@@ -15,7 +15,7 @@ interface User {
 	email: string
 	role: string
 	password: string
-	avatar: string
+	avatar: string | null
 	tasks: Task[]
 	createdTasks: Task[]
 }

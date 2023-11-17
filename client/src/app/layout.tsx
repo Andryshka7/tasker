@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import './index.css'
 
 export const metadata: Metadata = {
@@ -7,16 +7,12 @@ export const metadata: Metadata = {
 	description: 'Stay effective'
 }
 
-interface Props {
-	children: ReactNode
-}
-
-const RootLayout = ({ children }: Props) => (
+const RootLayout = ({ children }: PropsWithChildren) => (
 	<html lang='en'>
 		<head>
 			<link rel='icon' href='/icon.png' />
 		</head>
-		<body className='bg-secondary tracking-wide text-white'>{children}</body>
+		<body className='bg-midnight tracking-wide text-white'>{children}</body>
 	</html>
 )
 

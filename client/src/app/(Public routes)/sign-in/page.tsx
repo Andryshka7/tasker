@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { type User } from 'types'
@@ -12,13 +12,20 @@ type FormState = {
 }
 
 const Page = () => {
-	const { register, handleSubmit } = useForm<FormState>()
 	const router = useRouter()
+	const [loading, setLoading] = useState(false)
+	const { register, handleSubmit } = useForm<FormState>()
 
 	const onSubmit = async (credentials: FormState) => {
-		await API.post<User>('auth', credentials)
-		router.refresh()
-		router.push('/')
+		try {
+			setLoading(true)
+			await API.post<User>('auth', credentials)
+			router.refresh()
+			router.push('/')
+		} catch (error) {
+			setLoading(false)
+			console.log('Error while signing in')
+		}
 	}
 
 	useEffect(() => {
@@ -28,7 +35,7 @@ const Page = () => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className='m-auto mt-24 flex w-[500px] flex-col items-center rounded-lg bg-primary'
+			className='m-auto mt-24 flex w-[500px] flex-col items-center rounded-lg bg-blue'
 		>
 			<h1 className='mt-10 text-3xl font-bold'>Welcome back!</h1>
 			<input
@@ -45,7 +52,8 @@ const Page = () => {
 			/>
 			<button
 				type='submit'
-				className='my-12 rounded bg-green-600 px-8 py-1 font-semibold duration-200 hover:bg-opacity-90'
+				className='my-12 rounded bg-green-600 px-8 py-1 font-semibold duration-200 hover:bg-opacity-90 disabled:bg-opacity-80'
+				disabled={loading}
 			>
 				Login
 			</button>
