@@ -13,7 +13,7 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refres
 	}
 
 	validate(payload: JwtPayload) {
-		const { id, gmail } = payload
-		return { id, gmail }
+		const { id, email, role } = payload
+		return { id, email, role }
 	}
 }

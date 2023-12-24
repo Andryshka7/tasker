@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { type User } from 'types'
-import API from 'api'
 
 type FormState = {
 	email: string
@@ -17,12 +15,21 @@ const Page = () => {
 	const { register, handleSubmit } = useForm<FormState>()
 
 	const onSubmit = async (credentials: FormState) => {
-		try {
-			setLoading(true)
-			await API.post<User>('auth', credentials)
+		setLoading(true)
+
+		const response = await fetch('http://localhost:4000/auth', {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(credentials)
+		})
+
+		if (response.ok) {
 			router.refresh()
 			router.push('/')
-		} catch (error) {
+		} else {
 			setLoading(false)
 			console.log('Error while signing in')
 		}

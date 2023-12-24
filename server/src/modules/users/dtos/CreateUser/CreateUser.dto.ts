@@ -20,8 +20,4 @@ export class CreateUserDto {
 	@IsNotEmpty()
 	@IsString()
 	role: string
-
-	@IsString()
-	@IsOptional()
-	avatar: string
 }

@@ -18,7 +18,7 @@ export class UsersService {
 		return user
 	}
 
-	async createUser(userDetails: Omit<User, 'id' | 'tasks' | 'createdTasks' | 'avatar'>) {
+	async createUser(userDetails: Omit<User, 'id' | 'tasks' | 'createdTasks'>) {
 		const user = this.usersRepository.create(userDetails)
 		return await this.usersRepository.save(user)
 	}

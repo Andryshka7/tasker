@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { Logo } from 'app/components/ui'
+import { Logo } from '@/app/components'
 
 const Layout = ({ children }: PropsWithChildren) => (
 	<>

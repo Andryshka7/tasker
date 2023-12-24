@@ -15,7 +15,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt-access-
 	}
 
 	validate(payload: JwtPayload) {
-		const { id, gmail } = payload
-		return { id, gmail }
+		const { id, email, role } = payload
+		return { id, email, role }
 	}
 }

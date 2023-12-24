@@ -1,16 +1,16 @@
 import { PropsWithChildren } from 'react'
-import { Menu } from 'app/components'
-import { Logo } from 'app/components/ui'
-import Modals from 'app/components/Modals'
+import { Menu, Logo } from '@/app/components'
+import { CreateTaskModal, CreateUserModal } from '@/app/components/Modals'
 
-const Layout = ({ children }: PropsWithChildren) => (
+const Layout = async ({ children }: PropsWithChildren) => (
 	<div className='flex'>
 		<div>
 			<Logo />
 			<Menu />
 		</div>
-		<main>{children}</main>
-		<Modals />
+		<main className='w-full'>{children}</main>
+		<CreateTaskModal />
+		<CreateUserModal />
 	</div>
 )
 

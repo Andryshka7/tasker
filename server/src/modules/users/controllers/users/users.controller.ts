@@ -1,10 +1,23 @@
-import { Get, Post, Patch, Body, UseGuards, ParseIntPipe, Controller, Param } from '@nestjs/common'
+import {
+	Get,
+	Post,
+	Patch,
+	Body,
+	UseGuards,
+	UseInterceptors,
+	UploadedFile,
+	ParseIntPipe,
+	Controller,
+	Param
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { IsAdminGuard } from 'common/guards'
 import { UsersService } from '../../services'
 import { CreateUserDto, UpdateUserDto } from '../../dtos'
-import { EmailIsUnique } from '../../guards'
-import { HashPasswordPipe } from '../../pipes'
+import { HashPasswordPipe, ValidateEmailPipe } from '../../pipes'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { v4 as uuid } from 'uuid'
+import { uploadFile } from 'helpers'
 
 @Controller('users')
 export class UsersController {
@@ -17,9 +30,20 @@ export class UsersController {
 	}
 
 	@Post()
-	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard, EmailIsUnique)
-	async createUser(@Body(HashPasswordPipe) createUserDto: CreateUserDto) {
-		return await this.usersService.createUser(createUserDto)
+	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	@UseInterceptors(FileInterceptor('image'))
+	async createUser(
+		@UploadedFile() file: Express.Multer.File,
+		@Body(HashPasswordPipe, ValidateEmailPipe) createUserDto: CreateUserDto
+	) {
+		if (file) {
+			const name = uploadFile(file, uuid())
+			return await this.usersService.createUser({
+				...createUserDto,
+				avatar: `http://localhost:4000/images/${name}`
+			})
+		}
+		return await this.usersService.createUser({ ...createUserDto, avatar: null })
 	}
 
 	@Patch(':id')

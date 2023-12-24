@@ -3,14 +3,16 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaSignOutAlt } from 'react-icons/fa'
-import API from 'api'
 
 const SignOut = () => {
 	const router = useRouter()
 
 	const signOutCb = async () => {
 		try {
-			await API.post('auth/signout')
+			await fetch('http://localhost:4000/auth/signout', {
+				credentials: 'include',
+				method: 'POST'
+			})
 		} catch (error) {
 			console.log('error while signing out')
 		} finally {

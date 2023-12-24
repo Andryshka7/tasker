@@ -16,14 +16,14 @@ export class TokensService {
 	) {}
 
 	async generateTokens(user: User) {
-		const { id, email } = user
+		const { id, email, role } = user
 
 		const accessToken = await this.jwtService.signAsync(
-			{ id, email },
+			{ id, email, role },
 			{ secret: jwt_secret, expiresIn: '15m' }
 		)
 		const refreshToken = await this.jwtService.signAsync(
-			{ id, email },
+			{ id, email, role },
 			{ secret: jwt_secret, expiresIn: '7d' }
 		)
 

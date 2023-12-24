@@ -1,1 +1,1 @@
-export { default as Shadow } from './Shadow'
+export { default as Modal } from './Modal'

@@ -7,9 +7,8 @@ import { TbSquareCheck } from 'react-icons/tb'
 import { AiFillBug } from 'react-icons/ai'
 import { IoPeopleSharp } from 'react-icons/io5'
 import { BiMessageSquareEdit, BiHelpCircle, BiMessageSquareAdd } from 'react-icons/bi'
-
 import { Search, MenuItem, SignOut } from './components'
-import { useCreateTaskModal } from '../Modals/Create task'
+import { useCreateTaskModal } from '@/app/components/Modals/hooks'
 
 const Menu = () => {
 	const { open: openCreateTaskModal } = useCreateTaskModal()

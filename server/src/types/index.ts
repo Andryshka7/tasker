@@ -27,7 +27,8 @@ interface RefreshToken {
 
 interface JwtPayload {
 	id: number
-	gmail: string
+	email: string
+	role: string
 	iat: number
 	exp: number
 }
