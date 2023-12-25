@@ -29,27 +29,35 @@ const Form = () => {
 	const surname = watch('surname')
 
 	const onSubmit = async (data: FormFields) => {
-		const formData = new FormData()
+		const createUser = async () => {
+			const formData = new FormData()
 
-		formData.append('name', data.name)
-		formData.append('surname', data.surname)
-		formData.append('email', data.email)
-		formData.append('password', data.password)
-		formData.append('role', role)
-		if (avatar) formData.append('image', avatar)
+			formData.append('name', data.name)
+			formData.append('surname', data.surname)
+			formData.append('email', data.email)
+			formData.append('password', data.password)
+			formData.append('role', role)
+			if (avatar) formData.append('image', avatar)
 
-		const response = await fetch('http://localhost:4000/users', {
-			method: 'POST',
-			credentials: 'include',
-			body: formData
-		})
+			const response = await fetch('http://localhost:4000/users', {
+				method: 'POST',
+				credentials: 'include',
+				body: formData
+			})
 
-		if (response.ok) {
-			refetch()
-			close()
-		} else {
-			toast.error('Could not create a user!')
+			if (response.ok) {
+				await refetch()
+				close()
+			} else {
+				throw new Error()
+			}
 		}
+
+		toast.promise(createUser(), {
+			success: 'Successfully created a user!',
+			loading: 'Creating a user...',
+			error: 'Could not create a user!'
+		})
 	}
 
 	return (

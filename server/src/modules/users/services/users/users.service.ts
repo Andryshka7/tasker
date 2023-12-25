@@ -9,8 +9,15 @@ export class UsersService {
 	constructor(@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>) {}
 
 	async fetchUsers() {
-		const users = await this.usersRepository.find({ relations: ['tasks'] })
-		return users
+		const users = await this.usersRepository.find()
+		return users.map(({ id, name, surname, role, email, avatar }) => ({
+			id,
+			name,
+			surname,
+			role,
+			email,
+			avatar
+		}))
 	}
 
 	async fetchUserById(id: number) {

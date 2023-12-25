@@ -14,10 +14,7 @@ interface User {
 	surname: string
 	email: string
 	role: string
-	password: string
 	avatar: string | null
-	tasks: Task[]
-	createdTasks: Task[]
 }
 
 export { type Task, type User }

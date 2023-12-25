@@ -1,7 +1,7 @@
 import { type User } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
-const useUsers = () =>
+const useUsersQuery = () =>
 	useQuery({
 		queryKey: ['users'],
 		queryFn: async () => {
@@ -12,7 +12,8 @@ const useUsers = () =>
 			return response.ok ? ((await response.json()) as User[]) : []
 		},
 		refetchOnMount: false,
+		refetchOnReconnect: false,
 		refetchOnWindowFocus: false
 	})
 
-export default useUsers
+export default useUsersQuery

@@ -1,9 +1,9 @@
 'use client'
 
-import { Avatar } from '@/app/components/ui'
-import { RoleSelector } from './components'
-import { useUsers } from '@/hooks'
 import { BiEditAlt } from 'react-icons/bi'
+import { RoleSelector } from './components'
+import { Avatar } from '@/app/components/ui'
+import { useUsers } from '@/hooks'
 
 const UsersList = () => {
 	const { data: users } = useUsers()

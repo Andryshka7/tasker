@@ -36,14 +36,15 @@ export class UsersController {
 		@UploadedFile() file: Express.Multer.File,
 		@Body(HashPasswordPipe, ValidateEmailPipe) createUserDto: CreateUserDto
 	) {
-		if (file) {
-			const name = uploadFile(file, uuid())
-			return await this.usersService.createUser({
-				...createUserDto,
-				avatar: `http://localhost:4000/images/${name}`
-			})
-		}
-		return await this.usersService.createUser({ ...createUserDto, avatar: null })
+		// if (file) {
+		// 	const name = uploadFile(file, uuid())
+		// 	return await this.usersService.createUser({
+		// 		...createUserDto,
+		// 		avatar: `http://localhost:4000/images/${name}`
+		// 	})
+		// }
+		// return await this.usersService.createUser({ ...createUserDto, avatar: null })
+		return true
 	}
 
 	@Patch(':id')
