@@ -1,12 +1,15 @@
 'use client'
 
 import { BiEditAlt } from 'react-icons/bi'
-import { RoleSelector } from './components'
-import { Avatar } from '@/app/components/ui'
+import { Avatar } from '@/app/components'
 import { useUsers } from '@/hooks'
+import { RoleSelector } from './components'
+import { useState } from 'react'
+import { type Role } from '@/types'
 
 const UsersList = () => {
 	const { data: users } = useUsers()
+	const [role, setRole] = useState<Role>('user')
 
 	return (
 		<div className='mt-3 grid gap-2.5 2xl:grid-cols-2'>
@@ -19,7 +22,7 @@ const UsersList = () => {
 						</h3>
 					</div>
 					<div className='flex w-5/12 items-center justify-between'>
-						<RoleSelector role={user.role} />
+						<RoleSelector selectRole={setRole} />
 						<BiEditAlt size={30} onClick={() => console.log(user)} />
 					</div>
 				</div>

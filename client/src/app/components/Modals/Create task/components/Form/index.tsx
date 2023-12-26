@@ -48,7 +48,7 @@ const Form = () => {
 				/>
 
 				<PrioritySelector priority={priority} setPriority={setPriority} />
-				<UserSelector usersList={users!} selectUser={setUser} />
+				<UserSelector options={users!} selectUser={setUser} />
 
 				<div className='mx-auto mt-12 flex w-fit gap-5'>
 					<button type='submit' className='h-8 w-40 rounded bg-green-600 text-lg font-semibold'>

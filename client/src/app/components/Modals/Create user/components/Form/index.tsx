@@ -2,12 +2,13 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import { IoClose } from 'react-icons/io5'
+import toast from 'react-hot-toast'
 import { AvatarInput, RoleSelector } from './components'
 import { useUsers } from '@/hooks'
 import { Modal } from '@/app/components/Modals/components'
 import { useCreateUserModal } from '@/app/components/Modals/hooks'
+import { Role } from '@/types'
 
 type FormFields = {
 	name: string
@@ -23,7 +24,7 @@ const Form = () => {
 	const { watch, handleSubmit, register } = useForm<FormFields>()
 
 	const [avatar, setAvatar] = useState<File | null>(null)
-	const [role, setRole] = useState('user')
+	const [role, setRole] = useState<Role>('user')
 
 	const name = watch('name')
 	const surname = watch('surname')
@@ -73,7 +74,7 @@ const Form = () => {
 					<h1 className='mt-3 text-3xl font-bold'>
 						{name || 'Name'} {surname || 'Surname'}
 					</h1>
-					<RoleSelector role={role} setRole={setRole} />
+					<RoleSelector selectRole={setRole} />
 				</div>
 
 				<div>
@@ -104,6 +105,7 @@ const Form = () => {
 						className='my-4 block w-96 border-b-2 border-neutral-500 bg-transparent p-2 font-semibold'
 						placeholder='Confirm password'
 					/>
+
 					<div className='mx-auto mt-8 flex w-fit gap-5'>
 						<button type='submit' className='h-8 w-36 rounded-md bg-green-600 font-semibold'>
 							Create

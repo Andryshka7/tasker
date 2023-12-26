@@ -13,8 +13,10 @@ interface User {
 	name: string
 	surname: string
 	email: string
-	role: string
+	role: Role
 	avatar: string | null
 }
 
-export { type Task, type User }
+type Role = 'admin' | 'moderator' | 'user'
+
+export { type Task, type User, type Role }

@@ -1,47 +1,60 @@
 'use client'
 
-import { useSelectBox } from '@/hooks'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
+import { type Role } from '@/types'
 
 interface Props {
-	role: string
+	selectRole: Dispatch<SetStateAction<Role>>
 }
 
-const roles = [
-	{ color: 'bg-green-600', value: 'user' },
-	{ color: 'bg-orange-500', value: 'admin' },
-	{ color: 'bg-purple-600', value: 'moderator' }
-]
+const RoleSelector = ({ selectRole }: Props) => {
+	const [open, setOpen] = useState(false)
+	const [options, setOptions] = useState<Role[]>(['user', 'moderator', 'admin'])
 
-const RoleSelector = ({ role }: Props) => {
-	const { isOpen, options, select } = useSelectBox({
-		options: roles,
-		selected: roles.indexOf(roles.find((item) => item.value === role)!),
-		onSelect: (role) => {
-			console.log('Selected role: ', role)
+	const handleSelect = (index: number) => {
+		if (open && index) {
+			setOptions((prevOptions) => {
+				const newOptions = [...prevOptions]
+				newOptions[index] = prevOptions[0]
+				newOptions[0] = prevOptions[index]
+				return newOptions
+			})
+			selectRole(options[index])
 		}
-	})
+		setOpen((open) => !open)
+	}
+
+	const getOptionStyle = (index: number) => {
+		const visibility = !open && index > 0 ? 'hidden' : 'visible'
+
+		const colors = {
+			admin: 'bg-orange-500',
+			moderator: 'bg-purple-600',
+			user: 'bg-green-500'
+		}
+		const color = colors[options[index]]
+
+		let rounded = !open ? 'rounded' : ''
+		if (open && index === 0) rounded += 'rounded-t'
+		if (open && index === options.length - 1) rounded += 'rounded-b'
+
+		return `flex w-full h-full font-semibold cursor-pointer items-center justify-center ${color} ${visibility} ${rounded}`
+	}
 
 	return (
-		<div className='relative h-7 w-32'>
-			<TiArrowSortedDown
-				size={18}
-				className={`pointer-events-none absolute right-2.5 top-1.5 duration-200 ${
-					isOpen ? 'rotate-180' : ''
-				}`}
-			/>
-
-			{options.map(({ value, color }, index) => (
-				<div
-					key={index}
-					className={`flex h-full w-full cursor-pointer items-center justify-center gap-2 py-1 ${color} ${
-						index === 0 && 'rounded-t-md'
-					} ${index === options.length - 1 && 'rounded-b-md'}`}
-					onClick={() => select(index)}
-				>
-					<h2 className='text-sm font-semibold'>{value}</h2>
+		<div className='absolute h-7 w-32 rounded'>
+			{options.map((role, index) => (
+				<div key={index} className={getOptionStyle(index)} onClick={() => handleSelect(index)}>
+					{role}
 				</div>
 			))}
+			<TiArrowSortedDown
+				size={20}
+				className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 duration-200 ${
+					open ? 'rotate-180' : ''
+				}`}
+			/>
 		</div>
 	)
 }
