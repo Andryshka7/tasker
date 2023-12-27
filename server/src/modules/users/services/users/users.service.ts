@@ -31,8 +31,7 @@ export class UsersService {
 	}
 
 	async updateUser(id: number, updateFields: Partial<User>) {
-		await this.usersRepository.update({ id }, updateFields)
-		return `User with id ${id} has been updated`
+		return await this.usersRepository.update({ id }, updateFields)
 	}
 
 	async findByEmail(email: string) {

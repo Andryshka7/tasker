@@ -7,7 +7,7 @@ import { FaSignOutAlt } from 'react-icons/fa'
 const SignOut = () => {
 	const router = useRouter()
 
-	const signOutCb = async () => {
+	const signOut = async () => {
 		try {
 			await fetch('http://localhost:4000/auth/signout', {
 				credentials: 'include',
@@ -26,7 +26,7 @@ const SignOut = () => {
 	}, [router])
 
 	return (
-		<div className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2' onClick={signOutCb}>
+		<div className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2' onClick={signOut}>
 			<FaSignOutAlt size={20} />
 			<h3 className='font-bold'>Sign out</h3>
 		</div>

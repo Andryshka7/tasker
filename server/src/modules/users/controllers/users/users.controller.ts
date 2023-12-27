@@ -8,7 +8,9 @@ import {
 	UploadedFile,
 	ParseIntPipe,
 	Controller,
-	Param
+	Param,
+	HttpException,
+	HttpStatus
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { IsAdminGuard } from 'common/guards'
@@ -36,15 +38,14 @@ export class UsersController {
 		@UploadedFile() file: Express.Multer.File,
 		@Body(HashPasswordPipe, ValidateEmailPipe) createUserDto: CreateUserDto
 	) {
-		// if (file) {
-		// 	const name = uploadFile(file, uuid())
-		// 	return await this.usersService.createUser({
-		// 		...createUserDto,
-		// 		avatar: `http://localhost:4000/images/${name}`
-		// 	})
-		// }
-		// return await this.usersService.createUser({ ...createUserDto, avatar: null })
-		return true
+		if (file) {
+			const name = uploadFile(file, uuid())
+			return await this.usersService.createUser({
+				...createUserDto,
+				avatar: `http://localhost:4000/images/${name}`
+			})
+		}
+		return await this.usersService.createUser({ ...createUserDto, avatar: null })
 	}
 
 	@Patch(':id')

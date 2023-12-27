@@ -9,6 +9,7 @@ import { useUsers } from '@/hooks'
 import { Modal } from '@/app/components/Modals/components'
 import { useCreateUserModal } from '@/app/components/Modals/hooks'
 import { Role } from '@/types'
+import { createUserQuery } from '@/helpers'
 
 type FormFields = {
 	name: string
@@ -31,27 +32,9 @@ const Form = () => {
 
 	const onSubmit = async (data: FormFields) => {
 		const createUser = async () => {
-			const formData = new FormData()
-
-			formData.append('name', data.name)
-			formData.append('surname', data.surname)
-			formData.append('email', data.email)
-			formData.append('password', data.password)
-			formData.append('role', role)
-			if (avatar) formData.append('image', avatar)
-
-			const response = await fetch('http://localhost:4000/users', {
-				method: 'POST',
-				credentials: 'include',
-				body: formData
-			})
-
-			if (response.ok) {
-				await refetch()
-				close()
-			} else {
-				throw new Error()
-			}
+			await createUserQuery({ ...data, role, avatar })
+			await refetch()
+			close()
 		}
 
 		toast.promise(createUser(), {
@@ -67,14 +50,19 @@ const Form = () => {
 				onSubmit={handleSubmit(onSubmit)}
 				className='relative flex justify-between gap-10 rounded-md bg-blue p-10'
 			>
-				<IoClose onClick={close} size={30} color='white' className='absolute right-5 top-4' />
+				<IoClose
+					onClick={close}
+					size={30}
+					color='white'
+					className='absolute right-5 top-4'
+				/>
 
 				<div className='mt-5 flex w-72 flex-col items-center'>
 					<AvatarInput avatar={avatar} setAvatar={setAvatar} />
 					<h1 className='mt-3 text-3xl font-bold'>
 						{name || 'Name'} {surname || 'Surname'}
 					</h1>
-					<RoleSelector selectRole={setRole} />
+					<RoleSelector role={role} selectRole={setRole} />
 				</div>
 
 				<div>
@@ -107,10 +95,16 @@ const Form = () => {
 					/>
 
 					<div className='mx-auto mt-8 flex w-fit gap-5'>
-						<button type='submit' className='h-8 w-36 rounded-md bg-green-600 font-semibold'>
+						<button
+							type='submit'
+							className='h-8 w-36 rounded-md bg-green-600 font-semibold'
+						>
 							Create
 						</button>
-						<button onClick={close} className='h-8 w-36 rounded-md bg-red-500 font-semibold'>
+						<button
+							onClick={close}
+							className='h-8 w-36 rounded-md bg-red-500 font-semibold'
+						>
 							Cancel
 						</button>
 					</div>

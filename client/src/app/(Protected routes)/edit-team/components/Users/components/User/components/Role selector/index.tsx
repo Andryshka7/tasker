@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 import { type Role } from '@/types'
 
@@ -41,7 +41,7 @@ const RoleSelector = ({ role, selectRole }: Props) => {
 	}
 
 	return (
-		<div className='relative mt-4 h-7 w-32'>
+		<div className='relative h-7 w-32'>
 			{options.map((role, index) => (
 				<div
 					key={index}

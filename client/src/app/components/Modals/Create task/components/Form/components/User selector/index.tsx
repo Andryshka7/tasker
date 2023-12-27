@@ -39,7 +39,7 @@ const UserSelector = ({ options: initialOptions, selectUser }: Props) => {
 
 			<div className='absolute ml-16 mt-0.5 w-52 rounded bg-cyan py-1.5'>
 				<TiArrowSortedDown
-					size={20}
+					size={18}
 					className={`absolute right-4 top-3 duration-200 ${open ? 'rotate-180' : ''}`}
 				/>
 

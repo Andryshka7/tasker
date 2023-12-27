@@ -8,7 +8,7 @@ const CreateUserButton = () => {
 
 	return (
 		<button
-			className='flex items-center gap-1 rounded bg-green-600 px-4 py-1 font-semibold'
+			className='flex items-center gap-1 rounded bg-green-600 px-5 py-1.5 font-semibold'
 			onClick={open}
 		>
 			<BiMessageSquareAdd size={24} />
