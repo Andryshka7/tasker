@@ -3,18 +3,17 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaSignOutAlt } from 'react-icons/fa'
+import { signOutQuery } from '@/helpers'
+import toast from 'react-hot-toast'
 
 const SignOut = () => {
 	const router = useRouter()
 
 	const signOut = async () => {
 		try {
-			await fetch('http://localhost:4000/auth/signout', {
-				credentials: 'include',
-				method: 'POST'
-			})
+			await signOutQuery()
 		} catch (error) {
-			console.log('error while signing out')
+			toast.error('Error while signing out!')
 		} finally {
 			router.refresh()
 			router.push('sign-in')
@@ -26,7 +25,10 @@ const SignOut = () => {
 	}, [router])
 
 	return (
-		<div className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2' onClick={signOut}>
+		<div
+			className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2'
+			onClick={signOut}
+		>
 			<FaSignOutAlt size={20} />
 			<h3 className='font-bold'>Sign out</h3>
 		</div>

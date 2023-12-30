@@ -1,10 +1,10 @@
 import { UsersWrapper } from '@/app/components/Wrappers'
 import { ModalContent } from './components'
 
-const CreateUserModal = async () => (
+const EditUserModal = () => (
 	<UsersWrapper>
 		<ModalContent />
 	</UsersWrapper>
 )
 
-export default CreateUserModal
+export default EditUserModal

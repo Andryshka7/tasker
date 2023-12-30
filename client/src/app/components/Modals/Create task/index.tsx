@@ -1,9 +1,9 @@
 import { UsersWrapper } from '@/app/components/Wrappers'
-import { Form } from './components'
+import { ModalContent } from './components'
 
 const CreateTaskModal = async () => (
 	<UsersWrapper>
-		<Form />
+		<ModalContent />
 	</UsersWrapper>
 )
 

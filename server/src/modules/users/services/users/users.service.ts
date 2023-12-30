@@ -10,14 +10,7 @@ export class UsersService {
 
 	async fetchUsers() {
 		const users = await this.usersRepository.find()
-		return users.map(({ id, name, surname, role, email, avatar }) => ({
-			id,
-			name,
-			surname,
-			role,
-			email,
-			avatar
-		}))
+		return users
 	}
 
 	async fetchUserById(id: number) {
@@ -31,10 +24,12 @@ export class UsersService {
 	}
 
 	async updateUser(id: number, updateFields: Partial<User>) {
-		return await this.usersRepository.update({ id }, updateFields)
+		const user = await this.usersRepository.update({ id }, updateFields)
+		return user
 	}
 
 	async findByEmail(email: string) {
-		return await this.usersRepository.findOneBy({ email })
+		const user = await this.usersRepository.findOneBy({ email })
+		return user
 	}
 }

@@ -19,7 +19,7 @@ import { CreateUserDto, UpdateUserDto } from '../../dtos'
 import { HashPasswordPipe, ValidateEmailPipe } from '../../pipes'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { v4 as uuid } from 'uuid'
-import { uploadFile } from 'helpers'
+import { deleteFile, getFilePath, uploadFile } from 'helpers'
 
 @Controller('users')
 export class UsersController {
@@ -50,10 +50,27 @@ export class UsersController {
 
 	@Patch(':id')
 	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	@UseInterceptors(FileInterceptor('image'))
 	async updateUser(
+		@UploadedFile() file: Express.Multer.File,
 		@Param('id', ParseIntPipe) id: number,
 		@Body(HashPasswordPipe) updateUserDto: UpdateUserDto
 	) {
-		return await this.usersService.updateUser(id, updateUserDto)
+		console.log(updateUserDto)
+
+		const { previousAvatar, ...updateFields } = updateUserDto
+		if (file) {
+			const name = uploadFile(file, uuid())
+			return await this.usersService.updateUser(id, {
+				...updateUserDto,
+				avatar: `http://localhost:4000/images/${name}`
+			})
+		}
+		if (previousAvatar) {
+			const filePath = getFilePath(previousAvatar.slice(29))
+			console.log(filePath)
+			deleteFile(filePath)
+		}
+		return await this.usersService.updateUser(id, updateFields)
 	}
 }

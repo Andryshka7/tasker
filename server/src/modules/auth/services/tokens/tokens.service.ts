@@ -20,7 +20,7 @@ export class TokensService {
 
 		const accessToken = await this.jwtService.signAsync(
 			{ id, email, role },
-			{ secret: jwt_secret, expiresIn: '15m' }
+			{ secret: jwt_secret, expiresIn: '1h' }
 		)
 		const refreshToken = await this.jwtService.signAsync(
 			{ id, email, role },

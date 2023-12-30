@@ -1,6 +1,10 @@
 import { useState } from 'react'
 
-const useOptimistic = <T>(initialState: T, updateFn: (payload: T) => Promise<void>) => {
+const useOptimistic = <T>(
+	initialState: T,
+	updateFn: (payload: T) => Promise<void>,
+	errorFn?: (message?: string) => void
+) => {
 	const [state, setState] = useState<T>(initialState)
 	const [optimisicState, setOptimisicState] = useState<T>(initialState)
 
@@ -10,6 +14,7 @@ const useOptimistic = <T>(initialState: T, updateFn: (payload: T) => Promise<voi
 			await updateFn(payload)
 			setState(payload)
 		} catch (error) {
+			if (errorFn) errorFn()
 			setOptimisicState(state)
 		}
 	}

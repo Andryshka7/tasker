@@ -1,16 +1,25 @@
 'use client'
 
 import { BiEditAlt } from 'react-icons/bi'
-import { Avatar } from '@/app/components'
 import { RoleSelector } from './components'
-import { type User as UserType, type Role } from '@/types'
-import { useOptimistic } from '@/hooks'
+import { type User as UserType } from '@/types'
+import { useOptimistic, useUsers } from '@/hooks'
 import { updateUserQuery } from '@/helpers'
+import { useEditUserModal } from '@/app/components/Modals/hooks'
+import { Avatar } from '@/app/components'
+import toast from 'react-hot-toast'
 
 const User = (user: UserType) => {
+	const { refetch } = useUsers()
+	const { open } = useEditUserModal()
+
 	const [role, setRole] = useOptimistic(
 		user.role,
-		async (role) => await updateUserQuery({ ...user, role })
+		async (role) => {
+			await updateUserQuery(user.id, { role })
+			await refetch()
+		},
+		() => toast.error('Could not update user role!')
 	)
 
 	return (
@@ -23,7 +32,7 @@ const User = (user: UserType) => {
 			</div>
 			<div className='flex w-5/12 items-center justify-between'>
 				<RoleSelector role={role} selectRole={setRole} />
-				<BiEditAlt size={30} onClick={() => console.log(user)} />
+				<BiEditAlt size={30} className='cursor-pointer' onClick={() => open(user)} />
 			</div>
 		</div>
 	)

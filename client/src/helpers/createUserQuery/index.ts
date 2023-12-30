@@ -1,8 +1,13 @@
-import { User } from '@/types'
+import { CreateUserPayload } from '@/types'
 
-type Payload = Omit<User, 'avatar' | 'id'> & { password: string; avatar: File | null }
-
-const createUserQuery = async ({ name, surname, email, password, role, avatar }: Payload) => {
+const createUserQuery = async ({
+	name,
+	surname,
+	email,
+	password,
+	role,
+	avatar
+}: CreateUserPayload) => {
 	const formData = new FormData()
 
 	formData.append('name', name)

@@ -9,7 +9,7 @@ async function bootstrap() {
 	app.enableCors({ origin: client, credentials: true })
 
 	app.use(cookieParser())
-	// app.useGlobalPipes(new ValidationPipe())
+	app.useGlobalPipes(new ValidationPipe())
 
 	await app.listen(4000)
 }

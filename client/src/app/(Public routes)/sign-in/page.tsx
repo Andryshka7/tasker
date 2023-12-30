@@ -3,33 +3,24 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-
-type FormState = {
-	email: string
-	password: string
-}
+import { Credentials } from '@/types'
+import toast from 'react-hot-toast'
+import { signInQuery } from '@/helpers'
 
 const Page = () => {
 	const router = useRouter()
 	const [loading, setLoading] = useState(false)
-	const { register, handleSubmit } = useForm<FormState>()
+	const { register, handleSubmit } = useForm<Credentials>()
 
-	const onSubmit = async (credentials: FormState) => {
+	const onSubmit = async (credentials: Credentials) => {
 		setLoading(true)
-
-		const response = await fetch('http://localhost:4000/auth', {
-			method: 'POST',
-			credentials: 'include',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(credentials)
-		})
-
-		if (response.ok) {
+		try {
+			await signInQuery(credentials)
 			router.refresh()
 			router.push('/')
-		} else {
+		} catch (error) {
 			setLoading(false)
-			console.log('Error while signing in')
+			toast.error('Invalid credentials!')
 		}
 	}
 
