@@ -3,7 +3,7 @@ import * as path from 'path'
 
 const uploadFile = (file: Express.Multer.File, name: string) => {
 	const extension = file.originalname.split('.')[1]
-	const directory = path.join(__dirname, '..', '..', '..', 'images', `${name}.${extension}`)
+	const directory = path.join(__dirname, '..', '..', 'images', `${name}.${extension}`)
 	fs.writeFile(directory, file.buffer, (err) => {
 		if (err) console.log('Error while uploading file', err)
 	})
@@ -18,7 +18,7 @@ const deleteFile = (filePath: string) => {
 }
 
 const getFilePath = (fileName: string) => {
-	const directory = path.join(__dirname, '..', '..', '..', 'images', fileName)
+	const directory = path.join(__dirname, '..', '..', 'images', fileName)
 	return directory
 }
 

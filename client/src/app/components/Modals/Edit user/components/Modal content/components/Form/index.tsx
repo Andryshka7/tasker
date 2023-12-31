@@ -46,7 +46,7 @@ const Form = (user: User) => {
 		}
 
 		toast.promise(updateUser(), {
-			success: 'Successfully udpated a user!',
+			success: 'Successfully updated a user!',
 			loading: 'Updating a user...',
 			error: 'Could not update a user!'
 		})

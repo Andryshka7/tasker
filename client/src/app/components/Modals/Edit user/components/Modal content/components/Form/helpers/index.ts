@@ -1,15 +1,12 @@
-import { User } from '@/types'
-
-type UpdateFields = Partial<Omit<User, 'id' | 'avatar'>> & {
-	avatar?: File | null
-	previousAvatar?: string
-}
+import { type UpdateUserPayload, type User } from '@/types'
 
 const getUpdateFields = (
 	user: User,
-	data: Omit<User, 'id' | 'avatar'> & { avatar: File | string | null }
+	data: Omit<User, 'id' | 'avatar'> & {
+		avatar: File | string | null
+	}
 ) => {
-	const updateFields: UpdateFields = {}
+	const updateFields: UpdateUserPayload = {}
 
 	const { name, surname, email, role, password, avatar } = data
 
@@ -18,11 +15,10 @@ const getUpdateFields = (
 	if (email !== user.email) updateFields.email = email
 	if (role !== user.role) updateFields.role = role
 
-	if (typeof avatar !== 'string' && avatar !== user.avatar) updateFields.avatar = avatar
+	if (user.avatar && user.avatar !== avatar) updateFields.removeAvatar = 'true'
+	if (avatar && typeof avatar !== 'string') updateFields.avatar = avatar
 
 	if (password) updateFields.password = password
-
-	if (user.avatar) updateFields.previousAvatar = user.avatar
 
 	return updateFields
 }

@@ -20,6 +20,7 @@ import { HashPasswordPipe, ValidateEmailPipe } from '../../pipes'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { v4 as uuid } from 'uuid'
 import { deleteFile, getFilePath, uploadFile } from 'helpers'
+import { CreateUserPayload, UpdateUserPayload, type User } from 'types'
 
 @Controller('users')
 export class UsersController {
@@ -38,14 +39,14 @@ export class UsersController {
 		@UploadedFile() file: Express.Multer.File,
 		@Body(HashPasswordPipe, ValidateEmailPipe) createUserDto: CreateUserDto
 	) {
+		const createUserPayload: CreateUserPayload = { ...createUserDto, avatar: null }
+
 		if (file) {
-			const name = uploadFile(file, uuid())
-			return await this.usersService.createUser({
-				...createUserDto,
-				avatar: `http://localhost:4000/images/${name}`
-			})
+			const fileName = uploadFile(file, uuid())
+			createUserPayload.avatar = `http://localhost:4000/images/${fileName}`
 		}
-		return await this.usersService.createUser({ ...createUserDto, avatar: null })
+
+		return await this.usersService.createUser(createUserPayload)
 	}
 
 	@Patch(':id')
@@ -56,21 +57,24 @@ export class UsersController {
 		@Param('id', ParseIntPipe) id: number,
 		@Body(HashPasswordPipe) updateUserDto: UpdateUserDto
 	) {
+		const { avatar } = await this.usersService.findById(id)
+
+		const { removeAvatar, ...updateFields } = updateUserDto
+
+		const updateUserPayload: UpdateUserPayload = { ...updateFields, avatar }
+
 		console.log(updateUserDto)
 
-		const { previousAvatar, ...updateFields } = updateUserDto
+		if (removeAvatar) {
+			updateUserPayload.avatar = null
+			deleteFile(getFilePath(avatar.slice(29)))
+		}
+
 		if (file) {
-			const name = uploadFile(file, uuid())
-			return await this.usersService.updateUser(id, {
-				...updateUserDto,
-				avatar: `http://localhost:4000/images/${name}`
-			})
+			const fileName = uploadFile(file, uuid())
+			updateUserPayload.avatar = `http://localhost:4000/images/${fileName}`
 		}
-		if (previousAvatar) {
-			const filePath = getFilePath(previousAvatar.slice(29))
-			console.log(filePath)
-			deleteFile(filePath)
-		}
-		return await this.usersService.updateUser(id, updateFields)
+
+		return await this.usersService.updateUser(id, updateUserPayload)
 	}
 }

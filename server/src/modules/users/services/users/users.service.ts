@@ -23,13 +23,20 @@ export class UsersService {
 		return await this.usersRepository.save(user)
 	}
 
-	async updateUser(id: number, updateFields: Partial<User>) {
-		const user = await this.usersRepository.update({ id }, updateFields)
-		return user
+	async updateUser(id: number, updateFields: Partial<User> & { avatar?: string | null }) {
+		if (Object.keys(updateFields).length) {
+			await this.usersRepository.update({ id }, updateFields)
+		}
+		return true
 	}
 
 	async findByEmail(email: string) {
 		const user = await this.usersRepository.findOneBy({ email })
+		return user
+	}
+
+	async findById(id: number) {
+		const user = await this.usersRepository.findOneBy({ id })
 		return user
 	}
 }

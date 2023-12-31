@@ -20,6 +20,14 @@ interface User {
 	createdTasks: Task[]
 }
 
+type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks'> & {
+	avatar: string | null
+}
+
+type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks'> & {
+	avatar: string | null
+}
+
 interface RefreshToken {
 	token: string
 	user: User
@@ -33,4 +41,11 @@ interface JwtPayload {
 	exp: number
 }
 
-export { type Task, type User, type RefreshToken, type JwtPayload }
+export {
+	type Task,
+	type User,
+	type RefreshToken,
+	type JwtPayload,
+	type CreateUserPayload,
+	type UpdateUserPayload
+}

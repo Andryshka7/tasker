@@ -12,8 +12,6 @@ export class AuthService {
 	async signIn({ email, password }: Pick<User, 'email' | 'password'>) {
 		const user = await this.usersRepository.findOneBy({ email })
 
-		console.log(password)
-
 		if (!user || !(await compare(password, user.password))) {
 			throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
 		}

@@ -23,5 +23,5 @@ export class UpdateUserDto {
 
 	@IsString()
 	@IsOptional()
-	previousAvatar: string
+	removeAvatar: string
 }

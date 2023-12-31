@@ -28,7 +28,7 @@ interface Credentials {
 type CreateUserPayload = Omit<User, 'avatar' | 'id'> & { avatar: File | null }
 type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar'>> & {
 	avatar?: File | null
-	previousAvatar?: string
+	removeAvatar?: string
 }
 
 export {
