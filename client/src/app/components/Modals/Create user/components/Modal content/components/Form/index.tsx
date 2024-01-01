@@ -48,7 +48,12 @@ const Form = () => {
 			onSubmit={handleSubmit(onSubmit)}
 			className='relative flex justify-between gap-10 rounded-md bg-blue p-10'
 		>
-			<IoClose onClick={close} size={30} color='white' className='absolute right-5 top-4' />
+			<IoClose
+				onClick={close}
+				size={30}
+				color='white'
+				className='absolute right-5 top-4 cursor-pointer'
+			/>
 
 			<div className='mt-5 flex w-72 flex-col items-center'>
 				<AvatarInput avatar={avatar} setAvatar={setAvatar} />

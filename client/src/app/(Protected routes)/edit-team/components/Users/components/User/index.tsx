@@ -1,17 +1,20 @@
 'use client'
 
 import { BiEditAlt } from 'react-icons/bi'
+import { MdDeleteOutline } from 'react-icons/md'
+
 import { RoleSelector } from './components'
 import { type User as UserType } from '@/types'
 import { useOptimistic, useUsers } from '@/hooks'
 import { updateUserQuery } from '@/helpers'
-import { useEditUserModal } from '@/app/components/Modals/hooks'
+import { useConfirmationModal, useEditUserModal } from '@/app/components/Modals/hooks'
 import { Avatar } from '@/app/components'
 import toast from 'react-hot-toast'
 
 const User = (user: UserType) => {
 	const { refetch } = useUsers()
-	const { open } = useEditUserModal()
+	const { open: openEditUserModal } = useEditUserModal()
+	const { open: openConfirmationModal } = useConfirmationModal()
 
 	const [role, setRole] = useOptimistic(
 		user.role,
@@ -32,7 +35,26 @@ const User = (user: UserType) => {
 			</div>
 			<div className='flex w-5/12 items-center justify-between'>
 				<RoleSelector role={role} selectRole={setRole} />
-				<BiEditAlt size={30} className='cursor-pointer' onClick={() => open(user)} />
+				<div className='flex items-center'>
+					<BiEditAlt
+						size={30}
+						className='cursor-pointer'
+						onClick={() => openEditUserModal(user)}
+					/>
+					<MdDeleteOutline
+						size={30}
+						className='cursor-pointer'
+						onClick={() => {
+							openConfirmationModal({
+								name: 'Delete user',
+								text: `Are you certain about your decision to exclude ${user.name} ${user.surname} from this team?`,
+								confirmAction: () => {
+									console.log(`${user.name} ${user.surname} has been deleted`)
+								}
+							})
+						}}
+					/>
+				</div>
 			</div>
 		</div>
 	)

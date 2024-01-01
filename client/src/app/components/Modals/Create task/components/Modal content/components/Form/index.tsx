@@ -31,7 +31,12 @@ const Form = () => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<h1 className='text-4xl font-bold'>Create task</h1>
-			<IoClose onClick={close} size={30} color='white' className='absolute right-5 top-4' />
+			<IoClose
+				onClick={close}
+				size={30}
+				color='white'
+				className='absolute right-5 top-4 cursor-pointer'
+			/>
 
 			<input
 				{...register('title')}
