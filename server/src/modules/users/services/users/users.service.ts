@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { deleteFile, getFilePath } from 'helpers'
 import { Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities/User/User.entity'
 import { type User } from 'types'
@@ -13,11 +14,6 @@ export class UsersService {
 		return users
 	}
 
-	async fetchUserById(id: number) {
-		const user = await this.usersRepository.findOne({ where: { id }, relations: ['tasks'] })
-		return user
-	}
-
 	async createUser(userDetails: Omit<User, 'id' | 'tasks' | 'createdTasks'>) {
 		const user = this.usersRepository.create(userDetails)
 		return await this.usersRepository.save(user)
@@ -27,6 +23,15 @@ export class UsersService {
 		if (Object.keys(updateFields).length) {
 			await this.usersRepository.update({ id }, updateFields)
 		}
+		return true
+	}
+
+	async deleteUser(id: number) {
+		const { avatar } = await this.usersRepository.findOneBy({ id })
+		if (avatar) {
+			deleteFile(getFilePath(avatar.slice(29)))
+		}
+		await this.usersRepository.delete({ id })
 		return true
 	}
 

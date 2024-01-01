@@ -6,7 +6,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { RoleSelector } from './components'
 import { type User as UserType } from '@/types'
 import { useOptimistic, useUsers } from '@/hooks'
-import { updateUserQuery } from '@/helpers'
+import { deleteUserQuery, updateUserQuery } from '@/helpers'
 import { useConfirmationModal, useEditUserModal } from '@/app/components/Modals/hooks'
 import { Avatar } from '@/app/components'
 import toast from 'react-hot-toast'
@@ -48,8 +48,16 @@ const User = (user: UserType) => {
 							openConfirmationModal({
 								name: 'Delete user',
 								text: `Are you certain about your decision to exclude ${user.name} ${user.surname} from this team?`,
-								confirmAction: () => {
-									console.log(`${user.name} ${user.surname} has been deleted`)
+								confirmAction: async () => {
+									const deleteUser = async () => {
+										await deleteUserQuery(user.id)
+										await refetch()
+									}
+									toast.promise(deleteUser(), {
+										success: 'User has been deleted.',
+										loading: 'Deleting user...',
+										error: 'Could not delete a user.'
+									})
 								}
 							})
 						}}

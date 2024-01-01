@@ -2,15 +2,14 @@ import {
 	Get,
 	Post,
 	Patch,
+	Delete,
 	Body,
 	UseGuards,
 	UseInterceptors,
 	UploadedFile,
 	ParseIntPipe,
 	Controller,
-	Param,
-	HttpException,
-	HttpStatus
+	Param
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { IsAdminGuard } from 'common/guards'
@@ -63,8 +62,6 @@ export class UsersController {
 
 		const updateUserPayload: UpdateUserPayload = { ...updateFields, avatar }
 
-		console.log(updateUserDto)
-
 		if (removeAvatar) {
 			updateUserPayload.avatar = null
 			deleteFile(getFilePath(avatar.slice(29)))
@@ -76,5 +73,12 @@ export class UsersController {
 		}
 
 		return await this.usersService.updateUser(id, updateUserPayload)
+	}
+
+	@Delete(':id')
+	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	@UseInterceptors(FileInterceptor('image'))
+	async deleteUser(@Param('id', ParseIntPipe) id: number) {
+		return await this.usersService.deleteUser(id)
 	}
 }
