@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react'
 
 interface Props {
 	priority: number
-	setPriority: Dispatch<SetStateAction<number>>
+	selectPriority: Dispatch<SetStateAction<number>>
 }
 
 const priorities = [
@@ -14,14 +14,14 @@ const priorities = [
 	{ id: 4, name: 'Trivial', color: 'bg-neutral-400' }
 ]
 
-const PrioritySelector = ({ priority, setPriority }: Props) => (
+const PrioritySelector = ({ priority, selectPriority }: Props) => (
 	<div className='mt-6 flex items-center justify-between'>
 		{priorities.map(({ id, name, color }) => (
 			<div
 				className={`flex w-40 cursor-pointer items-center justify-center gap-2 rounded py-1.5 duration-200 ${
 					id === priority ? 'bg-teal' : 'bg-cyan hover:bg-teal'
 				}`}
-				onClick={() => setPriority(id)}
+				onClick={() => selectPriority(id)}
 				key={id}
 			>
 				<div className={`h-5 w-5 rounded-full ${color}`} />

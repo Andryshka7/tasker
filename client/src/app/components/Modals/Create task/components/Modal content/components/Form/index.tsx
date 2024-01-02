@@ -1,8 +1,7 @@
 'use client'
 
 import { useCreateTaskModal } from '@/app/components/Modals/hooks'
-import { useUsers } from '@/hooks'
-import { User } from '@/types'
+import { type User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
@@ -14,7 +13,6 @@ type FormFields = {
 }
 
 const Form = () => {
-	const { data: users } = useUsers()
 	const [priority, setPriority] = useState(1)
 	const [user, setUser] = useState<User | null>(null)
 
@@ -50,8 +48,8 @@ const Form = () => {
 				placeholder='Description'
 			/>
 
-			<PrioritySelector priority={priority} setPriority={setPriority} />
-			<UserSelector options={users!} selectUser={setUser} />
+			<PrioritySelector priority={priority} selectPriority={setPriority} />
+			<UserSelector user={user} selectUser={setUser} />
 
 			<div className='mx-auto mt-12 flex w-fit gap-5'>
 				<button

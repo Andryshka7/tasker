@@ -7,7 +7,7 @@ import { useUsers } from '@/hooks'
 import { Role, User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { updateUserQuery } from '@/helpers'
+import { updateUserQuery } from '@/api'
 import toast from 'react-hot-toast'
 import { getUpdateFields } from './helpers'
 

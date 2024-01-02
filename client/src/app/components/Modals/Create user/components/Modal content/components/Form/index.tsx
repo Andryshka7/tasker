@@ -1,14 +1,14 @@
 'use client'
 
 import { useCreateUserModal } from '@/app/components/Modals/hooks'
-import { createUserQuery } from '@/helpers'
+import { createUserQuery } from '@/api'
 import { useUsers } from '@/hooks'
-import { Role } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoClose } from 'react-icons/io5'
 import { AvatarInput, RoleSelector } from './components'
+import { type Role } from '@/types'
 
 type FormFields = {
 	name: string

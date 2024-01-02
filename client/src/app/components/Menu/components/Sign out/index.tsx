@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaSignOutAlt } from 'react-icons/fa'
-import { signOutQuery } from '@/helpers'
+import { signOutQuery } from '@/api'
 import toast from 'react-hot-toast'
 
 const SignOut = () => {

@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { Credentials } from '@/types'
 import toast from 'react-hot-toast'
-import { signInQuery } from '@/helpers'
+import { signInQuery } from '@/api'
+import { type Credentials } from '@/types'
 
 const Page = () => {
 	const router = useRouter()

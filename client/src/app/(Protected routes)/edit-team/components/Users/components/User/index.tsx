@@ -2,14 +2,13 @@
 
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
-
 import { RoleSelector } from './components'
-import { type User as UserType } from '@/types'
 import { useOptimistic, useUsers } from '@/hooks'
-import { deleteUserQuery, updateUserQuery } from '@/helpers'
+import { deleteUserQuery, updateUserQuery } from '@/api'
 import { useConfirmationModal, useEditUserModal } from '@/app/components/Modals/hooks'
 import { Avatar } from '@/app/components'
 import toast from 'react-hot-toast'
+import { type User as UserType } from '@/types'
 
 const User = (user: UserType) => {
 	const { refetch } = useUsers()

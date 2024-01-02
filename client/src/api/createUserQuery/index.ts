@@ -1,4 +1,4 @@
-import { CreateUserPayload } from '@/types'
+import { type CreateUserPayload } from '@/types'
 
 const createUserQuery = async ({
 	name,

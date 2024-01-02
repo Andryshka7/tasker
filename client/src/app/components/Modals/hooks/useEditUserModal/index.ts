@@ -1,6 +1,6 @@
 'use client'
 
-import { User } from '@/types'
+import { type User } from '@/types'
 import { create } from 'zustand'
 
 interface CreateUserStore {

@@ -1,4 +1,4 @@
-import { User } from '@/types'
+import { type User } from '@/types'
 
 const fetchUsersQuery = async () => {
 	const response = await fetch('http://localhost:4000/users', {

@@ -1,4 +1,4 @@
-import { User } from '@/types'
+import { type User } from '@/types'
 import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query'
 import { headers } from 'next/headers'
 import { PropsWithChildren } from 'react'

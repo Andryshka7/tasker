@@ -1,4 +1,4 @@
-import { Credentials } from '@/types'
+import { type Credentials } from '@/types'
 
 const signInQuery = async (credentials: Credentials) => {
 	const response = await fetch('http://localhost:4000/auth', {
