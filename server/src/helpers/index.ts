@@ -12,8 +12,8 @@ const uploadFile = (file: Express.Multer.File, name: string) => {
 }
 
 const deleteFile = (filePath: string) => {
-	fs.unlink(filePath, () => {
-		console.log('An error occured while deleting file:', filePath)
+	fs.unlink(filePath, (err) => {
+		if (err) console.log('An error occured while deleting file:', filePath)
 	})
 }
 

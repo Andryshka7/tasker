@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { deleteFile, getFilePath } from 'helpers'
-import { Repository } from 'typeorm'
+import { deleteFile, getFilePath, uploadFile } from 'helpers'
+import { v4 as uuid } from 'uuid'
+import { CreateUserDto, UpdateUserDto } from 'modules/users/dtos'
+import { FindOptionsWhere, Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities/User/User.entity'
-import { type User } from 'types'
+import { UpdateUserPayload } from 'types'
 
 @Injectable()
 export class UsersService {
@@ -14,15 +16,44 @@ export class UsersService {
 		return users
 	}
 
-	async createUser(userDetails: Omit<User, 'id' | 'tasks' | 'createdTasks'>) {
+	async fetchUserBy(options: FindOptionsWhere<UserEntity> | FindOptionsWhere<UserEntity>[]) {
+		const user = await this.usersRepository.findOneBy(options)
+		return user
+	}
+
+	async createUser(file: Express.Multer.File, createUserDto: CreateUserDto) {
+		const userDetails = { ...createUserDto, avatar: null }
+
+		if (file) {
+			const fileName = uploadFile(file, uuid())
+			userDetails.avatar = `http://localhost:4000/images/${fileName}`
+		}
+
 		const user = this.usersRepository.create(userDetails)
 		return await this.usersRepository.save(user)
 	}
 
-	async updateUser(id: number, updateFields: Partial<User> & { avatar?: string | null }) {
-		if (Object.keys(updateFields).length) {
-			await this.usersRepository.update({ id }, updateFields)
+	async updateUser(id: number, file: Express.Multer.File, updateUserDto: UpdateUserDto) {
+		const { avatar } = await this.fetchUserBy({ id })
+
+		const { removeAvatar, ...updateFields } = updateUserDto
+
+		const updateUserPayload: UpdateUserPayload = { ...updateFields, avatar }
+
+		if (removeAvatar) {
+			updateUserPayload.avatar = null
+			deleteFile(getFilePath(avatar.slice(29)))
 		}
+
+		if (file) {
+			const fileName = uploadFile(file, uuid())
+			updateUserPayload.avatar = `http://localhost:4000/images/${fileName}`
+		}
+
+		if (Object.keys(updateUserPayload).length) {
+			await this.usersRepository.update({ id }, updateUserPayload)
+		}
+
 		return true
 	}
 
@@ -33,15 +64,5 @@ export class UsersService {
 		}
 		await this.usersRepository.delete({ id })
 		return true
-	}
-
-	async findByEmail(email: string) {
-		const user = await this.usersRepository.findOneBy({ email })
-		return user
-	}
-
-	async findById(id: number) {
-		const user = await this.usersRepository.findOneBy({ id })
-		return user
 	}
 }

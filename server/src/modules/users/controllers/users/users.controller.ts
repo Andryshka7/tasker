@@ -17,9 +17,6 @@ import { UsersService } from '../../services'
 import { CreateUserDto, UpdateUserDto } from '../../dtos'
 import { HashPasswordPipe, ValidateEmailPipe } from '../../pipes'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { v4 as uuid } from 'uuid'
-import { deleteFile, getFilePath, uploadFile } from 'helpers'
-import { CreateUserPayload, UpdateUserPayload, type User } from 'types'
 
 @Controller('users')
 export class UsersController {
@@ -38,14 +35,7 @@ export class UsersController {
 		@UploadedFile() file: Express.Multer.File,
 		@Body(HashPasswordPipe, ValidateEmailPipe) createUserDto: CreateUserDto
 	) {
-		const createUserPayload: CreateUserPayload = { ...createUserDto, avatar: null }
-
-		if (file) {
-			const fileName = uploadFile(file, uuid())
-			createUserPayload.avatar = `http://localhost:4000/images/${fileName}`
-		}
-
-		return await this.usersService.createUser(createUserPayload)
+		return await this.usersService.createUser(file, createUserDto)
 	}
 
 	@Patch(':id')
@@ -56,23 +46,7 @@ export class UsersController {
 		@Param('id', ParseIntPipe) id: number,
 		@Body(HashPasswordPipe) updateUserDto: UpdateUserDto
 	) {
-		const { avatar } = await this.usersService.findById(id)
-
-		const { removeAvatar, ...updateFields } = updateUserDto
-
-		const updateUserPayload: UpdateUserPayload = { ...updateFields, avatar }
-
-		if (removeAvatar) {
-			updateUserPayload.avatar = null
-			deleteFile(getFilePath(avatar.slice(29)))
-		}
-
-		if (file) {
-			const fileName = uploadFile(file, uuid())
-			updateUserPayload.avatar = `http://localhost:4000/images/${fileName}`
-		}
-
-		return await this.usersService.updateUser(id, updateUserPayload)
+		return await this.usersService.updateUser(id, file, updateUserDto)
 	}
 
 	@Delete(':id')
