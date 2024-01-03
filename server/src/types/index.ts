@@ -20,6 +20,8 @@ interface User {
 	createdTasks: Task[]
 }
 
+type UserFromRequest = Pick<User, 'id' | 'email' | 'role'>
+
 type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks'> & {
 	avatar: string | null
 }
@@ -44,6 +46,7 @@ interface JwtPayload {
 export {
 	type Task,
 	type User,
+	type UserFromRequest,
 	type RefreshToken,
 	type JwtPayload,
 	type CreateUserPayload,

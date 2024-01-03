@@ -4,7 +4,7 @@ import { headers } from 'next/headers'
 const middleware = async (request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
-	const response = await fetch('http://localhost:4000/auth/me', { headers: headers() })
+	const response = await fetch('http://localhost:4000/auth', { headers: headers() })
 
 	if (!response.ok && pathname !== '/sign-in') {
 		return NextResponse.redirect(new URL('/sign-in', request.url))

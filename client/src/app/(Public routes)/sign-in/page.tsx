@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { signInQuery } from '@/api/auth'
 import toast from 'react-hot-toast'
-import { signInQuery } from '@/api'
 import { type Credentials } from '@/types'
 
 const Page = () => {
@@ -13,15 +13,23 @@ const Page = () => {
 	const { register, handleSubmit } = useForm<Credentials>()
 
 	const onSubmit = async (credentials: Credentials) => {
-		setLoading(true)
-		try {
-			await signInQuery(credentials)
-			router.refresh()
-			router.push('/')
-		} catch (error) {
-			setLoading(false)
-			toast.error('Invalid credentials!')
+		const signIn = async () => {
+			try {
+				setLoading(true)
+				await signInQuery(credentials)
+				router.refresh()
+				router.push('/')
+			} catch (error) {
+				setLoading(false)
+				throw error
+			}
 		}
+
+		toast.promise(signIn(), {
+			success: 'Logged in.',
+			loading: 'Logging in...',
+			error: 'Invalid credentials'
+		})
 	}
 
 	useEffect(() => {

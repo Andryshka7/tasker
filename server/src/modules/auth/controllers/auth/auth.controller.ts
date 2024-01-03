@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport'
 import { GetRefreshToken, GetUser } from 'common/decorators'
 import { SignInDto } from 'modules/auth/dtos'
 import { TokensService, AuthService } from '../../services'
-import { type User } from 'types'
+import { type UserFromRequest, type User } from 'types'
 
 @Controller('auth')
 export class AuthController {
@@ -13,9 +13,9 @@ export class AuthController {
 		private tokensService: TokensService
 	) {}
 
-	@Get('me')
+	@Get()
 	@UseGuards(AuthGuard('jwt-access-token'))
-	async getMe(@GetUser() user: User) {
+	async getMe(@GetUser() user: UserFromRequest) {
 		return await this.authService.fetchMe(user.id)
 	}
 
@@ -49,7 +49,7 @@ export class AuthController {
 
 	@Post('refresh')
 	@UseGuards(AuthGuard('jwt-refresh-token'))
-	async refreshTokens(@GetRefreshToken() refreshToken: string, @GetUser() user: User) {
+	async refreshTokens(@GetRefreshToken() refreshToken: string, @GetUser() user: UserFromRequest) {
 		const tokenExists = await this.tokensService.tokenExists({ refreshToken, user })
 		if (!tokenExists) {
 			throw new HttpException('Refresh token malformed', HttpStatus.BAD_REQUEST)

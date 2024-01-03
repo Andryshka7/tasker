@@ -1,4 +1,4 @@
-import { fetchUsersQuery } from '@/api'
+import { fetchUsersQuery } from '@/api/users'
 import { useQuery } from '@tanstack/react-query'
 
 const useUsersQuery = () =>

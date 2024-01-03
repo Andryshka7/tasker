@@ -5,7 +5,7 @@ import { compare, hash } from 'bcrypt'
 import { jwt_secret } from 'config'
 import { Repository } from 'typeorm'
 import { RefreshTokenEntity, UserEntity } from 'typeorm/entities'
-import { type RefreshToken, type User } from 'types'
+import { type UserFromRequest, type RefreshToken, type User } from 'types'
 
 @Injectable()
 export class TokensService {
@@ -30,7 +30,7 @@ export class TokensService {
 		return { accessToken, refreshToken }
 	}
 
-	async updateRefreshToken(refreshToken: string, user: User) {
+	async updateRefreshToken(refreshToken: string, user: UserFromRequest) {
 		const token = await hash(refreshToken, 10)
 		await this.refreshTokensRepository.update({ user }, { token, user })
 	}
@@ -45,7 +45,7 @@ export class TokensService {
 		await this.refreshTokensRepository.delete(details)
 	}
 
-	async tokenExists({ refreshToken, user }: { refreshToken?: string; user: User }) {
+	async tokenExists({ refreshToken, user }: { refreshToken?: string; user: UserFromRequest }) {
 		const tokenInstance = await this.refreshTokensRepository.findOneBy({ user })
 
 		if (!tokenInstance) {

@@ -5,7 +5,7 @@ import { GetUser } from 'common/decorators'
 import { TaskService } from '../../services'
 import { CreateTaskDto, UpdateTaskDto } from '../../dtos'
 import { ValidateTaskPipe } from '../../pipes'
-import { type User } from 'types'
+import { type UserFromRequest } from 'types'
 
 @Controller('tasks')
 export class TaskController {
@@ -18,12 +18,8 @@ export class TaskController {
 
 	@Post()
 	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
-	async createTask(@GetUser() user: User, @Body(ValidateTaskPipe) createTaskDto: CreateTaskDto) {
-		const taskDetails = {
-			...createTaskDto,
-			creator: user
-		}
-		return this.tasksService.createTask(taskDetails)
+	async createTask(@GetUser() user: UserFromRequest, @Body(ValidateTaskPipe) createTaskDto: CreateTaskDto) {
+		return this.tasksService.createTask(createTaskDto, user)
 	}
 
 	@Patch(':id')

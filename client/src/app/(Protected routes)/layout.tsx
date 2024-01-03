@@ -1,11 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { Menu, Logo } from '@/app/components'
-import {
-	ConfirmationModal,
-	CreateTaskModal,
-	CreateUserModal,
-	EditUserModal
-} from '@/app/components/Modals'
+import { Menu, Logo } from '@/components/ui'
 
 const Layout = ({ children }: PropsWithChildren) => (
 	<div className='flex'>
@@ -14,10 +8,6 @@ const Layout = ({ children }: PropsWithChildren) => (
 			<Menu />
 		</div>
 		<main className='w-full'>{children}</main>
-		<CreateTaskModal />
-		<CreateUserModal />
-		<EditUserModal />
-		<ConfirmationModal />
 	</div>
 )
 

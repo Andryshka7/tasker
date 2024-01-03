@@ -10,5 +10,6 @@ const database = process.env.DATABASE_NAME
 const jwt_secret = process.env.JWT_SECRET
 
 const client = process.env.CLIENT
+const server = process.env.server
 
-export { host, username, password, database, jwt_secret, client }
+export { host, username, password, database, jwt_secret, client, server }

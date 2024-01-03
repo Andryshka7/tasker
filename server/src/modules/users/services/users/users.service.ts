@@ -6,6 +6,7 @@ import { CreateUserDto, UpdateUserDto } from 'modules/users/dtos'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities/User/User.entity'
 import { UpdateUserPayload } from 'types'
+import { server } from 'config'
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,7 @@ export class UsersService {
 
 	async fetchUsers() {
 		const users = await this.usersRepository.find()
-		return users
+		return users.map(({ password, ...user }) => user)
 	}
 
 	async fetchUserBy(options: FindOptionsWhere<UserEntity> | FindOptionsWhere<UserEntity>[]) {
@@ -26,7 +27,7 @@ export class UsersService {
 
 		if (file) {
 			const fileName = uploadFile(file, uuid())
-			userDetails.avatar = `http://localhost:4000/images/${fileName}`
+			userDetails.avatar = `${server}/images/${fileName}`
 		}
 
 		const user = this.usersRepository.create(userDetails)
