@@ -38,11 +38,15 @@ const Task = (task: TaskType) => {
 				{formatDate(task.due)}
 			</div>
 
-			<div className='flex items-center gap-3'>
-				<div className={`h-5 w-5 rounded-full ${priorityColor[task.priority]}`} />
-				<h2 className='text-3xl font-semibold'>{task.title}</h2>
+			<div className='flex h-[88px] flex-col justify-center'>
+				<div className='flex items-center gap-3'>
+					<div className={`h-5 w-5 rounded-full ${priorityColor[task.priority]}`} />
+					<h2 className='text-3xl font-semibold'>{task.title}</h2>
+				</div>
+				<div className='ml-9 mt-1 flex items-center'>
+					<p className='line-clamp-2'>{task.description}</p>
+				</div>
 			</div>
-			<p className='ml-9 mt-1 line-clamp-2'>{task.description}</p>
 
 			<div
 				className={`absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b bg-blue px-8 duration-200 ${

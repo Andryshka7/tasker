@@ -3,12 +3,10 @@
 import { updateTaskQuery } from '@/api/tasks'
 import { Avatar } from '@/components/ui'
 import { formatDate } from '@/helpers'
-import { useAuth, useTasks } from '@/hooks'
+import { useTasks } from '@/hooks'
 import { type Task as TaskType } from '@/types'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { BiEditAlt } from 'react-icons/bi'
-import { MdDeleteOutline } from 'react-icons/md'
 
 const priorityColor = {
 	1: 'bg-red-500',
@@ -19,7 +17,6 @@ const priorityColor = {
 
 const Task = (task: TaskType) => {
 	const { refetch } = useTasks()
-	const { data: me } = useAuth()
 	const [isHovering, setIsHovering] = useState(false)
 
 	return (
@@ -34,11 +31,15 @@ const Task = (task: TaskType) => {
 				{formatDate(task.due)}
 			</div>
 
-			<div className='flex items-center gap-3'>
-				<div className={`h-5 w-5 rounded-full ${priorityColor[task.priority]}`} />
-				<h2 className='text-3xl font-semibold'>{task.title}</h2>
+			<div className='flex h-[88px] flex-col justify-center'>
+				<div className='flex items-center gap-3'>
+					<div className={`h-5 w-5 rounded-full ${priorityColor[task.priority]}`} />
+					<h2 className='text-3xl font-semibold'>{task.title}</h2>
+				</div>
+				<div className='ml-9 mt-1 flex items-center'>
+					<p className='line-clamp-2'>{task.description}</p>
+				</div>
 			</div>
-			<p className='ml-9 mt-1 line-clamp-2'>{task.description}</p>
 
 			<div
 				className={`absolute bottom-0 left-0 flex w-full items-center justify-center rounded-b bg-blue px-8 duration-200 ${
@@ -46,13 +47,13 @@ const Task = (task: TaskType) => {
 				}`}
 			>
 				<button
-					className='h-6 w-24 cursor-pointer rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:bg-opacity-90 hover:text-blue'
+					className='h-6 w-28 cursor-pointer rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:bg-opacity-90 hover:text-blue'
 					onClick={() => {
-						const completeTask = async () => {
+						const unCompleteTask = async () => {
 							await updateTaskQuery(task.id, { completed: false })
 							await refetch()
 						}
-						toast.promise(completeTask(), {
+						toast.promise(unCompleteTask(), {
 							success: 'Task status has been updated.',
 							error: 'Could not update task status.',
 							loading: 'Updating task status...'
