@@ -20,7 +20,10 @@ const updateUserQuery = async (id: number, updateFields: UpdateUserPayload) => {
 		body: formData
 	})
 
-	if (!response.ok) throw new Error(await response.json())
+	if (!response.ok) {
+		console.log(await response.json())
+		throw new Error('Error while updating user!')
+	}
 }
 
 export default updateUserQuery

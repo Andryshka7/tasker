@@ -1,8 +1,12 @@
+type Role = 'admin' | 'moderator' | 'user'
+type Priority = 1 | 2 | 3 | 4
+
 interface Task {
 	id: number
 	title: string
 	description: string
-	priority: number
+	priority: Priority
+	completed: boolean
 	due: Date
 	user: User
 	creator: User
@@ -13,7 +17,7 @@ interface User {
 	name: string
 	surname: string
 	email: string
-	role: string
+	role: Role
 	password: string
 	avatar: string | null
 	tasks: Task[]
@@ -44,6 +48,8 @@ interface JwtPayload {
 }
 
 export {
+	type Role,
+	type Priority,
 	type Task,
 	type User,
 	type UserFromRequest,

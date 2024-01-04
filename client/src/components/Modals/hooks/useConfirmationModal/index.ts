@@ -14,7 +14,7 @@ const useConfirmationModal = create<ConfirmationModalStore>()((set) => ({
 	visible: false,
 	name: null,
 	text: null,
-	confirmAction: () => {},
+	confirmAction: async () => {},
 	open: (configuration) => {
 		set({ visible: true, ...configuration })
 	},

@@ -6,7 +6,10 @@ const deleteUserQuery = async (id: number) => {
 		credentials: 'include'
 	})
 
-	if (!response.ok) throw new Error('Error while signing in!')
+	if (!response.ok) {
+		console.log(await response.json())
+		throw new Error('Error while deleting user!')
+	}
 }
 
 export default deleteUserQuery

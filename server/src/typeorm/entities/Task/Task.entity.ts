@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { UserEntity } from '..'
+import { Priority } from 'types'
 
 @Entity({ name: 'tasks' })
 export class TaskEntity {
@@ -13,7 +14,10 @@ export class TaskEntity {
 	description: string
 
 	@Column()
-	priority: number
+	priority: Priority
+
+	@Column()
+	completed: boolean
 
 	@Column({ type: 'datetime' })
 	due: Date

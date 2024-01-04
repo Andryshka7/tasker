@@ -1,12 +1,12 @@
 'use client'
 
 import { useCreateTaskModal } from '@/components/Modals/hooks'
-import { type User } from '@/types'
+import { Priority, type User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
 import { PrioritySelector, UserSelector } from './components'
-import { useTasks } from '@/hooks'
+import { useAuth, useTasks } from '@/hooks'
 import { createTaskQuery } from '@/api/tasks'
 import toast from 'react-hot-toast'
 
@@ -17,7 +17,8 @@ type FormFields = {
 
 const Form = () => {
 	const { refetch } = useTasks()
-	const [priority, setPriority] = useState(1)
+	const { data: me } = useAuth()
+	const [priority, setPriority] = useState<Priority>(1)
 	const [user, setUser] = useState<User | null>(null)
 
 	const { register, handleSubmit } = useForm<FormFields>()
@@ -25,7 +26,14 @@ const Form = () => {
 
 	const onSubmit = (data: FormFields) => {
 		const createTask = async () => {
-			await createTaskQuery({ ...data, priority, user, creator: user!, due: new Date() })
+			await createTaskQuery({
+				...data,
+				priority,
+				user,
+				completed: false,
+				creator: me!,
+				due: new Date()
+			})
 			await refetch()
 			close()
 		}
@@ -62,7 +70,7 @@ const Form = () => {
 				placeholder='Description'
 			/>
 
-			<PrioritySelector priority={priority} selectPriority={setPriority} />
+			<PrioritySelector selectedPriority={priority} selectPriority={setPriority} />
 			<UserSelector user={user} selectUser={setUser} />
 
 			<div className='mx-auto mt-12 flex w-fit gap-5'>

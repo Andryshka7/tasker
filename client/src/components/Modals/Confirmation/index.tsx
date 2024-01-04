@@ -23,8 +23,8 @@ const ConfirmationModal = () => {
 				<div className='mx-auto mt-8 flex w-fit gap-8'>
 					<button
 						className='rounded bg-green-600 px-10 py-1 font-semibold'
-						onClick={() => {
-							confirmAction()
+						onClick={async () => {
+							await confirmAction()
 							close()
 						}}
 					>

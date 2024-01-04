@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { TaskEntity } from '..'
+import { Role } from 'types'
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -19,7 +20,7 @@ export class UserEntity {
 	password: string
 
 	@Column()
-	role: string
+	role: Role
 
 	@Column({ nullable: true })
 	avatar: string

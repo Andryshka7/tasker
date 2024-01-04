@@ -1,2 +1,3 @@
-export { default as createTaskQuery } from './createTask'
-export { default as fetchTasksQuery } from './fetchTasks'
+export { default as createTaskQuery } from './createTaskQuery'
+export { default as fetchTasksQuery } from './fetchTasksQuery'
+export { default as updateTaskQuery } from './updateTaskQuery'

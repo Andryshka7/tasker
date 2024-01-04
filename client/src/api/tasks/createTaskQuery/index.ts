@@ -9,7 +9,10 @@ const createTaskQuery = async (taskDetails: CreateTaskPayload) => {
 		body: JSON.stringify(taskDetails)
 	})
 
-	if (!response.ok) throw new Error('Error while creating task')
+	if (!response.ok) {
+		console.log(await response.json())
+		throw new Error('Error while creating task')
+	}
 }
 
 export default createTaskQuery

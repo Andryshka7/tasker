@@ -25,6 +25,7 @@ const createUserQuery = async ({
 	})
 
 	if (!response.ok) {
+		console.log(await response.json())
 		throw new Error('Error while creating user!')
 	}
 }

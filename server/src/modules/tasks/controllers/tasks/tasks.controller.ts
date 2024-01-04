@@ -1,6 +1,6 @@
 import { Get, Post, Body, Controller, UseGuards, ParseIntPipe, Patch, Delete, Param } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { IsModeratorGuard } from 'common/guards'
+import { IsAdminGuard, IsModeratorGuard } from 'common/guards'
 import { GetUser } from 'common/decorators'
 import { TaskService } from '../../services'
 import { CreateTaskDto, UpdateTaskDto } from '../../dtos'
@@ -26,13 +26,14 @@ export class TaskController {
 	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	async updateTask(
 		@Param('id', ParseIntPipe) id: number,
-		@Body(ValidateTaskPipe) updateFields: UpdateTaskDto
+		@Body(ValidateTaskPipe) updateTaskDto: UpdateTaskDto
 	) {
-		await this.tasksService.updateTask(id, updateFields)
+		await this.tasksService.updateTask(id, updateTaskDto)
 	}
 
-	@Delete()
-	deleteTask() {
-		return this.tasksService.deleteAll()
+	@Delete(':id')
+	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	async deleteUser(@Param('id', ParseIntPipe) id: number) {
+		return await this.tasksService.deleteTask(id)
 	}
 }

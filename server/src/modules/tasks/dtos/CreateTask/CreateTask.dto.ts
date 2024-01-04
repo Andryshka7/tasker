@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsOptional } from 'class-validator'
-import { Type } from 'class-transformer'
-import { type User } from 'types'
+import { type Priority, type User } from 'types'
 
 export class CreateTaskDto {
 	@IsNotEmpty()
@@ -10,12 +9,14 @@ export class CreateTaskDto {
 	description: string
 
 	@IsNotEmpty()
-	priority: number
+	priority: Priority
+
+	@IsNotEmpty()
+	completed: boolean
 
 	@IsNotEmpty()
 	due: Date
 
-	@Type()
 	@IsOptional()
 	user: User
 }

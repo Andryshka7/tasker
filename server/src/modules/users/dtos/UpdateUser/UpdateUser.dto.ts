@@ -1,4 +1,5 @@
 import { IsOptional, IsString } from 'class-validator'
+import { type Role } from 'types'
 
 export class UpdateUserDto {
 	@IsString()
@@ -19,7 +20,7 @@ export class UpdateUserDto {
 
 	@IsString()
 	@IsOptional()
-	role: string
+	role: Role
 
 	@IsString()
 	@IsOptional()

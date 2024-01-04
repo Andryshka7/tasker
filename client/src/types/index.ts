@@ -1,18 +1,16 @@
+type Role = 'admin' | 'moderator' | 'user'
+type Priority = 1 | 2 | 3 | 4
+
 interface Task {
 	id: number
 	title: string
 	description: string
-	priority: number
+	priority: Priority
+	completed: boolean
 	due: Date
 	user: User | null
 	creator: User
 }
-
-type CreateTaskPayload = Omit<Task, 'id'>
-
-type UpdateTaskPayload = Omit<Task, 'id'>
-
-type Role = 'admin' | 'moderator' | 'user'
 
 interface User {
 	id: number
@@ -28,6 +26,10 @@ interface Credentials {
 	password: string
 }
 
+type CreateTaskPayload = Omit<Task, 'id'>
+
+type UpdateTaskPayload = Partial<Omit<Task, 'id'>>
+
 type CreateUserPayload = Omit<User, 'avatar' | 'id'> & {
 	avatar: File | null
 	password: string
@@ -39,11 +41,12 @@ type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar'>> & {
 }
 
 export {
+	type Role,
+	type Priority,
 	type Task,
+	type User,
 	type CreateTaskPayload,
 	type UpdateTaskPayload,
-	type User,
-	type Role,
 	type Credentials,
 	type CreateUserPayload,
 	type UpdateUserPayload

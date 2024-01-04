@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { UpdateTaskDto } from 'modules/tasks/dtos'
 import { Repository } from 'typeorm'
 import { TaskEntity, UserEntity } from 'typeorm/entities'
 import { type UserFromRequest, type Task } from 'types'
@@ -21,12 +22,15 @@ export class TaskService {
 		return await this.tasksRepository.save(created)
 	}
 
-	async updateTask(id: number, updateFields: Partial<Task>) {
-		await this.tasksRepository.update(id, updateFields)
+	async updateTask(id: number, updateTaskDto: UpdateTaskDto) {
+		if (Object.keys(updateTaskDto).length) {
+			await this.tasksRepository.update({ id }, updateTaskDto)
+		}
+		await this.tasksRepository.update(id, updateTaskDto)
 		return `Task with id ${id} has been updated`
 	}
 
-	async deleteAll() {
-		await this.tasksRepository.delete({})
+	async deleteTask(id: number) {
+		await this.tasksRepository.delete({ id })
 	}
 }

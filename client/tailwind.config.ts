@@ -15,7 +15,7 @@ const config: Config = {
 			'2xl': '1536px'
 		},
 		extend: {
-			backgroundColor: {
+			colors: {
 				midnight: '#000C2A',
 				blue: '#1C3169',
 				cyan: '#495A87',
