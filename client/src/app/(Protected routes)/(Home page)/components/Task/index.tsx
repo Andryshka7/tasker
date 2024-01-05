@@ -1,14 +1,12 @@
 'use client'
 
-import { updateTaskQuery } from '@/api/tasks'
-import deleteTaskQuery from '@/api/tasks/deleteTaskQuery'
-import { useConfirmationModal } from '@/components/Modals/hooks'
-import { Avatar } from '@/components/ui'
-import { formatDate } from '@/helpers'
-import { useAuth, useTasks } from '@/hooks'
-import { type Task as TaskType } from '@/types'
 import { useState } from 'react'
-import toast from 'react-hot-toast'
+import { Avatar } from '@/components/ui'
+import { useTaskPreviewModal } from '@/components/Modals/hooks'
+import { formatDate } from '@/helpers'
+import { useAuth } from '@/hooks'
+import { useDeleteTask, useUpdateTask } from '@/hooks'
+import { type Task as TaskType } from '@/types'
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 
@@ -20,17 +18,20 @@ const priorityColor = {
 }
 
 const Task = (task: TaskType) => {
-	const { refetch } = useTasks()
 	const { data: me } = useAuth()
 
-	const { open: openConfirmationModal } = useConfirmationModal()
+	const { open: openTaskPreviewModal } = useTaskPreviewModal()
 	const [isHovering, setIsHovering] = useState(false)
+
+	const updateTask = useUpdateTask(task.id)
+	const deleteTask = useDeleteTask(task.id)
 
 	return (
 		<div
-			className={`relative mb-3 w-full rounded bg-blue px-8 py-4 duration-200 ${
+			className={`relative mb-3 w-full cursor-pointer rounded bg-blue px-8 py-4 duration-200 ${
 				isHovering ? 'pb-12' : ''
 			}`}
+			onClick={() => openTaskPreviewModal(task)}
 			onMouseEnter={() => setIsHovering(true)}
 			onMouseLeave={() => setIsHovering(false)}
 		>
@@ -54,17 +55,10 @@ const Task = (task: TaskType) => {
 				}`}
 			>
 				<button
-					className='h-6 w-16 cursor-pointer rounded bg-green-600 text-sm font-semibold duration-200 hover:bg-opacity-90'
-					onClick={() => {
-						const completeTask = async () => {
-							await updateTaskQuery(task.id, { completed: true })
-							await refetch()
-						}
-						toast.promise(completeTask(), {
-							success: 'Task status has been updated.',
-							error: 'Could not update task status.',
-							loading: 'Updating task status...'
-						})
+					className='h-6 w-16 rounded bg-green-600 text-sm font-semibold duration-200 hover:bg-opacity-90'
+					onClick={(e) => {
+						e.stopPropagation()
+						updateTask({ completed: true })
 					}}
 				>
 					Done
@@ -81,17 +75,10 @@ const Task = (task: TaskType) => {
 					</div>
 				) : (
 					<button
-						className='h-6 w-24 cursor-pointer rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:text-blue'
-						onClick={() => {
-							const takeTask = async () => {
-								await updateTaskQuery(task.id, { user: me })
-								await refetch()
-							}
-							toast.promise(takeTask(), {
-								success: 'Task status has been updated.',
-								error: 'Could not update task status.',
-								loading: 'Updating task status...'
-							})
+						className='h-6 w-24 rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:text-blue'
+						onClick={(e) => {
+							e.stopPropagation()
+							updateTask({ user: me })
 						}}
 					>
 						Take task
@@ -100,30 +87,16 @@ const Task = (task: TaskType) => {
 				<div className='flex'>
 					<BiEditAlt
 						size={24}
-						className='cursor-pointer'
-						onClick={() => console.log('Edit task')}
+						onClick={(e: MouseEvent) => {
+							e.stopPropagation()
+						}}
 					/>
 					<button>
 						<MdDeleteOutline
 							size={24}
-							className='cursor-pointer'
-							onClick={() => {
-								setIsHovering(true)
-								openConfirmationModal({
-									name: 'Delete task',
-									text: `Are you certain about your decision to delete this task from the team taskboard?`,
-									confirmAction: async () => {
-										const deleteUser = async () => {
-											await deleteTaskQuery(task.id)
-											await refetch()
-										}
-										toast.promise(deleteUser(), {
-											success: 'Task has been deleted.',
-											loading: 'Deleting task...',
-											error: 'Could not delete a task.'
-										})
-									}
-								})
+							onClick={(e: MouseEvent) => {
+								e.stopPropagation()
+								deleteTask()
 							}}
 						/>
 					</button>

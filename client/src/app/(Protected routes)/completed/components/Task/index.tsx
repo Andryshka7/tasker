@@ -1,12 +1,10 @@
 'use client'
 
-import { updateTaskQuery } from '@/api/tasks'
-import { Avatar } from '@/components/ui'
-import { formatDate } from '@/helpers'
-import { useTasks } from '@/hooks'
-import { type Task as TaskType } from '@/types'
 import { useState } from 'react'
-import toast from 'react-hot-toast'
+import { useTaskPreviewModal } from '@/components/Modals/hooks'
+import { formatDate } from '@/helpers'
+import { useUpdateTask } from '@/hooks'
+import { type Task as TaskType } from '@/types'
 
 const priorityColor = {
 	1: 'bg-red-500',
@@ -16,14 +14,17 @@ const priorityColor = {
 }
 
 const Task = (task: TaskType) => {
-	const { refetch } = useTasks()
 	const [isHovering, setIsHovering] = useState(false)
+	const { open: openTaskPreviewModal } = useTaskPreviewModal()
+
+	const updateTask = useUpdateTask(task.id)
 
 	return (
 		<div
 			className={`relative mb-3 w-full rounded bg-blue px-8 py-4 duration-200 ${
 				isHovering ? 'pb-12' : ''
 			}`}
+			onClick={() => openTaskPreviewModal(task)}
 			onMouseEnter={() => setIsHovering(true)}
 			onMouseLeave={() => setIsHovering(false)}
 		>
@@ -48,16 +49,9 @@ const Task = (task: TaskType) => {
 			>
 				<button
 					className='h-6 w-28 cursor-pointer rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:bg-opacity-90 hover:text-blue'
-					onClick={() => {
-						const unCompleteTask = async () => {
-							await updateTaskQuery(task.id, { completed: false })
-							await refetch()
-						}
-						toast.promise(unCompleteTask(), {
-							success: 'Task status has been updated.',
-							error: 'Could not update task status.',
-							loading: 'Updating task status...'
-						})
+					onClick={(e) => {
+						e.stopPropagation()
+						updateTask({ completed: false })
 					}}
 				>
 					Uncomplete

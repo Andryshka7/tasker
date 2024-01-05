@@ -1,14 +1,13 @@
 'use client'
 
 import { useCreateTaskModal } from '@/components/Modals/hooks'
-import { Priority, type User } from '@/types'
+import { useAuth } from '@/hooks'
+import { useCreateTask } from '@/hooks'
+import { type Priority, type User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
 import { PrioritySelector, UserSelector } from './components'
-import { useAuth, useTasks } from '@/hooks'
-import { createTaskQuery } from '@/api/tasks'
-import toast from 'react-hot-toast'
 
 type FormFields = {
 	title: string
@@ -16,7 +15,6 @@ type FormFields = {
 }
 
 const Form = () => {
-	const { refetch } = useTasks()
 	const { data: me } = useAuth()
 	const [priority, setPriority] = useState<Priority>(1)
 	const [user, setUser] = useState<User | null>(null)
@@ -24,24 +22,16 @@ const Form = () => {
 	const { register, handleSubmit } = useForm<FormFields>()
 	const { close } = useCreateTaskModal()
 
-	const onSubmit = (data: FormFields) => {
-		const createTask = async () => {
-			await createTaskQuery({
-				...data,
-				priority,
-				user,
-				completed: false,
-				creator: me!,
-				due: new Date()
-			})
-			await refetch()
-			close()
-		}
+	const createTask = useCreateTask()
 
-		toast.promise(createTask(), {
-			success: 'Task has been created',
-			loading: 'Creating a task...',
-			error: 'Could not create a task!'
+	const onSubmit = (data: FormFields) => {
+		createTask({
+			...data,
+			priority,
+			user,
+			completed: false,
+			creator: me!,
+			due: new Date()
 		})
 	}
 

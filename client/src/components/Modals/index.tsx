@@ -1,7 +1,8 @@
+import ConfirmationModal from './Confirmation'
 import CreateTaskModal from './Create task'
 import CreateUserModal from './Create user'
 import EditUserModal from './Edit user'
-import ConfirmationModal from './Confirmation'
+import TaskPreview from './Task preview'
 
 const Modals = () => (
 	<>
@@ -9,6 +10,7 @@ const Modals = () => (
 		<CreateUserModal />
 		<EditUserModal />
 		<ConfirmationModal />
+		<TaskPreview />
 	</>
 )
 

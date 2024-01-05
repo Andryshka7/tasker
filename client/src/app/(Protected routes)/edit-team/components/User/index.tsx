@@ -4,11 +4,12 @@ import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RoleSelector } from './components'
 import { useAuth, useOptimistic, useUsers } from '@/hooks'
-import { deleteUserQuery, updateUserQuery } from '@/api/users'
+import { updateUserQuery } from '@/api/users'
 import { useConfirmationModal, useEditUserModal } from '@/components/Modals/hooks'
 import { Avatar } from '@/components/ui'
 import toast from 'react-hot-toast'
 import { type User as UserType } from '@/types'
+import { useDeleteUser, useUpdateUser } from '@/hooks'
 
 const User = (user: UserType) => {
 	const { data: auth } = useAuth()
@@ -17,14 +18,18 @@ const User = (user: UserType) => {
 	const { open: openEditUserModal } = useEditUserModal()
 	const { open: openConfirmationModal } = useConfirmationModal()
 
+	const updateUser = useUpdateUser(user.id)
+
 	const [role, setRole] = useOptimistic(
 		user.role,
 		async (role) => {
-			await updateUserQuery(user.id, { role })
+			await updateUser({ role })
 			await refetch()
 		},
 		() => toast.error('Could not update user role!')
 	)
+
+	const deleteUser = useDeleteUser(user.id)
 
 	return (
 		<div className='flex items-center justify-between rounded-md bg-blue px-8 py-5'>
@@ -50,17 +55,7 @@ const User = (user: UserType) => {
 								openConfirmationModal({
 									name: 'Delete user',
 									text: `Are you certain about your decision to exclude ${user.name} ${user.surname} from this team?`,
-									confirmAction: async () => {
-										const deleteUser = async () => {
-											await deleteUserQuery(user.id)
-											await refetch()
-										}
-										toast.promise(deleteUser(), {
-											success: 'User has been deleted.',
-											loading: 'Deleting user...',
-											error: 'Could not delete a user.'
-										})
-									}
+									confirmAction: deleteUser
 								})
 							}}
 						/>

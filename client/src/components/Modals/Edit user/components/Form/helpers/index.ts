@@ -4,6 +4,7 @@ const getUpdateFields = (
 	user: User,
 	data: Omit<User, 'id' | 'avatar'> & {
 		avatar: File | string | null
+		password: string
 	}
 ) => {
 	const updateFields: UpdateUserPayload = {}

@@ -10,7 +10,7 @@ export class TaskEntity {
 	@Column()
 	title: string
 
-	@Column()
+	@Column({ length: 500 })
 	description: string
 
 	@Column()

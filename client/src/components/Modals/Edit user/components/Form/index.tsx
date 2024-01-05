@@ -1,14 +1,12 @@
 'use client'
 
-import { IoClose } from 'react-icons/io5'
 import { useEditUserModal } from '@/components/Modals/hooks'
-import { AvatarInput, RoleSelector } from './components'
-import { useUsers } from '@/hooks'
+import { useUpdateUser } from '@/hooks'
 import { Role, User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { updateUserQuery } from '@/api/users'
-import toast from 'react-hot-toast'
+import { IoClose } from 'react-icons/io5'
+import { AvatarInput, RoleSelector } from './components'
 import { getUpdateFields } from './helpers'
 
 type FormFields = {
@@ -20,7 +18,6 @@ type FormFields = {
 }
 
 const Form = (user: User) => {
-	const { refetch } = useUsers()
 	const { close } = useEditUserModal()
 
 	const { watch, handleSubmit, register } = useForm<FormFields>({
@@ -37,20 +34,13 @@ const Form = (user: User) => {
 	const name = watch('name')
 	const surname = watch('surname')
 
-	const onSubmit = async (data: FormFields) => {
-		const updateUser = async () => {
-			const updateFields = getUpdateFields(user, { ...data, role, avatar })
-			await updateUserQuery(user.id, updateFields)
-			await refetch()
-			close()
-		}
+	const updateUser = useUpdateUser(user.id)
 
-		toast.promise(updateUser(), {
-			success: 'Successfully updated a user!',
-			loading: 'Updating a user...',
-			error: 'Could not update a user!'
-		})
+	const onSubmit = async (data: FormFields) => {
+		const updateFields = getUpdateFields(user, { ...data, role, avatar })
+		updateUser(updateFields)
 	}
+
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}

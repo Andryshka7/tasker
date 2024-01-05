@@ -17,7 +17,7 @@ const useCreateUserModal = create<CreateUserStore>()((set) => ({
 		set({ user, visible: true })
 	},
 	close: () => {
-		set({ visible: false })
+		set({ user: null, visible: false })
 	}
 }))
 

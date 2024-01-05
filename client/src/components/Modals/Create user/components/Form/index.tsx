@@ -1,14 +1,12 @@
 'use client'
 
 import { useCreateUserModal } from '@/components/Modals/hooks'
-import { createUserQuery } from '@/api/users'
-import { useUsers } from '@/hooks'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import { IoClose } from 'react-icons/io5'
 import { AvatarInput, RoleSelector } from './components'
 import { type Role } from '@/types'
+import { useCreateUser } from '@/hooks'
 
 type FormFields = {
 	name: string
@@ -19,7 +17,6 @@ type FormFields = {
 }
 
 const Form = () => {
-	const { refetch } = useUsers()
 	const { close } = useCreateUserModal()
 	const { watch, handleSubmit, register } = useForm<FormFields>()
 
@@ -29,18 +26,10 @@ const Form = () => {
 	const name = watch('name')
 	const surname = watch('surname')
 
-	const onSubmit = async (data: FormFields) => {
-		const createUser = async () => {
-			await createUserQuery({ ...data, role, avatar })
-			await refetch()
-			close()
-		}
+	const createUser = useCreateUser()
 
-		toast.promise(createUser(), {
-			success: 'Successfully created a user!',
-			loading: 'Creating a user...',
-			error: 'Could not create a user!'
-		})
+	const onSubmit = async (data: FormFields) => {
+		await createUser({ ...data, role, avatar })
 	}
 
 	return (
