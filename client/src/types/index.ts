@@ -26,7 +26,7 @@ interface Credentials {
 	password: string
 }
 
-type CreateTaskPayload = Omit<Task, 'id'>
+type CreateTaskPayload = Omit<Task, 'id' | 'completed'>
 
 type UpdateTaskPayload = Partial<Omit<Task, 'id'>>
 

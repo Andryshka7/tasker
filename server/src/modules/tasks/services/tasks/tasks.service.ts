@@ -13,10 +13,18 @@ export class TaskService {
 	) {}
 
 	async fetchTasks() {
-		return await this.tasksRepository.find({ relations: ['user', 'creator'] })
+		const tasks = await this.tasksRepository.find({ relations: ['user', 'creator'] })
+
+		return tasks.map((task) => {
+			if (task.user) {
+				const { password, ...user } = task.user
+				return { ...task, user }
+			}
+			return task
+		})
 	}
 
-	async createTask(taskDetails: Omit<Task, 'id' | 'creator'>, user: UserFromRequest) {
+	async createTask(taskDetails: Omit<Task, 'id' | 'creator' | 'completed'>, user: UserFromRequest) {
 		const creator = await this.usersRepository.findOneBy({ id: user.id })
 		const created = this.tasksRepository.create({ ...taskDetails, creator })
 		return await this.tasksRepository.save(created)

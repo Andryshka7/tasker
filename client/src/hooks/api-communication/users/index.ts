@@ -10,7 +10,6 @@ const useCreateUser = () => {
 		const createUser = async () => {
 			await createUserQuery(userDetails)
 			await refetch()
-			close()
 		}
 
 		toast.promise(createUser(), {
@@ -28,7 +27,6 @@ const useUpdateUser = (id: number) => {
 		const updateUser = async () => {
 			await updateUserQuery(id, updateUserPayload)
 			await refetch()
-			close()
 		}
 
 		toast.promise(updateUser(), {
@@ -41,6 +39,7 @@ const useUpdateUser = (id: number) => {
 
 const useDeleteUser = (id: number) => {
 	const { refetch } = useUsers()
+
 	return async () => {
 		const deleteUser = async () => {
 			await deleteUserQuery(id)

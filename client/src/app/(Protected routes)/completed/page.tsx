@@ -1,41 +1,26 @@
 'use client'
 
+import { Tasks } from '@/components/shared'
 import { useTasks } from '@/hooks'
-import { Task } from './components'
 
-const CompletedTasks = () => {
-	const { data: tasks } = useTasks()
+const Page = () => {
+	const { data } = useTasks()
 
-	const tasksJsx = tasks!
-		.filter((task) => task.completed)
-		.map((task, index) => <Task {...task} key={index} />)
+	const tasks = data!.filter((task) => task.completed)
 
 	return (
 		<div className='mx-10 lg:mx-12'>
-			{tasksJsx.length > 1 ? (
-				<div className='mt-28 flex flex-wrap justify-center'>
-					<div className='flex w-[500px] flex-col px-1.5 lg:w-3/4 2xl:w-1/2'>
-						<h1 className='absolute -translate-y-12 text-3xl font-bold'>Tasks</h1>
-						{tasksJsx.filter((_, index) => index % 2 === 0)}
-					</div>
-					<div className='flex w-[500px] flex-col px-1.5 pb-3 lg:w-3/4 2xl:w-1/2'>
-						{tasksJsx.filter((_, index) => index % 2 === 1)}
-					</div>
-				</div>
+			{tasks.length ? (
+				<Tasks tasks={tasks} title='Completed tasks' />
 			) : (
-				<div className='mx-auto mt-28 w-[500px] lg:w-3/4'>
-					<h1 className='absolute -translate-y-12 text-3xl font-bold'>Tasks</h1>
-					{tasksJsx}
+				<div className='mt-16 flex items-center justify-center'>
+					<h1 className='text-xl font-semibold'>
+						There is no completed tasks since this project started.
+					</h1>
 				</div>
-			)}
-
-			{!tasksJsx.length && (
-				<h3 className='text-center text-lg font-semibold'>
-					There is no completed tasks since the project started.
-				</h3>
 			)}
 		</div>
 	)
 }
 
-export default CompletedTasks
+export default Page

@@ -38,7 +38,8 @@ const Form = (user: User) => {
 
 	const onSubmit = async (data: FormFields) => {
 		const updateFields = getUpdateFields(user, { ...data, role, avatar })
-		updateUser(updateFields)
+		await updateUser(updateFields)
+		close()
 	}
 
 	return (

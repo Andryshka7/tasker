@@ -1,39 +1,38 @@
 'use client'
 
-import { useCreateTaskModal } from '@/components/Modals/hooks'
-import { useAuth } from '@/hooks'
-import { useCreateTask } from '@/hooks'
-import { type Priority, type User } from '@/types'
+import { useEditTaskModal } from '@/components/Modals/hooks'
+import { useUpdateTask } from '@/hooks'
+import { type Priority, type Task, type User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
 import { PrioritySelector, UserSelector } from './components'
+import { getUpdateFields } from './helpers'
 
 type FormFields = {
 	title: string
 	description: string
 }
 
-const Form = () => {
-	const { data: me } = useAuth()
-
-	const [priority, setPriority] = useState<Priority>(1)
-	const [user, setUser] = useState<User | null>(null)
+const Form = (task: Task) => {
+	const [priority, setPriority] = useState<Priority>(task.priority)
+	const [user, setUser] = useState<User | null>(task.user)
 	const [due, setDue] = useState<Date>(new Date())
 
-	const { register, handleSubmit } = useForm<FormFields>()
-	const { close } = useCreateTaskModal()
+	const updateTask = useUpdateTask(task.id)
 
-	const createTask = useCreateTask()
+	const { close } = useEditTaskModal()
+
+	const { register, handleSubmit } = useForm<FormFields>({
+		defaultValues: {
+			title: task.title,
+			description: task.description
+		}
+	})
 
 	const onSubmit = async (data: FormFields) => {
-		await createTask({
-			...data,
-			priority,
-			user,
-			creator: me!,
-			due
-		})
+		const updateFields = getUpdateFields(task, { ...data, priority, user, due })
+		await updateTask(updateFields)
 		close()
 	}
 
@@ -42,7 +41,7 @@ const Form = () => {
 			className='relative w-[820px] rounded-md bg-blue px-12 py-8'
 			onSubmit={handleSubmit(onSubmit)}
 		>
-			<h1 className='text-4xl font-bold'>Create task</h1>
+			<h1 className='text-4xl font-bold'>Edit task</h1>
 			<IoClose
 				onClick={close}
 				size={30}
@@ -70,7 +69,7 @@ const Form = () => {
 					type='submit'
 					className='h-8 w-40 rounded bg-green-600 text-lg font-semibold'
 				>
-					Create
+					Update
 				</button>
 				<button
 					onClick={close}

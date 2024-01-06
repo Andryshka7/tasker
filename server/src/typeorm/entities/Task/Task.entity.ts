@@ -16,7 +16,7 @@ export class TaskEntity {
 	@Column()
 	priority: Priority
 
-	@Column()
+	@Column({ default: false })
 	completed: boolean
 
 	@Column({ type: 'datetime' })

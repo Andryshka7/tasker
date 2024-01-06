@@ -30,6 +30,7 @@ const Form = () => {
 
 	const onSubmit = async (data: FormFields) => {
 		await createUser({ ...data, role, avatar })
+		close()
 	}
 
 	return (

@@ -12,9 +12,6 @@ export class CreateTaskDto {
 	priority: Priority
 
 	@IsNotEmpty()
-	completed: boolean
-
-	@IsNotEmpty()
 	due: Date
 
 	@IsOptional()

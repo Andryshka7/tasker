@@ -21,7 +21,7 @@ const useCalculateOptions = (selectedValue: User | null) => {
 	]
 
 	if (selectedValue) {
-		const index = options.findIndex(({ value }) => value === selectedValue)
+		const index = options.findIndex(({ value }) => value?.id === selectedValue.id)
 		swapElements(options, 0, index)
 	}
 

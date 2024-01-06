@@ -3,33 +3,24 @@
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RoleSelector } from './components'
-import { useAuth, useOptimistic, useUsers } from '@/hooks'
-import { updateUserQuery } from '@/api/users'
+import { useAuth, useOptimistic } from '@/hooks'
 import { useConfirmationModal, useEditUserModal } from '@/components/Modals/hooks'
 import { Avatar } from '@/components/ui'
-import toast from 'react-hot-toast'
 import { type User as UserType } from '@/types'
 import { useDeleteUser, useUpdateUser } from '@/hooks'
 
 const User = (user: UserType) => {
 	const { data: auth } = useAuth()
 
-	const { refetch } = useUsers()
 	const { open: openEditUserModal } = useEditUserModal()
 	const { open: openConfirmationModal } = useConfirmationModal()
 
 	const updateUser = useUpdateUser(user.id)
-
-	const [role, setRole] = useOptimistic(
-		user.role,
-		async (role) => {
-			await updateUser({ role })
-			await refetch()
-		},
-		() => toast.error('Could not update user role!')
-	)
-
 	const deleteUser = useDeleteUser(user.id)
+
+	const [role, setRole] = useOptimistic(user.role, async (role) => await updateUser({ role }))
+
+	console.log(role, user.role)
 
 	return (
 		<div className='flex items-center justify-between rounded-md bg-blue px-8 py-5'>
