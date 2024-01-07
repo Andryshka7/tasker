@@ -1,6 +1,6 @@
 import { createUserQuery, deleteUserQuery, updateUserQuery } from '@/api/users'
 import { useUsers } from '@/hooks'
-import { CreateUserPayload, UpdateUserPayload } from '@/types'
+import { type CreateUserPayload, type UpdateUserPayload } from '@/types'
 import toast from 'react-hot-toast'
 
 const useCreateUser = () => {

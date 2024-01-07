@@ -1,6 +1,19 @@
-export { default as useCreateTaskModal } from './useCreateTaskModal'
-export { default as useCreateUserModal } from './useCreateUserModal'
-export { default as useEditUserModal } from './useEditUserModal'
-export { default as useConfirmationModal } from './useConfirmationModal'
-export { default as useTaskPreviewModal } from './useTaskPreviewModal'
-export { default as useEditTaskModal } from './useEditTaskModal'
+import { type Task, type User } from '@/types'
+import { createDefaultHook, createParameterizedHook } from './helpers'
+import useConfirmationModal from './useConfirmationModal'
+
+const useCreateTaskModal = createDefaultHook()
+const useCreateUserModal = createDefaultHook()
+
+const useEditUserModal = createParameterizedHook<User>()
+const useEditTaskModal = createParameterizedHook<Task>()
+const useTaskPreviewModal = createParameterizedHook<Task>()
+
+export {
+	useCreateTaskModal,
+	useEditUserModal,
+	useConfirmationModal,
+	useTaskPreviewModal,
+	useEditTaskModal,
+	useCreateUserModal
+}

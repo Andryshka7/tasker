@@ -1,6 +1,6 @@
 import { createTaskQuery, deleteTaskQuery, updateTaskQuery } from '@/api/tasks'
 import { useTasks } from '@/hooks'
-import { CreateTaskPayload, UpdateTaskPayload } from '@/types'
+import { type CreateTaskPayload, type UpdateTaskPayload } from '@/types'
 import toast from 'react-hot-toast'
 
 const useCreateTask = () => {

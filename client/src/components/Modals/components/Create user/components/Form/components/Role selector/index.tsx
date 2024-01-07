@@ -1,20 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 import { type Role } from '@/types'
-import { useOptimistic, useUpdateUser } from '@/hooks'
 
 interface Props {
-	initialRole: Role
-	userId: number
+	role: Role
+	selectRole: Dispatch<SetStateAction<Role>>
 }
 
-const RoleSelector = ({ initialRole, userId }: Props) => {
+const RoleSelector = ({ role, selectRole }: Props) => {
 	const [open, setOpen] = useState(false)
-	const [role, setRole] = useOptimistic(initialRole, async (role) => await updateUser({ role }))
-
-	const updateUser = useUpdateUser(userId)
 
 	const options: Role[] = ['user', 'moderator', 'admin']
 	options[options.indexOf(role)] = options[0]
@@ -22,7 +18,7 @@ const RoleSelector = ({ initialRole, userId }: Props) => {
 
 	const handleSelect = (index: number) => {
 		if (open && index) {
-			setRole(options[index])
+			selectRole(options[index])
 		}
 		setOpen((open) => !open)
 	}
@@ -45,7 +41,7 @@ const RoleSelector = ({ initialRole, userId }: Props) => {
 	}
 
 	return (
-		<div className='relative h-7 w-32'>
+		<div className='relative mt-4 h-7 w-32'>
 			{options.map((role, index) => (
 				<div
 					key={index}

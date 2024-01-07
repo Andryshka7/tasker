@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { Menu, Logo } from '@/components/ui'
+import { DataProvider } from '@/components/Providers'
+import { Modals } from '@/components'
 
 const Layout = ({ children }: PropsWithChildren) => (
 	<div className='flex'>
@@ -7,7 +9,12 @@ const Layout = ({ children }: PropsWithChildren) => (
 			<Logo />
 			<Menu />
 		</div>
-		<main className='w-full'>{children}</main>
+		<main className='w-full'>
+			<DataProvider>
+				{children}
+				<Modals />
+			</DataProvider>
+		</main>
 	</div>
 )
 

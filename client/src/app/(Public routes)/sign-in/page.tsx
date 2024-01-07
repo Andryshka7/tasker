@@ -59,7 +59,7 @@ const Page = () => {
 				className='my-12 rounded bg-green-600 px-8 py-1 font-semibold duration-200 hover:bg-opacity-90 disabled:bg-opacity-80'
 				disabled={loading}
 			>
-				Login
+				Sign in
 			</button>
 		</form>
 	)

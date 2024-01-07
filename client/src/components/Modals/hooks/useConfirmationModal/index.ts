@@ -1,5 +1,3 @@
-'use client'
-
 import { create } from 'zustand'
 
 interface ConfirmationModalStore {
@@ -10,6 +8,7 @@ interface ConfirmationModalStore {
 	open: (configuration: { name: string; text: string; confirmAction: () => void }) => void
 	close: () => void
 }
+
 const useConfirmationModal = create<ConfirmationModalStore>()((set) => ({
 	visible: false,
 	name: null,

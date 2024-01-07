@@ -1,5 +1,5 @@
 import { server } from '@/config'
-import { User } from '@/types'
+import { type User } from '@/types'
 
 const fetchAuthQuery = async () => {
 	const response = await fetch(`${server}/auth`, { credentials: 'include' })

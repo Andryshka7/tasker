@@ -1,13 +1,12 @@
 'use client'
 
+import { useConfirmationModal, useEditUserModal } from '@/components/Modals/hooks'
+import { Avatar } from '@/components/ui'
+import { useAuth, useDeleteUser } from '@/hooks'
+import { type User as UserType } from '@/types'
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RoleSelector } from './components'
-import { useAuth, useOptimistic } from '@/hooks'
-import { useConfirmationModal, useEditUserModal } from '@/components/Modals/hooks'
-import { Avatar } from '@/components/ui'
-import { type User as UserType } from '@/types'
-import { useDeleteUser, useUpdateUser } from '@/hooks'
 
 const User = (user: UserType) => {
 	const { data: auth } = useAuth()
@@ -15,12 +14,7 @@ const User = (user: UserType) => {
 	const { open: openEditUserModal } = useEditUserModal()
 	const { open: openConfirmationModal } = useConfirmationModal()
 
-	const updateUser = useUpdateUser(user.id)
 	const deleteUser = useDeleteUser(user.id)
-
-	const [role, setRole] = useOptimistic(user.role, async (role) => await updateUser({ role }))
-
-	console.log(role, user.role)
 
 	return (
 		<div className='flex items-center justify-between rounded-md bg-blue px-8 py-5'>
@@ -31,7 +25,7 @@ const User = (user: UserType) => {
 				</h3>
 			</div>
 			<div className='flex w-5/12 items-center justify-between'>
-				<RoleSelector role={role} selectRole={setRole} />
+				<RoleSelector initialRole={user.role} userId={user.id} key={user.role} />
 				<div className='flex items-center'>
 					<BiEditAlt
 						size={30}

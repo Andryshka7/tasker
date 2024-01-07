@@ -1,5 +1,5 @@
-import { type CreateUserPayload } from '@/types'
 import { server } from '@/config'
+import { type CreateUserPayload } from '@/types'
 
 const createUserQuery = async ({
 	name,

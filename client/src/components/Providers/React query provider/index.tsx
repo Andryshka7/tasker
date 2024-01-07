@@ -5,7 +5,6 @@ import { PropsWithChildren, useState } from 'react'
 
 const ReactQueryProvider = ({ children }: PropsWithChildren) => {
 	const [queryClient] = useState(() => new QueryClient())
-
 	return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 }
 

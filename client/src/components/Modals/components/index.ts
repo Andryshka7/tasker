@@ -1,1 +1,6 @@
-export { default as Modal } from './Modal'
+export { default as CreateUserModal } from './Create user'
+export { default as EditUserModal } from './Edit user'
+export { default as TaskPreview } from './Task preview'
+export { default as CreateTaskModal } from './Create task'
+export { default as EditTaskModal } from './Edit task'
+export { default as ConfirmationModal } from './Confirmation'
