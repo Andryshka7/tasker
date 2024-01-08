@@ -14,4 +14,6 @@ const swapElements = <T>(array: T[], x: number, y: number) => {
 	array[y] = temporary
 }
 
-export { formatDate, swapElements }
+const capitalize = (string: string) => string[0].toLocaleUpperCase() + string.slice(1)
+
+export { formatDate, swapElements, capitalize }

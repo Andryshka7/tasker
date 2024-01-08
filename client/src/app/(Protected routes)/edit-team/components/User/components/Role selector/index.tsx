@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 import { type Role } from '@/types'
 import { useOptimistic, useUpdateUser } from '@/hooks'
+import { capitalize } from '@/helpers'
 
 interface Props {
 	initialRole: Role
@@ -52,7 +53,7 @@ const RoleSelector = ({ initialRole, userId }: Props) => {
 					className={getOptionStyle(index)}
 					onClick={() => handleSelect(index)}
 				>
-					{role[0].toUpperCase() + role.slice(1)}
+					{capitalize(role)}
 				</div>
 			))}
 			<TiArrowSortedDown
