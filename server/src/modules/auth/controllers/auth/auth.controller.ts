@@ -26,6 +26,7 @@ export class AuthController {
 		const { accessToken, refreshToken } = await this.tokensService.generateTokens(user)
 
 		const tokenExists = await this.tokensService.tokenExists({ user })
+
 		if (tokenExists) {
 			await this.tokensService.updateRefreshToken(refreshToken, user)
 		} else {

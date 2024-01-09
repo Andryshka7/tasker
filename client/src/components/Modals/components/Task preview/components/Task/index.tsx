@@ -55,7 +55,7 @@ const Task = (task: TaskType) => {
 					<button
 						className='h-6 w-28 cursor-pointer rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:bg-opacity-90 hover:text-blue'
 						onClick={async () => {
-							await updateTask({ completed: false })
+							await updateTask({ completed: null })
 							close()
 						}}
 					>
@@ -67,7 +67,7 @@ const Task = (task: TaskType) => {
 					<button
 						className='h-7 w-20 cursor-pointer rounded bg-green-600 text-sm font-semibold duration-200 hover:bg-opacity-90'
 						onClick={async () => {
-							await updateTask({ completed: true })
+							await updateTask({ completed: new Date().toISOString() })
 							close()
 						}}
 					>

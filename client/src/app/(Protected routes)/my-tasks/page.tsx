@@ -7,7 +7,7 @@ const Page = () => {
 	const { data: me } = useAuth()
 	const { data } = useTasks()
 
-	const tasks = data!.filter((task) => task.user?.id === me!.id)
+	const tasks = data!.filter(({ user, completed }) => !completed && user?.id === me!.id)
 
 	return (
 		<div className='mx-10 lg:mx-12'>

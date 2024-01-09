@@ -22,7 +22,10 @@ export class UserEntity {
 	@Column()
 	role: Role
 
-	@Column({ nullable: true })
+	@Column({ default: null })
+	lastActive: string
+
+	@Column({ default: null })
 	avatar: string
 
 	@OneToMany(() => TaskEntity, (task) => task.user)

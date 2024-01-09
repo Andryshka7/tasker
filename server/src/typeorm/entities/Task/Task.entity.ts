@@ -16,11 +16,11 @@ export class TaskEntity {
 	@Column()
 	priority: Priority
 
-	@Column({ default: false })
-	completed: boolean
+	@Column({ default: null })
+	completed: string
 
-	@Column({ type: 'datetime' })
-	due: Date
+	@Column()
+	due: string
 
 	@ManyToOne(() => UserEntity, (user) => user.tasks)
 	user: UserEntity

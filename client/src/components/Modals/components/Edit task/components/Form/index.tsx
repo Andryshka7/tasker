@@ -17,7 +17,7 @@ type FormFields = {
 const Form = (task: Task) => {
 	const [priority, setPriority] = useState<Priority>(task.priority)
 	const [user, setUser] = useState<User | null>(task.user)
-	const [due, setDue] = useState<Date>(new Date())
+	const [due, setDue] = useState<string>(new Date().toISOString())
 
 	const updateTask = useUpdateTask(task.id)
 

@@ -6,8 +6,8 @@ interface Task {
 	title: string
 	description: string
 	priority: Priority
-	completed: boolean
-	due: Date
+	completed: string | null
+	due: string
 	user: User
 	creator: User
 }
@@ -19,20 +19,28 @@ interface User {
 	email: string
 	role: Role
 	password: string
+	lastActive: null | string
 	avatar: string | null
 	tasks: Task[]
 	createdTasks: Task[]
 }
 
+interface Credentials {
+	email: string
+	password: string
+}
+
 type UserFromRequest = Pick<User, 'id' | 'email' | 'role'>
 
-type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks'> & {
+type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks' | 'lastActive'> & {
 	avatar: string | null
 }
 
-type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks'> & {
+type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks' | 'lastActive'> & {
 	avatar: string | null
 }
+
+type CreateTaskPayload = Omit<Task, 'id' | 'creator' | 'completed'>
 
 interface RefreshToken {
 	token: string
@@ -52,9 +60,11 @@ export {
 	type Priority,
 	type Task,
 	type User,
+	type Credentials,
 	type UserFromRequest,
 	type RefreshToken,
 	type JwtPayload,
 	type CreateUserPayload,
-	type UpdateUserPayload
+	type UpdateUserPayload,
+	type CreateTaskPayload
 }

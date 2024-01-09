@@ -12,7 +12,7 @@ export class CreateTaskDto {
 	priority: Priority
 
 	@IsNotEmpty()
-	due: Date
+	due: string
 
 	@IsOptional()
 	user: User

@@ -19,7 +19,7 @@ const Form = () => {
 
 	const [priority, setPriority] = useState<Priority>(1)
 	const [user, setUser] = useState<User | null>(null)
-	const [due, setDue] = useState<Date>(new Date())
+	const [due, setDue] = useState<string>(new Date().toISOString())
 
 	const { register, handleSubmit } = useForm<FormFields>()
 	const { close } = useCreateTaskModal()

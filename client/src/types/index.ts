@@ -6,8 +6,8 @@ interface Task {
 	title: string
 	description: string
 	priority: Priority
-	completed: boolean
-	due: Date
+	completed: string | null
+	due: string
 	user: User | null
 	creator: User
 }
@@ -18,6 +18,7 @@ interface User {
 	surname: string
 	email: string
 	role: Role
+	lastActive: string | null
 	avatar: string | null
 }
 
@@ -30,11 +31,11 @@ type CreateTaskPayload = Omit<Task, 'id' | 'completed'>
 
 type UpdateTaskPayload = Partial<Omit<Task, 'id'>>
 
-type CreateUserPayload = Omit<User, 'avatar' | 'id'> & {
+type CreateUserPayload = Omit<User, 'avatar' | 'id' | 'lastActive'> & {
 	avatar: File | null
 	password: string
 }
-type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar'>> & {
+type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar' | 'lastActive'>> & {
 	avatar?: File | null
 	removeAvatar?: string
 	password?: string

@@ -4,11 +4,10 @@ import { CreateTaskDto } from '../../dtos/CreateTask/CreateTask.dto'
 @Injectable()
 export class ValidateTaskPipe implements PipeTransform {
 	transform(task: CreateTaskDto) {
-		const { priority, due } = task
+		const { priority } = task
 		const transformed = {
 			...task,
-			priority: priority ? Number(priority) : undefined,
-			due: due ? new Date(due) : undefined
+			priority: priority ? Number(priority) : undefined
 		}
 
 		return transformed

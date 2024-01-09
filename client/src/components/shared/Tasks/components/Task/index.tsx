@@ -66,7 +66,7 @@ const Task = (task: TaskType) => {
 						className='h-6 w-28 cursor-pointer rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:bg-opacity-90 hover:text-blue'
 						onClick={(e) => {
 							e.stopPropagation()
-							updateTask({ completed: false })
+							updateTask({ completed: null })
 						}}
 					>
 						Uncomplete
@@ -82,7 +82,7 @@ const Task = (task: TaskType) => {
 						className='h-6 w-16 rounded bg-green-600 text-sm font-semibold duration-200 hover:bg-opacity-90'
 						onClick={(e) => {
 							e.stopPropagation()
-							updateTask({ completed: true })
+							updateTask({ completed: new Date().toISOString() })
 						}}
 					>
 						Done
