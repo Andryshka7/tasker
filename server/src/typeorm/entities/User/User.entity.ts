@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { TaskEntity } from '..'
-import { Role } from 'types'
+import { type Role } from 'types'
 
 @Entity({ name: 'users' })
 export class UserEntity {

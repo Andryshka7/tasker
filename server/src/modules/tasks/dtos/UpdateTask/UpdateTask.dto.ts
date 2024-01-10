@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator'
+import { IsOptional } from 'class-validator'
 import { type Priority, type User } from 'types'
 
 export class UpdateTaskDto {

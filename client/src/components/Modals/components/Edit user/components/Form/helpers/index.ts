@@ -2,7 +2,7 @@ import { type UpdateUserPayload, type User } from '@/types'
 
 const getUpdateFields = (
 	user: User,
-	data: Omit<User, 'id' | 'avatar'> & {
+	data: Omit<User, 'id' | 'avatar' | 'lastActive'> & {
 		avatar: File | string | null
 		password: string
 	}

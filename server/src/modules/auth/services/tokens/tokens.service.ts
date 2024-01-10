@@ -4,13 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { compare, hash } from 'bcrypt'
 import { jwt_secret } from 'config'
 import { Repository } from 'typeorm'
-import { RefreshTokenEntity, UserEntity } from 'typeorm/entities'
-import { type UserFromRequest, type RefreshToken, type User } from 'types'
+import { RefreshTokenEntity } from 'typeorm/entities'
+import { type RefreshToken, type User } from 'types'
 
 @Injectable()
 export class TokensService {
 	constructor(
-		@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>,
 		@InjectRepository(RefreshTokenEntity) private refreshTokensRepository: Repository<RefreshTokenEntity>,
 		private jwtService: JwtService
 	) {}
@@ -30,9 +29,9 @@ export class TokensService {
 		return { accessToken, refreshToken }
 	}
 
-	async updateRefreshToken(refreshToken: string, user: UserFromRequest) {
+	async updateRefreshToken(refreshToken: string, user: Partial<User>) {
 		const token = await hash(refreshToken, 10)
-		await this.refreshTokensRepository.update({ user }, { token, user })
+		await this.refreshTokensRepository.update({ user }, { token })
 	}
 
 	async saveRefreshToken(refreshToken: string, user: User) {
@@ -45,7 +44,7 @@ export class TokensService {
 		await this.refreshTokensRepository.delete(details)
 	}
 
-	async tokenExists({ refreshToken, user }: { refreshToken?: string; user: UserFromRequest }) {
+	async tokenExists({ refreshToken, user }: { refreshToken?: string; user: Partial<User> }) {
 		const tokenInstance = await this.refreshTokensRepository.findOneBy({ user })
 
 		if (!tokenInstance) {

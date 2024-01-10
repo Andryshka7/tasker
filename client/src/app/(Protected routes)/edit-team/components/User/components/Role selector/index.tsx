@@ -4,18 +4,22 @@ import { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 import { type Role } from '@/types'
 import { useOptimistic, useUpdateUser } from '@/hooks'
-import { capitalize } from '@/helpers'
+import { capitalize, roleColors } from '@/helpers'
 
-interface Props {
+type Props = {
 	initialRole: Role
 	userId: number
+	editable?: boolean
 }
 
-const RoleSelector = ({ initialRole, userId }: Props) => {
+const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
 	const [open, setOpen] = useState(false)
-	const [role, setRole] = useOptimistic(initialRole, async (role) => await updateUser({ role }))
+	const [role, selectRole] = useOptimistic(
+		initialRole,
+		async (role) => await updateUser({ role })
+	)
 
-	const updateUser = useUpdateUser(userId)
+	const updateUser = useUpdateUser(userId as number)
 
 	const options: Role[] = ['user', 'moderator', 'admin']
 	options[options.indexOf(role)] = options[0]
@@ -23,7 +27,7 @@ const RoleSelector = ({ initialRole, userId }: Props) => {
 
 	const handleSelect = (index: number) => {
 		if (open && index) {
-			setRole(options[index])
+			selectRole(options[index])
 		}
 		setOpen((open) => !open)
 	}
@@ -31,12 +35,7 @@ const RoleSelector = ({ initialRole, userId }: Props) => {
 	const getOptionStyle = (index: number) => {
 		const visibility = !open && index > 0 ? 'hidden' : 'visible'
 
-		const colors = {
-			admin: 'bg-orange-500',
-			moderator: 'bg-purple-600',
-			user: 'bg-green-600'
-		}
-		const color = colors[options[index]]
+		const color = roleColors[options[index]]
 
 		let rounded = !open ? 'rounded-md' : ''
 		if (open && index === 0) rounded += 'rounded-t-md'
@@ -45,7 +44,7 @@ const RoleSelector = ({ initialRole, userId }: Props) => {
 		return `flex w-full h-full font-semibold text-xs cursor-pointer items-center justify-center ${color} ${visibility} ${rounded}`
 	}
 
-	return (
+	return editable ? (
 		<div className='relative h-7 w-32'>
 			{options.map((role, index) => (
 				<div
@@ -62,6 +61,12 @@ const RoleSelector = ({ initialRole, userId }: Props) => {
 					open ? 'rotate-180' : ''
 				}`}
 			/>
+		</div>
+	) : (
+		<div
+			className={`flex h-7 w-32 items-center justify-center rounded-md text-xs font-semibold ${roleColors[role]}`}
+		>
+			{capitalize(role)}
 		</div>
 	)
 }

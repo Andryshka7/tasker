@@ -1,8 +1,8 @@
 'use client'
 
 import { useEditUserModal } from '@/components/Modals/hooks'
-import { useUpdateUser } from '@/hooks'
-import { Role, User } from '@/types'
+import { useAuth, useUpdateUser } from '@/hooks'
+import { type Role, type User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
@@ -18,6 +18,7 @@ type FormFields = {
 }
 
 const Form = (user: User) => {
+	const { data: me } = useAuth()
 	const { close } = useEditUserModal()
 
 	const { watch, handleSubmit, register } = useForm<FormFields>({
@@ -59,7 +60,11 @@ const Form = (user: User) => {
 				<h1 className='mt-3 text-3xl font-bold'>
 					{name || 'Name'} {surname || 'Surname'}
 				</h1>
-				<RoleSelector role={role} selectRole={setRole} />
+				<RoleSelector
+					role={role}
+					editable={user.id !== me?.id && user.role !== 'admin'}
+					selectRole={setRole}
+				/>
 			</div>
 
 			<div>

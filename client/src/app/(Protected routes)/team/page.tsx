@@ -8,8 +8,6 @@ const Page = () => {
 	const { data: tasks } = useTasks()
 	const { data: users } = useUsers()
 
-	console.log(tasks)
-
 	const completedTasks = tasks!.filter(({ completed }) => completed)
 	const completedToday = tasks!.filter(({ completed }) => completed && isToday(completed))
 	const peopleActiveToday = users!.filter(({ lastActive }) => lastActive && isToday(lastActive))

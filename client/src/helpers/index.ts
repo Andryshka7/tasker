@@ -1,3 +1,9 @@
+const roleColors = {
+	admin: 'bg-orange-500',
+	moderator: 'bg-purple-600',
+	user: 'bg-green-600'
+}
+
 const capitalize = (string: string) => string[0].toLocaleUpperCase() + string.slice(1)
 
 const isToday = (date: string) => new Date(date).toDateString() === new Date().toDateString()
@@ -17,4 +23,4 @@ const formatDate = (date: string) => {
 	return isToday(date) ? 'Today' : `${day} ${month}`
 }
 
-export { formatDate, swapElements, isToday, capitalize }
+export { roleColors, formatDate, swapElements, isToday, capitalize }

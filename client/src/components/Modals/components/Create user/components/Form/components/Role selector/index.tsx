@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 import { type Role } from '@/types'
-import { capitalize } from '@/helpers'
+import { capitalize, roleColors } from '@/helpers'
 
 interface Props {
 	role: Role
@@ -27,12 +27,7 @@ const RoleSelector = ({ role, selectRole }: Props) => {
 	const getOptionStyle = (index: number) => {
 		const visibility = !open && index > 0 ? 'hidden' : 'visible'
 
-		const colors = {
-			admin: 'bg-orange-500',
-			moderator: 'bg-purple-600',
-			user: 'bg-green-600'
-		}
-		const color = colors[options[index]]
+		const color = roleColors[options[index]]
 
 		let rounded = !open ? 'rounded-md' : ''
 		if (open && index === 0) rounded += 'rounded-t-md'

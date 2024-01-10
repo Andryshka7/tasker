@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid'
 import { CreateUserDto, UpdateUserDto } from 'modules/users/dtos'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities/User/User.entity'
-import { UpdateUserPayload } from 'types'
+import { type UpdateUserPayload } from 'types'
 import { server } from 'config'
 
 @Injectable()

@@ -1,16 +1,17 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 import { type Role } from '@/types'
-import { capitalize } from '@/helpers'
+import { capitalize, roleColors } from '@/helpers'
 
 interface Props {
 	role: Role
+	editable?: boolean
 	selectRole: (role: Role) => void
 }
 
-const RoleSelector = ({ role, selectRole }: Props) => {
+const RoleSelector = ({ role, editable = true, selectRole }: Props) => {
 	const [open, setOpen] = useState(false)
 
 	const options: Role[] = ['user', 'moderator', 'admin']
@@ -41,7 +42,7 @@ const RoleSelector = ({ role, selectRole }: Props) => {
 		return `flex w-full h-full font-semibold text-xs cursor-pointer items-center justify-center ${color} ${visibility} ${rounded}`
 	}
 
-	return (
+	return editable ? (
 		<div className='relative mt-4 h-7 w-32'>
 			{options.map((role, index) => (
 				<div
@@ -58,6 +59,12 @@ const RoleSelector = ({ role, selectRole }: Props) => {
 					open ? 'rotate-180' : ''
 				}`}
 			/>
+		</div>
+	) : (
+		<div
+			className={`mt-4 flex h-7 w-32 items-center justify-center rounded-md text-xs font-semibold ${roleColors[role]}`}
+		>
+			{capitalize(role)}
 		</div>
 	)
 }

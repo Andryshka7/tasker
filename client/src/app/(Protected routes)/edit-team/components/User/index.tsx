@@ -9,12 +9,14 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { RoleSelector } from './components'
 
 const User = (user: UserType) => {
-	const { data: auth } = useAuth()
+	const { data: me } = useAuth()
 
 	const { open: openEditUserModal } = useEditUserModal()
 	const { open: openConfirmationModal } = useConfirmationModal()
 
 	const deleteUser = useDeleteUser(user.id)
+
+	const allowEditRole = me!.role !== 'user' && user.id !== me?.id && user.role !== 'admin'
 
 	return (
 		<div className='flex items-center justify-between rounded-md bg-blue px-8 py-5'>
@@ -25,14 +27,19 @@ const User = (user: UserType) => {
 				</h3>
 			</div>
 			<div className='flex w-5/12 items-center justify-between'>
-				<RoleSelector initialRole={user.role} userId={user.id} key={user.role} />
+				<RoleSelector
+					initialRole={user.role}
+					editable={allowEditRole}
+					userId={user.id}
+					key={user.role}
+				/>
 				<div className='flex items-center'>
 					<BiEditAlt
 						size={30}
 						className='cursor-pointer'
 						onClick={() => openEditUserModal(user)}
 					/>
-					{user.id !== auth!.id && (
+					{user.id !== me!.id && (
 						<MdDeleteOutline
 							size={30}
 							className='cursor-pointer'
