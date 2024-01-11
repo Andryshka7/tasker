@@ -43,6 +43,8 @@ const Form = (user: User) => {
 		close()
 	}
 
+	const allowEditRole = user.id !== me?.id && user.role !== 'admin'
+
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
@@ -62,7 +64,7 @@ const Form = (user: User) => {
 				</h1>
 				<RoleSelector
 					role={role}
-					editable={user.id !== me?.id && user.role !== 'admin'}
+					editable={allowEditRole}
 					selectRole={setRole}
 				/>
 			</div>

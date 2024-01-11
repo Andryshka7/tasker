@@ -7,8 +7,8 @@ import { AuthService, TokensService } from './services'
 import { AuthController } from './controllers'
 
 @Module({
-    imports: [TypeOrmModule.forFeature([UserEntity, RefreshTokenEntity]), JwtModule.register({})],
-    providers: [AuthService, TokensService, AccessTokenStrategy, RefreshTokenStrategy],
-    controllers: [AuthController]
+	imports: [TypeOrmModule.forFeature([UserEntity, RefreshTokenEntity]), JwtModule.register({})],
+	providers: [AuthService, TokensService, AccessTokenStrategy, RefreshTokenStrategy],
+	controllers: [AuthController]
 })
 export class AuthModule {}

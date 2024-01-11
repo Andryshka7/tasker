@@ -28,9 +28,9 @@ export class AuthController {
 		const tokenExists = await this.tokensService.tokenExists({ user })
 
 		if (tokenExists) {
-			await this.tokensService.updateRefreshToken(refreshToken, user)
+			await this.tokensService.updateRefreshToken(refreshToken, user.id)
 		} else {
-			await this.tokensService.saveRefreshToken(refreshToken, user)
+			await this.tokensService.saveRefreshToken({ token: refreshToken, user })
 		}
 
 		response.cookie('accessToken', accessToken, {
@@ -55,7 +55,7 @@ export class AuthController {
 		if (!tokenExists) {
 			throw new HttpException('Refresh token malformed', HttpStatus.BAD_REQUEST)
 		}
-		await this.tokensService.updateRefreshToken(refreshToken, user)
+		await this.tokensService.updateRefreshToken(refreshToken, user.id)
 	}
 
 	@Post('signout')

@@ -29,12 +29,12 @@ export class TokensService {
 		return { accessToken, refreshToken }
 	}
 
-	async updateRefreshToken(refreshToken: string, user: Partial<User>) {
+	async updateRefreshToken(refreshToken: string, id: number) {
 		const token = await hash(refreshToken, 10)
-		await this.refreshTokensRepository.update({ user }, { token })
+		await this.refreshTokensRepository.update({ id }, { token })
 	}
 
-	async saveRefreshToken(refreshToken: string, user: User) {
+	async saveRefreshToken({ token: refreshToken, user }: RefreshToken) {
 		const token = await hash(refreshToken, 10)
 		const created = await this.refreshTokensRepository.create({ token, user })
 		await this.refreshTokensRepository.save(created)
@@ -45,7 +45,7 @@ export class TokensService {
 	}
 
 	async tokenExists({ refreshToken, user }: { refreshToken?: string; user: Partial<User> }) {
-		const tokenInstance = await this.refreshTokensRepository.findOneBy({ user })
+		const tokenInstance = await this.refreshTokensRepository.findOneBy({ user: { id: user.id } })
 
 		if (!tokenInstance) {
 			return false
