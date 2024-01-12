@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { TaskEntity } from '..'
-import { type Role } from 'types'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Role } from 'types'
+
+import { TaskEntity } from '../'
 
 @Entity({ name: 'users' })
 export class UserEntity {

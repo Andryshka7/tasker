@@ -1,10 +1,14 @@
-import { Response } from 'express'
-import { Res, Body, Get, Post, Controller, UseGuards, HttpException, HttpStatus } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
 import { GetRefreshToken, GetUser } from 'common/decorators'
+import { Response } from 'express'
 import { SignInDto } from 'modules/auth/dtos'
-import { TokensService, AuthService } from '../../services'
-import { type UserFromRequest, type User } from 'types'
+import { User, UserFromRequest } from 'types'
+
+import {
+	Body, Controller, Get, HttpException, HttpStatus, Post, Res, UseGuards
+} from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
+
+import { AuthService, TokensService } from '../../services'
 
 @Controller('auth')
 export class AuthController {

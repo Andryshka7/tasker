@@ -1,9 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
+import { compare } from 'bcrypt'
 import { Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities'
-import { type Credentials } from 'types'
-import { compare } from 'bcrypt'
+import { Credentials } from 'types'
+
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 
 @Injectable()
 export class AuthService {

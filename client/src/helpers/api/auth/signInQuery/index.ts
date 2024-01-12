@@ -1,5 +1,5 @@
 import { server } from '@/config'
-import { type Credentials } from '@/types'
+import { Credentials } from '@/types'
 
 const signInQuery = async (credentials: Credentials) => {
 	const response = await fetch(`${server}/auth`, {

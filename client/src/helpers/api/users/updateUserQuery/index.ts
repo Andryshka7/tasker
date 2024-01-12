@@ -1,5 +1,5 @@
 import { server } from '@/config'
-import { type UpdateUserPayload } from '@/types'
+import { UpdateUserPayload } from '@/types'
 
 const updateUserQuery = async (id: number, updateFields: UpdateUserPayload) => {
 	const formData = new FormData()

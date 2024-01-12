@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
-import { InjectRepository } from '@nestjs/typeorm'
 import { compare, hash } from 'bcrypt'
 import { jwt_secret } from 'config'
 import { Repository } from 'typeorm'
 import { RefreshTokenEntity } from 'typeorm/entities'
-import { type RefreshToken, type User } from 'types'
+import { RefreshToken, User } from 'types'
+
+import { Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { InjectRepository } from '@nestjs/typeorm'
 
 @Injectable()
 export class TokensService {

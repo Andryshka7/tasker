@@ -1,21 +1,20 @@
 import { PropsWithChildren } from 'react'
-import { Menu, Logo } from '@/components/ui'
-import { DataProvider } from '@/components/Providers'
+
 import { Modals } from '@/components'
+import { DataProvider } from '@/components/Providers'
+import { Logo, Menu } from '@/components/ui'
 
 const Layout = ({ children }: PropsWithChildren) => (
-	<div className='flex'>
-		<div>
-			<Logo />
-			<Menu />
+	<DataProvider>
+		<div className='flex'>
+			<div>
+				<Logo />
+				<Menu />
+			</div>
+			<main className='w-full'>{children}</main>
 		</div>
-		<main className='w-full'>
-			<DataProvider>
-				{children}
-				<Modals />
-			</DataProvider>
-		</main>
-	</div>
+		<Modals />
+	</DataProvider>
 )
 
 export default Layout

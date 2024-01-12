@@ -1,11 +1,13 @@
 'use client'
 
-import { useEditTaskModal } from '@/components/Modals/hooks'
-import { useUpdateTask } from '@/hooks'
-import { type Priority, type Task, type User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
+
+import { useEditTaskModal } from '@/components/Modals/hooks'
+import { useUpdateTask } from '@/hooks'
+import { Priority, Task, User } from '@/types'
+
 import { PrioritySelector, UserSelector } from './components'
 import { getUpdateFields } from './helpers'
 

@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
-import { type Role } from 'types'
+import { Role } from 'types'
 
 export class CreateUserDto {
 	@IsNotEmpty()

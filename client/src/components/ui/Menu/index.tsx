@@ -1,17 +1,25 @@
 'use client'
 
+import { AiFillBug } from 'react-icons/ai'
+import { BiHelpCircle, BiMessageSquareAdd, BiMessageSquareEdit } from 'react-icons/bi'
+import { FaSignOutAlt } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
+import { IoPeopleSharp } from 'react-icons/io5'
 import { LuCalendarRange } from 'react-icons/lu'
 import { RiFileListLine } from 'react-icons/ri'
 import { TbSquareCheck } from 'react-icons/tb'
-import { AiFillBug } from 'react-icons/ai'
-import { IoPeopleSharp } from 'react-icons/io5'
-import { BiMessageSquareEdit, BiHelpCircle, BiMessageSquareAdd } from 'react-icons/bi'
-import { Search, MenuItem, SignOut } from './components'
+
 import { useCreateTaskModal } from '@/components/Modals/hooks'
+import { useAuth } from '@/hooks'
+import { useSignOut } from '@/hooks/api-communication/auth'
+
+import { MenuItem } from './components'
 
 const Menu = () => {
+	const { data: me } = useAuth()
 	const { open: openCreateTaskModal } = useCreateTaskModal()
+
+	const signOut = useSignOut()
 
 	return (
 		<menu className='mt-20 w-64 rounded-r-lg bg-blue px-8 py-4'>
@@ -19,7 +27,6 @@ const Menu = () => {
 				<h2 className='text-xl font-bold'>Menu</h2>
 				<HiMenu size={25} />
 			</div>
-			<Search />
 			<h3 className='mt-4 text-xs font-bold'>TASKS</h3>
 			<div className='my-1'>
 				<MenuItem icon={LuCalendarRange} title='Task list' to='/' />
@@ -34,14 +41,22 @@ const Menu = () => {
 			<h3 className='mt-4 text-xs font-bold'>TEAM</h3>
 			<div className='my-1'>
 				<MenuItem icon={IoPeopleSharp} title='Team' to='/team' />
-				<MenuItem icon={BiMessageSquareEdit} title='Edit team' to='/edit-team' />
+				{me!.role !== 'user' && (
+					<MenuItem icon={BiMessageSquareEdit} title='Edit team' to='/edit-team' />
+				)}
 			</div>
 			<h3 className='mt-4 text-xs font-bold'>TOOLS</h3>
 			<div className='my-1'>
 				<MenuItem icon={BiHelpCircle} title='About tasker' to='/about' />
 				<MenuItem icon={AiFillBug} title='Report a bug' action={() => {}} />
 			</div>
-			<SignOut />
+			<div
+				className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2'
+				onClick={signOut}
+			>
+				<FaSignOutAlt size={20} />
+				<h3 className='font-bold'>Sign out</h3>
+			</div>
 		</menu>
 	)
 }

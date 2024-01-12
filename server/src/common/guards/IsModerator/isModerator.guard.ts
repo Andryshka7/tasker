@@ -1,5 +1,6 @@
+import { User } from 'types'
+
 import { CanActivate, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common'
-import { type User } from 'types'
 
 export class IsModeratorGuard implements CanActivate {
 	canActivate(context: ExecutionContext) {

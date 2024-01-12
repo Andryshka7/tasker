@@ -2,7 +2,7 @@
 
 import { swapElements } from '@/helpers'
 import { useUsers } from '@/hooks'
-import { type User } from '@/types'
+import { User } from '@/types'
 
 const useCalculateOptions = (selectedValue: User | null) => {
 	const { data: users } = useUsers()

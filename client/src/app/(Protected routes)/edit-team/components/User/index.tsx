@@ -1,11 +1,13 @@
 'use client'
 
+import { BiEditAlt } from 'react-icons/bi'
+import { MdDeleteOutline } from 'react-icons/md'
+
 import { useConfirmationModal, useEditUserModal } from '@/components/Modals/hooks'
 import { Avatar } from '@/components/ui'
 import { useAuth, useDeleteUser } from '@/hooks'
-import { type User as UserType } from '@/types'
-import { BiEditAlt } from 'react-icons/bi'
-import { MdDeleteOutline } from 'react-icons/md'
+import { User as UserType } from '@/types'
+
 import { RoleSelector } from './components'
 
 const User = (user: UserType) => {

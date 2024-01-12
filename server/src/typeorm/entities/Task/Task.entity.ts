@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { UserEntity } from '..'
-import { type Priority } from 'types'
+import { Priority } from 'types'
+
+import { UserEntity } from '../'
 
 @Entity({ name: 'tasks' })
 export class TaskEntity {

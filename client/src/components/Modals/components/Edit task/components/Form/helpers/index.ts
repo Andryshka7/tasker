@@ -1,4 +1,4 @@
-import { type UpdateTaskPayload, type Task } from '@/types'
+import { Task, UpdateTaskPayload } from '@/types'
 
 const getUpdateFields = (task: Task, data: Omit<Task, 'id' | 'creator' | 'completed'>) => {
 	const updateFields: UpdateTaskPayload = {}

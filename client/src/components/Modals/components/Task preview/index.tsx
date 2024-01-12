@@ -1,7 +1,8 @@
 'use client'
 
-import { Modal } from '@/components/ui'
 import { useTaskPreviewModal } from '@/components/Modals/hooks'
+import { Modal } from '@/components/ui'
+
 import { Task } from './components'
 
 const TaskPreview = () => {

@@ -1,4 +1,4 @@
-import { type UpdateUserPayload, type User } from '@/types'
+import { UpdateUserPayload, User } from '@/types'
 
 const getUpdateFields = (
 	user: User,

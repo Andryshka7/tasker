@@ -1,22 +1,15 @@
+import { IsAdminGuard } from 'common/guards'
+
 import {
-	Get,
-	Post,
-	Patch,
-	Delete,
-	Body,
-	UseGuards,
-	UseInterceptors,
-	UploadedFile,
-	ParseIntPipe,
-	Controller,
-	Param
+	Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UploadedFile, UseGuards,
+	UseInterceptors
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { IsAdminGuard } from 'common/guards'
-import { UsersService } from '../../services'
+import { FileInterceptor } from '@nestjs/platform-express'
+
 import { CreateUserDto, UpdateUserDto } from '../../dtos'
 import { HashPasswordPipe, ValidateEmailPipe } from '../../pipes'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { UsersService } from '../../services'
 
 @Controller('users')
 export class UsersController {

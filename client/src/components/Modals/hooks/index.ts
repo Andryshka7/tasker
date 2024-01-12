@@ -1,4 +1,5 @@
-import { type Task, type User } from '@/types'
+import { Task, User } from '@/types'
+
 import { createDefaultHook, createParameterizedHook } from './helpers'
 import useConfirmationModal from './useConfirmationModal'
 

@@ -40,7 +40,6 @@ type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar' | 'lastActive'>> & {
 	removeAvatar?: string
 	password?: string
 }
-
 export {
 	type Role,
 	type Priority,

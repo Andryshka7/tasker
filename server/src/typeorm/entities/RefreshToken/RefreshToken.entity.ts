@@ -1,6 +1,7 @@
-import { PrimaryGeneratedColumn, Entity, Column, OneToOne, JoinColumn } from 'typeorm'
-import { UserEntity } from '..'
-import { type User } from 'types'
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { User } from 'types'
+
+import { UserEntity } from '../'
 
 @Entity({ name: 'refreshtokens' })
 export class RefreshTokenEntity {

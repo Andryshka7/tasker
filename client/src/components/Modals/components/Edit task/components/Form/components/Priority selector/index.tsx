@@ -1,7 +1,8 @@
 'use client'
 
-import { type Priority } from '@/types'
 import { Dispatch, SetStateAction } from 'react'
+
+import { Priority } from '@/types'
 
 type Priorities = {
 	priority: Priority

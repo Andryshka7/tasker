@@ -12,7 +12,7 @@ const MenuItem = ({ icon: ReactIcon, title, action, to }: Props) => {
 	return (
 		<Link
 			href={to || '#'}
-			className='hover:bg-cyan mt-0.5 flex cursor-pointer items-center gap-1.5 rounded px-2 font-bold duration-200'
+			className='mt-0.5 flex cursor-pointer items-center gap-1.5 rounded px-2 font-bold duration-200 hover:bg-cyan'
 			onClick={action}
 		>
 			<ReactIcon size={20} />

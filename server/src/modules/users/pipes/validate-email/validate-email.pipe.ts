@@ -1,6 +1,7 @@
-import { HttpException, HttpStatus, Injectable, PipeTransform } from '@nestjs/common'
 import { CreateUserDto } from 'modules/users/dtos'
 import { UsersService } from 'modules/users/services'
+
+import { HttpException, HttpStatus, Injectable, PipeTransform } from '@nestjs/common'
 
 @Injectable()
 export class ValidateEmailPipe implements PipeTransform {

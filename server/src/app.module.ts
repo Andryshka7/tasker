@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { UsersModule } from './modules/users/users.module'
-import { TasksModule } from './modules/tasks/tasks.module'
-import { AuthModule } from './modules/auth/auth.module'
+import * as path from 'path'
 import config from 'typeorm/config'
+
+import { Module } from '@nestjs/common'
 import { MulterModule } from '@nestjs/platform-express'
 import { ServeStaticModule } from '@nestjs/serve-static'
-import * as path from 'path'
+import { TypeOrmModule } from '@nestjs/typeorm'
+
+import { AuthModule, TasksModule, UsersModule } from './modules'
 
 @Module({
 	imports: [

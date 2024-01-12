@@ -1,4 +1,4 @@
-import { fetchAuthQuery } from '@/api/auth'
+import { fetchAuthQuery } from '@/helpers/api/auth'
 import { useQuery } from '@tanstack/react-query'
 
 const useAuthQuery = () =>

@@ -2,8 +2,9 @@
 
 import { Dispatch, SetStateAction, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
-import { type Role } from '@/types'
+
 import { capitalize, roleColors } from '@/helpers'
+import { Role } from '@/types'
 
 interface Props {
 	role: Role

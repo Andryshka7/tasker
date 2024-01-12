@@ -1,5 +1,5 @@
 import { IsOptional, IsString } from 'class-validator'
-import { type Role } from 'types'
+import { Role } from 'types'
 
 export class UpdateUserDto {
 	@IsString()

@@ -1,9 +1,11 @@
 'use client'
 
 import { BiMessageSquareAdd } from 'react-icons/bi'
+
 import { useCreateUserModal } from '@/components/Modals/hooks'
-import { User } from './components'
 import { useUsers } from '@/hooks'
+
+import { User } from './components'
 
 const Page = () => {
 	const { data: users } = useUsers()

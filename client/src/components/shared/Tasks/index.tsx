@@ -1,4 +1,5 @@
-import { type Task as TaskType } from '@/types'
+import { Task as TaskType } from '@/types'
+
 import { Task } from './components'
 
 interface Props {

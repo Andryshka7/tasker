@@ -1,9 +1,10 @@
+import { jwt_secret } from 'config'
 import { Request } from 'express'
+import { Strategy } from 'passport-jwt'
+import { JwtPayload } from 'types'
+
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
-import { Strategy } from 'passport-jwt'
-import { jwt_secret } from 'config'
-import { type JwtPayload } from 'types'
 
 @Injectable()
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt-access-token') {

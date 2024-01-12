@@ -1,8 +1,9 @@
-import { PropsWithChildren } from 'react'
 import { headers } from 'next/headers'
-import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query'
+import { PropsWithChildren } from 'react'
+
 import { server } from '@/config'
-import { type Task, type User } from '@/types'
+import { Task, User } from '@/types'
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 
 const DataProvider = async ({ children }: PropsWithChildren) => {
 	const queryClient = new QueryClient()

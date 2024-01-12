@@ -2,9 +2,11 @@
 
 import { Dispatch, SetStateAction, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
+
 import { Avatar } from '@/components/ui'
+import { User } from '@/types'
+
 import { useCalculateOptions } from './hooks'
-import { type User } from '@/types'
 
 interface Props {
 	user: User | null

@@ -1,12 +1,13 @@
 'use client'
 
-import { useCreateTaskModal } from '@/components/Modals/hooks'
-import { useAuth } from '@/hooks'
-import { useCreateTask } from '@/hooks'
-import { type Priority, type User } from '@/types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
+
+import { useCreateTaskModal } from '@/components/Modals/hooks'
+import { useAuth, useCreateTask } from '@/hooks'
+import { Priority, User } from '@/types'
+
 import { PrioritySelector, UserSelector } from './components'
 
 type FormFields = {

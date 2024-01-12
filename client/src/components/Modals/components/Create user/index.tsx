@@ -1,7 +1,8 @@
 'use client'
 
-import { Modal } from '@/components/ui'
 import { useCreateUserModal } from '@/components/Modals/hooks'
+import { Modal } from '@/components/ui'
+
 import { Form } from './components'
 
 const CreateUserModal = () => {

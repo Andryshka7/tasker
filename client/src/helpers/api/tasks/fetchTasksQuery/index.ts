@@ -1,5 +1,5 @@
 import { server } from '@/config'
-import { type Task } from '@/types'
+import { Task } from '@/types'
 
 const fetchTasksQuery = async () => {
 	const response = await fetch(`${server}/tasks`, {

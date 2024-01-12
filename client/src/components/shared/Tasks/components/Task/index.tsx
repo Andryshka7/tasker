@@ -1,18 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { Avatar } from '@/components/ui'
-import {
-	useConfirmationModal,
-	useEditTaskModal,
-	useTaskPreviewModal
-} from '@/components/Modals/hooks'
-import { formatDate } from '@/helpers'
-import { useAuth } from '@/hooks'
-import { useDeleteTask, useUpdateTask } from '@/hooks'
-import { type Task as TaskType } from '@/types'
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
+
+import {
+	useConfirmationModal, useEditTaskModal, useTaskPreviewModal
+} from '@/components/Modals/hooks'
+import { Avatar } from '@/components/ui'
+import { formatDate } from '@/helpers'
+import { useAuth, useDeleteTask, useUpdateTask } from '@/hooks'
+import { Task as TaskType } from '@/types'
 
 const priorityColor = {
 	1: 'bg-red-500',

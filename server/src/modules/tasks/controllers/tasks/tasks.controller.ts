@@ -1,11 +1,15 @@
-import { Get, Post, Body, Controller, UseGuards, ParseIntPipe, Patch, Delete, Param } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
-import { IsAdminGuard, IsModeratorGuard } from 'common/guards'
 import { GetUser } from 'common/decorators'
-import { TaskService } from '../../services'
+import { IsAdminGuard, IsModeratorGuard } from 'common/guards'
+import { UserFromRequest } from 'types'
+
+import {
+	Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards
+} from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
+
 import { CreateTaskDto, UpdateTaskDto } from '../../dtos'
 import { ValidateTaskPipe } from '../../pipes'
-import { type UserFromRequest } from 'types'
+import { TaskService } from '../../services'
 
 @Controller('tasks')
 export class TaskController {

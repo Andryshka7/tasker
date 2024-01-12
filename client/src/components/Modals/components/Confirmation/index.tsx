@@ -1,8 +1,9 @@
 'use client'
 
-import { Modal } from '@/components/ui'
-import { useConfirmationModal } from '@/components/Modals/hooks'
 import { IoClose } from 'react-icons/io5'
+
+import { useConfirmationModal } from '@/components/Modals/hooks'
+import { Modal } from '@/components/ui'
 
 const ConfirmationModal = () => {
 	const { visible, name, text, confirmAction, close } = useConfirmationModal()

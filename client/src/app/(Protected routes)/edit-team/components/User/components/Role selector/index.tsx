@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
-import { type Role } from '@/types'
-import { useOptimistic, useUpdateUser } from '@/hooks'
+
 import { capitalize, roleColors } from '@/helpers'
+import { useOptimistic, useUpdateUser } from '@/hooks'
+import { Role } from '@/types'
 
 type Props = {
 	initialRole: Role

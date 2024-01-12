@@ -1,8 +1,9 @@
 'use client'
 
-import { useTasks, useUsers } from '@/hooks'
-import { Count, User } from './components'
 import { isToday } from '@/helpers'
+import { useTasks, useUsers } from '@/hooks'
+
+import { Count, User } from './components'
 
 const Page = () => {
 	const { data: tasks } = useTasks()

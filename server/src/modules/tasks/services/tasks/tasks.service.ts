@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { UpdateTaskDto } from 'modules/tasks/dtos'
 import { Repository } from 'typeorm'
 import { TaskEntity, UserEntity } from 'typeorm/entities'
-import { type UserFromRequest, CreateTaskPayload } from 'types'
+import { CreateTaskPayload, UserFromRequest } from 'types'
+
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 
 @Injectable()
 export class TaskService {

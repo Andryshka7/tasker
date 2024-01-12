@@ -1,12 +1,14 @@
 'use client'
 
-import { useCreateUserModal } from '@/components/Modals/hooks'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
-import { AvatarInput, RoleSelector } from './components'
-import { type Role } from '@/types'
+
+import { useCreateUserModal } from '@/components/Modals/hooks'
 import { useCreateUser } from '@/hooks'
+import { Role } from '@/types'
+
+import { AvatarInput, RoleSelector } from './components'
 
 type FormFields = {
 	name: string

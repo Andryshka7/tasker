@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
+import { server } from 'config'
 import { deleteFile, getFilePath, uploadFile } from 'helpers'
-import { v4 as uuid } from 'uuid'
 import { CreateUserDto, UpdateUserDto } from 'modules/users/dtos'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities/User/User.entity'
-import { type UpdateUserPayload } from 'types'
-import { server } from 'config'
+import { UpdateUserPayload } from 'types'
+import { v4 as uuid } from 'uuid'
+
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 
 @Injectable()
 export class UsersService {

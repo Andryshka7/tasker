@@ -1,10 +1,5 @@
 import {
-	CreateTaskModal,
-	EditTaskModal,
-	TaskPreview,
-	CreateUserModal,
-	EditUserModal,
-	ConfirmationModal
+	ConfirmationModal, CreateTaskModal, CreateUserModal, EditTaskModal, EditUserModal, TaskPreview
 } from './components'
 
 const Modals = () => (

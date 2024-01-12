@@ -1,6 +1,6 @@
 import { Avatar } from '@/components/ui'
 import { capitalize, roleColors } from '@/helpers'
-import { type User as UserType } from '@/types'
+import { User as UserType } from '@/types'
 
 const User = (user: UserType) => (
 	<div className='flex items-center justify-between rounded-md bg-blue px-10 py-5'>

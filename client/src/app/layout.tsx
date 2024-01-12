@@ -1,8 +1,10 @@
+import './index.css'
+
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 import { Toaster } from 'react-hot-toast'
+
 import { ReactQueryProvider } from '@/components/Providers'
-import './index.css'
 
 export const metadata: Metadata = {
 	title: 'Tasker',
@@ -15,8 +17,10 @@ const RootLayout = ({ children }: PropsWithChildren) => (
 			<link rel='icon' href='/icon.png' />
 		</head>
 		<body className='bg-midnight tracking-wide text-white'>
-			<ReactQueryProvider>{children}</ReactQueryProvider>
-			<Toaster />
+			<ReactQueryProvider>
+				{children}
+				<Toaster />
+			</ReactQueryProvider>
 			<div id='portal' />
 		</body>
 	</html>

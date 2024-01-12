@@ -1,6 +1,8 @@
-import { Injectable, PipeTransform } from '@nestjs/common'
-import { CreateUserDto } from '../../dtos/CreateUser/CreateUser.dto'
 import { hash } from 'bcrypt'
+
+import { Injectable, PipeTransform } from '@nestjs/common'
+
+import { CreateUserDto } from '../../dtos/CreateUser/CreateUser.dto'
 
 @Injectable()
 export class HashPasswordPipe implements PipeTransform {
