@@ -4,7 +4,7 @@
 	"tabWidth": 4,
 	"bracketSpacing": true,
 	"trailingComma": "none",
-	"printWidth": 110,
+	"printWidth": 100,
 	"useTabs": true,
 	"plugins": []
 }

@@ -4,6 +4,13 @@ const roleColors = {
 	user: 'bg-green-600'
 }
 
+const priorityColors = {
+	1: 'bg-red-500',
+	2: 'bg-yellow-400',
+	3: 'bg-green-500',
+	4: 'bg-neutral-400'
+}
+
 const capitalize = (string: string) => string[0].toLocaleUpperCase() + string.slice(1)
 
 const isToday = (date: string) => new Date(date).toDateString() === new Date().toDateString()
@@ -23,4 +30,4 @@ const formatDate = (date: string) => {
 	return isToday(date) ? 'Today' : `${day} ${month}`
 }
 
-export { roleColors, formatDate, swapElements, isToday, capitalize }
+export { roleColors, priorityColors, formatDate, swapElements, isToday, capitalize }

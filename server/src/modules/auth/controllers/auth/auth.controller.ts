@@ -3,9 +3,7 @@ import { Response } from 'express'
 import { SignInDto } from 'modules/auth/dtos'
 import { User, UserFromRequest } from 'types'
 
-import {
-	Body, Controller, Get, HttpException, HttpStatus, Post, Res, UseGuards
-} from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Res, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 
 import { AuthService, TokensService } from '../../services'
@@ -20,7 +18,8 @@ export class AuthController {
 	@Get()
 	@UseGuards(AuthGuard('jwt-access-token'))
 	async getMe(@GetUser() user: UserFromRequest) {
-		return await this.authService.fetchMe(user.id)
+		const { password, ...userDetails } = await this.authService.fetchMe(user.id)
+		return userDetails
 	}
 
 	@Post()

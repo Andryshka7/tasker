@@ -1,5 +1,4 @@
 'use client'
-
 import { BiEditAlt } from 'react-icons/bi'
 import { IoClose } from 'react-icons/io5'
 import { MdDeleteOutline } from 'react-icons/md'
@@ -10,11 +9,11 @@ import {
 	useTaskPreviewModal
 } from '@/components/Modals/hooks'
 import { Avatar } from '@/components/ui'
-import { formatDate, priorityColors } from '@/helpers'
+import { formatDate } from '@/helpers'
 import { useAuth, useDeleteTask, useUpdateTask } from '@/hooks'
 import { Task as TaskType } from '@/types'
 
-const Task = (task: TaskType) => {
+export const Task = (task: TaskType) => {
 	const { data: me } = useAuth()
 
 	const { open: openEditTaskModal } = useEditTaskModal()
@@ -34,7 +33,7 @@ const Task = (task: TaskType) => {
 			/>
 			<div className='flex items-center justify-between'>
 				<div className='flex items-center gap-3'>
-					<div className={`h-6 w-6 rounded-full ${priorityColors[task.priority]}`} />
+					<div className={`h-6 w-6 rounded-full ${priorityColor[task.priority]}`} />
 					<h2 className='text-4xl font-semibold'>{task.title}</h2>
 				</div>
 				<div className='rounded bg-cyan px-4 py-0.5 font-medium'>
@@ -115,4 +114,3 @@ const Task = (task: TaskType) => {
 		</div>
 	)
 }
-export default Task

@@ -16,7 +16,7 @@ const DataProvider = async ({ children }: PropsWithChildren) => {
 					headers: headers(),
 					cache: 'no-cache'
 				})
-				return response.ok ? ((await response.json()) as Task[]) : []
+				return response.ok ? ((await response.json()) as User) : []
 			}
 		}),
 		queryClient.prefetchQuery({

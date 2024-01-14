@@ -3,28 +3,26 @@ import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { signInQuery, signOutQuery } from '@/helpers/api/auth'
+import { useRefetchQueries } from '@/hooks'
 import { Credentials } from '@/types'
 
 const useSignIn = () => {
-	const [isLoading, setIsLoading] = useState(false)
-
 	const router = useRouter()
-
-	useEffect(() => {
-		router.prefetch('/')
-	}, [router])
+	const refetchQueries = useRefetchQueries()
+	const [isLoading, setIsLoading] = useState(false)
 
 	return [
 		isLoading,
-		(credentials: Credentials) => {
+		async (credentials: Credentials) => {
 			const signIn = async () => {
 				setIsLoading(true)
 				await signInQuery(credentials)
+				await refetchQueries()
 				router.refresh()
 				router.push('/')
 			}
 
-			toast.promise(signIn(), {
+			await toast.promise(signIn(), {
 				success: 'Successfully logged in.',
 				loading: 'Logging in...',
 				error: () => {

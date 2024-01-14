@@ -3,7 +3,15 @@ import { IsAdminGuard, IsModeratorGuard } from 'common/guards'
 import { UserFromRequest } from 'types'
 
 import {
-	Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	ParseIntPipe,
+	Patch,
+	Post,
+	UseGuards
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 
@@ -22,12 +30,15 @@ export class TaskController {
 
 	@Post()
 	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
-	async createTask(@GetUser() user: UserFromRequest, @Body(ValidateTaskPipe) createTaskDto: CreateTaskDto) {
+	async createTask(
+		@GetUser() user: UserFromRequest,
+		@Body(ValidateTaskPipe) createTaskDto: CreateTaskDto
+	) {
 		return this.tasksService.createTask(createTaskDto, user)
 	}
 
 	@Patch(':id')
-	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
+	@UseGuards(AuthGuard('jwt-access-token'))
 	async updateTask(
 		@Param('id', ParseIntPipe) id: number,
 		@Body(ValidateTaskPipe) updateTaskDto: UpdateTaskDto
