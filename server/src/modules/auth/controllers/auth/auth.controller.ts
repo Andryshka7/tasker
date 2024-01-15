@@ -3,7 +3,16 @@ import { Response } from 'express'
 import { SignInDto } from 'modules/auth/dtos'
 import { User, UserFromRequest } from 'types'
 
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Res, UseGuards } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Get,
+	HttpException,
+	HttpStatus,
+	Post,
+	Res,
+	UseGuards
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 
 import { AuthService, TokensService } from '../../services'

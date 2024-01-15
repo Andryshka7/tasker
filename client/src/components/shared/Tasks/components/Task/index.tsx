@@ -4,13 +4,15 @@ import { useState } from 'react'
 
 import { useTaskPreviewModal } from '@/components/Modals/hooks'
 import { formatDate, priorityColors } from '@/helpers'
+import { useAuth } from '@/hooks'
 import { Task as TaskType } from '@/types'
 
-import { BottomPanel } from './components'
+import { AdminPanel, UserPanel } from './components'
 
 const Task = (task: TaskType) => {
 	const [isHovering, setIsHovering] = useState(false)
 
+	const { data: me } = useAuth()
 	const { open: openTaskPreviewModal } = useTaskPreviewModal()
 
 	return (
@@ -36,7 +38,11 @@ const Task = (task: TaskType) => {
 				</div>
 			</div>
 
-			<BottomPanel task={task} isHovering={isHovering} />
+			{me!.role === 'user' ? (
+				<UserPanel task={task} isHovering={isHovering} />
+			) : (
+				<AdminPanel task={task} isHovering={isHovering} />
+			)}
 		</div>
 	)
 }

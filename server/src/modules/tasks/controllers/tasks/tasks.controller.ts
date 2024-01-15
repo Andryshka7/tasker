@@ -29,7 +29,7 @@ export class TaskController {
 	}
 
 	@Post()
-	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
+	@UseGuards(AuthGuard('jwt-access-token'))
 	async createTask(
 		@GetUser() user: UserFromRequest,
 		@Body(ValidateTaskPipe) createTaskDto: CreateTaskDto
@@ -38,7 +38,7 @@ export class TaskController {
 	}
 
 	@Patch(':id')
-	@UseGuards(AuthGuard('jwt-access-token'))
+	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	async updateTask(
 		@Param('id', ParseIntPipe) id: number,
 		@Body(ValidateTaskPipe) updateTaskDto: UpdateTaskDto

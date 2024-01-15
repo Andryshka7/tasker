@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 
@@ -11,7 +12,7 @@ interface Props {
 	isHovering: boolean
 }
 
-const BottomPanel = ({ task, isHovering }: Props) => {
+const AdminPanel = ({ task, isHovering }: Props) => {
 	const { data: me } = useAuth()
 
 	const { open: openEditTaskModal } = useEditTaskModal()
@@ -20,34 +21,52 @@ const BottomPanel = ({ task, isHovering }: Props) => {
 	const updateTask = useUpdateTask(task.id)
 	const deleteTask = useDeleteTask(task.id)
 
+	const hoverStyle = !isHovering ? '-translate-y-1 opacity-0' : '-translate-y-3'
+
+	const takeTask = (e: MouseEvent) => {
+		e.stopPropagation()
+		updateTask({ user: me })
+	}
+	const completeTask = (e: MouseEvent) => {
+		e.stopPropagation()
+		updateTask({ completed: new Date().toISOString() })
+	}
+	const unCompleteTask = (e: MouseEvent) => {
+		e.stopPropagation()
+		updateTask({ completed: null })
+	}
+
+	const startEditing = (e: MouseEvent) => {
+		e.stopPropagation()
+		openEditTaskModal(task)
+	}
+	const proposeDeleting = async (e: MouseEvent) => {
+		e.stopPropagation()
+		openConfirmationModal({
+			name: 'Delete task',
+			text: `Are you certain about your decision to delete this task from the team taskboard?`,
+			confirmAction: deleteTask
+		})
+	}
+
 	return task.completed ? (
 		<div
-			className={`absolute bottom-0 left-0 flex w-full items-center justify-center rounded-b bg-blue px-8 duration-200 ${
-				!isHovering ? '-translate-y-1 opacity-0' : '-translate-y-3'
-			}`}
+			className={`absolute bottom-0 left-0 flex w-full items-center justify-center rounded-b bg-blue px-8 duration-200 ${hoverStyle}`}
 		>
 			<button
 				className='h-6 w-28 cursor-pointer rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:bg-opacity-90 hover:text-blue'
-				onClick={(e) => {
-					e.stopPropagation()
-					updateTask({ completed: null })
-				}}
+				onClick={unCompleteTask}
 			>
 				Uncomplete
 			</button>
 		</div>
 	) : (
 		<div
-			className={`absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b bg-blue px-8 duration-200 ${
-				!isHovering ? '-translate-y-1 opacity-0' : '-translate-y-3'
-			}`}
+			className={`absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b bg-blue px-8 duration-200 ${hoverStyle}`}
 		>
 			<button
 				className='h-6 w-16 rounded bg-green-600 text-sm font-semibold duration-200 hover:bg-opacity-90'
-				onClick={(e) => {
-					e.stopPropagation()
-					updateTask({ completed: new Date().toISOString() })
-				}}
+				onClick={completeTask}
 			>
 				Done
 			</button>
@@ -62,39 +81,16 @@ const BottomPanel = ({ task, isHovering }: Props) => {
 			) : (
 				<button
 					className='h-6 w-24 rounded border-2 border-gray-200 text-sm font-semibold duration-200 hover:bg-gray-200 hover:text-blue'
-					onClick={(e) => {
-						e.stopPropagation()
-						updateTask({ user: me })
-					}}
+					onClick={takeTask}
 				>
 					Take task
 				</button>
 			)}
-
-			<div className='flex'>
-				<BiEditAlt
-					size={24}
-					onClick={(e: MouseEvent) => {
-						e.stopPropagation()
-						openEditTaskModal(task)
-					}}
-				/>
-				<MdDeleteOutline
-					size={24}
-					onClick={async (e: MouseEvent) => {
-						e.stopPropagation()
-						openConfirmationModal({
-							name: 'Delete task',
-							text: `Are you certain about your decision to delete this task from the team taskboard?`,
-							confirmAction: async () => {
-								await deleteTask()
-								close()
-							}
-						})
-					}}
-				/>
+			<div className='flex w-16 justify-end'>
+				<BiEditAlt size={24} onClick={startEditing} />
+				<MdDeleteOutline size={24} onClick={proposeDeleting} />
 			</div>
 		</div>
 	)
 }
-export default BottomPanel
+export default AdminPanel
