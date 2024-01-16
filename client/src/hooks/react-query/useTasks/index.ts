@@ -5,9 +5,7 @@ const useTasksQuery = () =>
 	useQuery({
 		queryKey: ['tasks'],
 		queryFn: fetchTasksQuery,
-		refetchOnMount: false,
-		refetchOnReconnect: false,
-		refetchOnWindowFocus: false
+		enabled: false
 	})
 
 export default useTasksQuery

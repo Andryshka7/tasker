@@ -1,5 +1,5 @@
 import { GetUser } from 'common/decorators'
-import { IsAdminGuard, IsModeratorGuard } from 'common/guards'
+import { IsModeratorGuard } from 'common/guards'
 import { UserFromRequest } from 'types'
 
 import {
@@ -24,6 +24,7 @@ export class TaskController {
 	constructor(private tasksService: TaskService) {}
 
 	@Get()
+	@UseGuards(AuthGuard('jwt-access-token'))
 	async fetchTasks() {
 		return await this.tasksService.fetchTasks()
 	}
@@ -38,7 +39,7 @@ export class TaskController {
 	}
 
 	@Patch(':id')
-	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
+	@UseGuards(AuthGuard('jwt-access-token'))
 	async updateTask(
 		@Param('id', ParseIntPipe) id: number,
 		@Body(ValidateTaskPipe) updateTaskDto: UpdateTaskDto
@@ -47,7 +48,7 @@ export class TaskController {
 	}
 
 	@Delete(':id')
-	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	async deleteUser(@Param('id', ParseIntPipe) id: number) {
 		return await this.tasksService.deleteTask(id)
 	}

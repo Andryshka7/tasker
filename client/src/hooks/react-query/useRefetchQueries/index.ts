@@ -7,7 +7,8 @@ const useRefetchQueries = () => {
 	const { refetch: refetchTasksQuery } = useTasks()
 	const { refetch: refetchUsersQuery } = useUsers()
 
-	return () => Promise.all([refetchAuthQuery(), refetchTasksQuery(), refetchUsersQuery()])
+	return async () =>
+		await Promise.all([refetchAuthQuery(), refetchTasksQuery(), refetchUsersQuery()])
 }
 
 export default useRefetchQueries

@@ -5,9 +5,7 @@ const useAuthQuery = () =>
 	useQuery({
 		queryKey: ['auth'],
 		queryFn: fetchAuthQuery,
-		refetchOnMount: false,
-		refetchOnReconnect: false,
-		refetchOnWindowFocus: false
+		enabled: false
 	})
 
 export default useAuthQuery

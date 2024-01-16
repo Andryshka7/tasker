@@ -5,9 +5,7 @@ const useUsersQuery = () =>
 	useQuery({
 		queryKey: ['users'],
 		queryFn: fetchUsersQuery,
-		refetchOnMount: false,
-		refetchOnReconnect: false,
-		refetchOnWindowFocus: false
+		enabled: false
 	})
 
 export default useUsersQuery

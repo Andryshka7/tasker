@@ -1,7 +1,16 @@
-import { IsAdminGuard } from 'common/guards'
+import { IsModeratorGuard } from 'common/guards'
 
 import {
-	Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UploadedFile, UseGuards,
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	ParseIntPipe,
+	Patch,
+	Post,
+	UploadedFile,
+	UseGuards,
 	UseInterceptors
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
@@ -22,7 +31,7 @@ export class UsersController {
 	}
 
 	@Post()
-	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	@UseInterceptors(FileInterceptor('image'))
 	async createUser(
 		@UploadedFile() file: Express.Multer.File,
@@ -32,7 +41,7 @@ export class UsersController {
 	}
 
 	@Patch(':id')
-	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	@UseInterceptors(FileInterceptor('image'))
 	async updateUser(
 		@UploadedFile() file: Express.Multer.File,
@@ -43,7 +52,7 @@ export class UsersController {
 	}
 
 	@Delete(':id')
-	@UseGuards(AuthGuard('jwt-access-token'), IsAdminGuard)
+	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	@UseInterceptors(FileInterceptor('image'))
 	async deleteUser(@Param('id', ParseIntPipe) id: number) {
 		return await this.usersService.deleteUser(id)
