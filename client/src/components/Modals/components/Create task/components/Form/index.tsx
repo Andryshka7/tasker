@@ -8,7 +8,7 @@ import { useCreateTaskModal } from '@/components/Modals/hooks'
 import { useAuth, useCreateTask } from '@/hooks'
 import { Priority, User } from '@/types'
 
-import { PrioritySelector, UserSelector } from './components'
+import { DateSelector, PrioritySelector, UserSelector } from './components'
 
 type FormFields = {
 	title: string
@@ -20,7 +20,7 @@ const Form = () => {
 
 	const [priority, setPriority] = useState<Priority>(1)
 	const [user, setUser] = useState<User | null>(null)
-	const [due, setDue] = useState<string>(new Date().toISOString())
+	const [date, setDate] = useState<string>(new Date().toISOString())
 
 	const { register, handleSubmit } = useForm<FormFields>()
 	const { close } = useCreateTaskModal()
@@ -33,7 +33,7 @@ const Form = () => {
 			priority,
 			user,
 			creator: me!,
-			due
+			due: date
 		})
 		close()
 	}
@@ -64,7 +64,11 @@ const Form = () => {
 			/>
 
 			<PrioritySelector selectedPriority={priority} selectPriority={setPriority} />
-			<UserSelector user={user} selectUser={setUser} />
+
+			<div className='mt-4 flex items-center justify-between'>
+				<UserSelector user={user} selectUser={setUser} />
+				<DateSelector selectedDate={date} setSelectedDate={setDate} />
+			</div>
 
 			<div className='mx-auto mt-12 flex w-fit gap-5'>
 				<button

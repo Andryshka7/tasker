@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 
-import { capitalize, roleColors } from '@/helpers'
-import { useOptimistic, useUpdateUser } from '@/hooks'
+import { capitalize, roleColors, roles } from '@/helpers'
+import { useAuth, useOptimistic, useUpdateUser } from '@/hooks'
 import { Role } from '@/types'
 
 type Props = {
@@ -14,6 +14,8 @@ type Props = {
 }
 
 const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
+	const { data: me } = useAuth()
+
 	const [open, setOpen] = useState(false)
 	const [role, selectRole] = useOptimistic(
 		initialRole,
@@ -22,7 +24,10 @@ const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
 
 	const updateUser = useUpdateUser(userId as number)
 
-	const options: Role[] = ['user', 'moderator', 'admin']
+	const options: Role[] = [...roles]
+
+	if (me!.role !== 'admin') options.pop()
+
 	options[options.indexOf(role)] = options[0]
 	options[0] = role
 

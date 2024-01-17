@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
 
 import { useEditUserModal } from '@/components/Modals/hooks'
+import { roles } from '@/helpers'
 import { useAuth, useUpdateUser } from '@/hooks'
 import { Role, User } from '@/types'
 
@@ -45,7 +46,10 @@ const Form = (user: User) => {
 		close()
 	}
 
-	const allowEditRole = user.id !== me?.id && user.role !== 'admin'
+	const allowEditRole =
+		me!.role !== 'user' &&
+		user.id !== me?.id &&
+		roles.indexOf(me!.role) >= roles.indexOf(user.role)
 
 	return (
 		<form

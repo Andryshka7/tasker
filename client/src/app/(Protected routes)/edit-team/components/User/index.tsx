@@ -5,6 +5,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 
 import { useConfirmationModal, useEditUserModal } from '@/components/Modals/hooks'
 import { Avatar } from '@/components/ui'
+import { roles } from '@/helpers'
 import { useAuth, useDeleteUser } from '@/hooks'
 import { User as UserType } from '@/types'
 
@@ -18,7 +19,10 @@ const User = (user: UserType) => {
 
 	const deleteUser = useDeleteUser(user.id)
 
-	const allowEditRole = me!.role !== 'user' && user.id !== me?.id && user.role !== 'admin'
+	const allowEditRole =
+		me!.role !== 'user' &&
+		user.id !== me?.id &&
+		roles.indexOf(me!.role) >= roles.indexOf(user.role)
 
 	return (
 		<div className='flex items-center justify-between rounded-md bg-blue px-8 py-5'>

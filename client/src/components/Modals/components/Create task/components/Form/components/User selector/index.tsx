@@ -25,10 +25,10 @@ const UserSelector = ({ user, selectUser }: Props) => {
 	}
 
 	return (
-		<div className='mt-4 flex'>
-			<h1 className='mr-4 text-2xl font-semibold'>For:</h1>
+		<div className='flex gap-4'>
+			<h1 className='mt-0.5 text-2xl font-semibold'>For:</h1>
 
-			<div className='absolute ml-16 mt-0.5 w-56 rounded bg-cyan py-1.5'>
+			<div className='absolute ml-16 w-56 rounded bg-cyan py-1.5'>
 				<TiArrowSortedDown
 					size={18}
 					className={`absolute right-4 top-3 duration-200 ${open ? 'rotate-180' : ''}`}

@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 
-import { capitalize, roleColors } from '@/helpers'
+import { capitalize, roleColors, roles } from '@/helpers'
+import { useAuth } from '@/hooks'
 import { Role } from '@/types'
 
 interface Props {
@@ -13,9 +14,13 @@ interface Props {
 }
 
 const RoleSelector = ({ role, editable = true, selectRole }: Props) => {
+	const { data: me } = useAuth()
+
 	const [open, setOpen] = useState(false)
 
-	const options: Role[] = ['user', 'moderator', 'admin']
+	const options: Role[] = [...roles]
+	if (me!.role !== 'admin') options.pop()
+
 	options[options.indexOf(role)] = options[0]
 	options[0] = role
 
