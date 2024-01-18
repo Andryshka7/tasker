@@ -1,8 +1,9 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { TiArrowSortedDown } from 'react-icons/ti'
 
 import { formatDate, isTheSameDay, monthNames } from '@/helpers'
+import { useHandleClickOuthide } from '@/hooks'
 
 import { useDateSelector } from './hooks'
 
@@ -12,33 +13,40 @@ interface Props {
 }
 
 const DateSelector = ({ selectedDate, setSelectedDate }: Props) => {
-	const [date, setDate] = useState(selectedDate)
+	const ref = useRef<HTMLDivElement | null>(null)
+
 	const [isOpen, setIsOpen] = useState(false)
 
 	const {
-		month: selectedMonth,
-		year: selectedYear,
+		date,
+		selectedMonth,
+		selectedYear,
 		options,
+		selectDate,
 		selectNextMonth,
 		selectPreviousMonth
 	} = useDateSelector(selectedDate)
 
+	useHandleClickOuthide(ref, () => setIsOpen(false))
+
 	return (
 		<div className='flex items-center gap-2'>
 			<h1 className='mr-4 text-2xl font-semibold'>Due:</h1>
-			<div
-				className='relative mt-1 flex h-8 w-24 cursor-pointer items-center justify-center rounded bg-cyan'
-				onClick={() => setIsOpen((prev) => !prev)}
-			>
-				<h3 className='mr-3 text-sm font-semibold'>{formatDate(selectedDate)}</h3>
-				<TiArrowSortedDown
-					size={17}
-					className={`absolute right-3 top-1/2 -translate-y-1/2 duration-200 ${
-						isOpen ? 'rotate-180' : ''
-					}`}
-				/>
+			<div className='relative mt-1 flex h-8 w-24 items-center justify-center rounded bg-cyan'>
+				<div className='cursor-pointer' onClick={() => setIsOpen((prev) => !prev)}>
+					<h3 className='mr-3 text-sm font-semibold'>{formatDate(selectedDate)}</h3>
+					<TiArrowSortedDown
+						size={17}
+						className={`absolute right-3 top-1/2 -translate-y-1/2 duration-200 ${
+							isOpen ? 'rotate-180' : ''
+						}`}
+					/>
+				</div>
 				{isOpen && (
-					<div className='absolute left-0 top-9 w-56 rounded bg-cyan px-4 pb-2 pt-3.5'>
+					<div
+						className='absolute left-0 top-9 w-56 rounded bg-cyan px-4 pb-2 pt-3.5'
+						ref={ref}
+					>
 						<div className='flex w-full items-center justify-between'>
 							<FaAngleLeft
 								className='cursor-pointer'
@@ -56,23 +64,21 @@ const DateSelector = ({ selectedDate, setSelectedDate }: Props) => {
 						</div>
 						<hr className='mt-3 rounded border bg-white' />
 						<div className='mt-3 grid grid-cols-7 text-sm font-semibold text-gray-300'>
-							<p className='m-auto'>Mo</p>
-							<p className='m-auto'>Tu</p>
-							<p className='m-auto'>We</p>
-							<p className='m-auto'>Th</p>
-							<p className='m-auto'>Fr</p>
-							<p className='m-auto'>Sa</p>
-							<p className='m-auto'>Su</p>
+							{['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map((day) => (
+								<p className='m-auto' key={day}>
+									{day}
+								</p>
+							))}
 						</div>
 						<div className='mt-1.5 grid grid-cols-7 gap-y-0.5'>
 							{options.map(({ day, month, dateString }) => (
 								<div
-									className={`m-auto flex h-7 w-7 cursor-pointer items-center justify-center rounded text-xs font-semibold ${
-										month !== selectedMonth ? 'text-gray-300' : ''
+									className={`m-auto flex h-7 w-7 cursor-pointer items-center justify-center rounded text-xs font-bold ${
+										month !== selectedMonth ? 'text-gray-400' : ''
 									} ${
 										isTheSameDay(date, dateString) ? 'bg-teal' : 'hover:bg-teal'
 									}`}
-									onClick={() => setDate(dateString)}
+									onClick={() => selectDate(dateString)}
 									key={dateString}
 								>
 									{day}
@@ -83,6 +89,7 @@ const DateSelector = ({ selectedDate, setSelectedDate }: Props) => {
 							className='ml-auto mt-1 block h-6 w-20 rounded bg-green-600 text-sm font-semibold'
 							onClick={() => {
 								setIsOpen(false)
+								selectDate(date)
 								setSelectedDate(date)
 							}}
 						>

@@ -1,22 +1,21 @@
 import { useState } from 'react'
 
-const useDateSelector = (selectedDateString: string) => {
+const useDateSelector = (initialDate: string) => {
+	const [date, setDate] = useState(initialDate)
 	const [monthDifference, setMonthDifference] = useState(0)
 
-	const selectedDate = new Date(selectedDateString)
+	const selectedDate = new Date(date)
 
 	const year = selectedDate.getFullYear() + Math.floor(monthDifference / 12)
 	const month = (((selectedDate.getMonth() + monthDifference) % 12) + 12) % 12
 
-	const date = new Date(year, month + 1, 0)
-	const daysInMonth = date.getDate()
-
-	const daysToBeAdded = 42 - daysInMonth
+	const firstDayDate = new Date(year, month)
+	const daysToBeAdded = firstDayDate.getDay() - 1
 
 	const options = []
 
 	for (let i = 0; i < 42; i++) {
-		const date = new Date(year, month, -Math.floor(daysToBeAdded / 2) + i)
+		const date = new Date(year, month, -daysToBeAdded + i + 1)
 
 		options.push({
 			day: date.getDate(),
@@ -26,10 +25,17 @@ const useDateSelector = (selectedDateString: string) => {
 		})
 	}
 
+	const selectDate = (date: string) => {
+		setDate(date)
+		setMonthDifference(0)
+	}
+
 	return {
-		month,
-		year,
+		date,
+		selectedMonth: month,
+		selectedYear: year,
 		options,
+		selectDate,
 		selectNextMonth: () => setMonthDifference((difference) => difference + 1),
 		selectPreviousMonth: () => setMonthDifference((difference) => difference - 1)
 	}

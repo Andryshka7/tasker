@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 
 import { capitalize, roleColors, roles } from '@/helpers'
-import { useAuth } from '@/hooks'
+import { useAuth, useHandleClickOuthide } from '@/hooks'
 import { Role } from '@/types'
 
 interface Props {
@@ -14,9 +14,10 @@ interface Props {
 }
 
 const RoleSelector = ({ role, editable = true, selectRole }: Props) => {
+	const ref = useRef<HTMLDivElement | null>(null)
 	const { data: me } = useAuth()
 
-	const [open, setOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 
 	const options: Role[] = [...roles]
 	if (me!.role !== 'admin') options.pop()
@@ -24,37 +25,29 @@ const RoleSelector = ({ role, editable = true, selectRole }: Props) => {
 	options[options.indexOf(role)] = options[0]
 	options[0] = role
 
-	const handleSelect = (index: number) => {
-		if (open && index) {
-			selectRole(options[index])
-		}
-		setOpen((open) => !open)
-	}
-
 	const getOptionStyle = (index: number) => {
-		const visibility = !open && index > 0 ? 'hidden' : 'visible'
+		const visibility = !isOpen && index > 0 ? 'hidden' : 'visible'
+		const color = roleColors[options[index]]
 
-		const colors = {
-			admin: 'bg-orange-500',
-			moderator: 'bg-purple-600',
-			user: 'bg-green-600'
-		}
-		const color = colors[options[index]]
-
-		let rounded = !open ? 'rounded-md' : ''
-		if (open && index === 0) rounded += 'rounded-t-md'
-		if (open && index === options.length - 1) rounded += 'rounded-b-md'
+		let rounded = !isOpen ? 'rounded-md' : ''
+		if (isOpen && index === 0) rounded += 'rounded-t-md'
+		if (isOpen && index === options.length - 1) rounded += 'rounded-b-md'
 
 		return `flex w-full h-full font-semibold text-xs cursor-pointer items-center justify-center ${color} ${visibility} ${rounded}`
 	}
 
+	useHandleClickOuthide(ref, () => setIsOpen(false))
+
 	return editable ? (
-		<div className='relative mt-4 h-7 w-32'>
+		<div className='relative mt-4 h-7 w-32' ref={ref}>
 			{options.map((role, index) => (
 				<div
 					key={index}
 					className={getOptionStyle(index)}
-					onClick={() => handleSelect(index)}
+					onClick={() => {
+						if (isOpen && index) selectRole(options[index])
+						setIsOpen((open) => !open)
+					}}
 				>
 					{capitalize(role)}
 				</div>
@@ -62,7 +55,7 @@ const RoleSelector = ({ role, editable = true, selectRole }: Props) => {
 			<TiArrowSortedDown
 				size={15}
 				className={`pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 duration-200 ${
-					open ? 'rotate-180' : ''
+					isOpen ? 'rotate-180' : ''
 				}`}
 			/>
 		</div>
