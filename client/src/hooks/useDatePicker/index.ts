@@ -10,9 +10,7 @@ const useDatePicker = (initialDate: string) => {
 	const month = selectedDate.getMonth()
 
 	const firstDayDate = new Date(year, month + monthDifference)
-	const daysToBeAdded = firstDayDate.getDay() - 1
-
-	console.log(firstDayDate.getDay())
+	const daysToBeAdded = (firstDayDate.getDay() + 6) % 7
 
 	const options = []
 

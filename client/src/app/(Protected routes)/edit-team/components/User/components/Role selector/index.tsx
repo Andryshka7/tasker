@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 
-import { capitalize, roleColors, roles } from '@/helpers'
+import { capitalize, getRoleColor, roles } from '@/helpers'
 import { useAuth, useHandleClickOuthide, useOptimistic, useUpdateUser } from '@/hooks'
 import { Role } from '@/types'
 
@@ -35,7 +35,7 @@ const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
 	const getOptionStyle = (index: number) => {
 		const visibility = !isOpen && index > 0 ? 'hidden' : 'visible'
 
-		const color = roleColors[options[index]]
+		const color = getRoleColor(options[index])
 
 		let rounded = !isOpen ? 'rounded-md' : ''
 		if (isOpen && index === 0) rounded += 'rounded-t-md'
@@ -69,7 +69,9 @@ const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
 		</div>
 	) : (
 		<div
-			className={`flex h-7 w-32 items-center justify-center rounded-md text-xs font-semibold ${roleColors[role]}`}
+			className={`flex h-7 w-32 items-center justify-center rounded-md text-xs font-semibold ${getRoleColor(
+				role
+			)}`}
 		>
 			{capitalize(role)}
 		</div>

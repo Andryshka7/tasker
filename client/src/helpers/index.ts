@@ -1,4 +1,4 @@
-import { Role } from '@/types'
+import { Priority, Role } from '@/types'
 
 const monthNames = [
 	'January',
@@ -17,24 +17,30 @@ const monthNames = [
 
 const roles: Role[] = ['user', 'moderator', 'admin']
 
-const roleColors = {
-	admin: 'bg-orange-500',
-	moderator: 'bg-purple-600',
-	user: 'bg-green-600'
-}
-
 const priorities = [
-	{ priority: 1, name: 'Mandatory', color: 'bg-red-500' },
-	{ priority: 2, name: 'Essential', color: 'bg-yellow-400' },
-	{ priority: 3, name: 'Necessary', color: 'bg-green-500' },
-	{ priority: 4, name: 'Trivial', color: 'bg-neutral-400' }
+	{ priority: 1, name: 'Mandatory' },
+	{ priority: 2, name: 'Essential' },
+	{ priority: 3, name: 'Necessary' },
+	{ priority: 4, name: 'Trivial' }
 ]
 
-const priorityColors = {
-	1: 'bg-red-500',
-	2: 'bg-yellow-400',
-	3: 'bg-green-500',
-	4: 'bg-neutral-400'
+const getRoleColor = (role: Role) => {
+	const roleColors = {
+		admin: 'bg-orange-500',
+		moderator: 'bg-purple-600',
+		user: 'bg-green-600'
+	}
+	return roleColors[role]
+}
+
+const getPriorityColor = (priority: Priority) => {
+	const priorityColors = {
+		1: 'bg-red-500',
+		2: 'bg-yellow-400',
+		3: 'bg-green-500',
+		4: 'bg-neutral-400'
+	}
+	return priorityColors[priority]
 }
 
 const capitalize = (string: string) => string[0].toLocaleUpperCase() + string.slice(1)
@@ -63,8 +69,8 @@ export {
 	monthNames,
 	roles,
 	priorities,
-	roleColors,
-	priorityColors,
+	getRoleColor,
+	getPriorityColor,
 	isToday,
 	formatDate,
 	isTheSameDay,

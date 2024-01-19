@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 import { useTaskPreviewModal } from '@/components/Modals/hooks'
-import { formatDate, priorityColors } from '@/helpers'
+import { formatDate, getPriorityColor } from '@/helpers'
 import { useAuth } from '@/hooks'
 import { Task as TaskType } from '@/types'
 
@@ -30,7 +30,7 @@ const Task = (task: TaskType) => {
 
 			<div className='flex h-[88px] flex-col justify-center'>
 				<div className='flex items-center gap-3'>
-					<div className={`h-5 w-5 rounded-full ${priorityColors[task.priority]}`} />
+					<div className={`h-5 w-5 rounded-full ${getPriorityColor(task.priority)}`} />
 					<h2 className='text-3xl font-semibold'>{task.title}</h2>
 				</div>
 				<div className='ml-9 mt-1 flex items-center'>

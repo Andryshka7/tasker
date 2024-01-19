@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction } from 'react'
 
-import { priorities } from '@/helpers'
+import { getPriorityColor, priorities } from '@/helpers'
 import { Priority } from '@/types'
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 const PrioritySelector = ({ selectedPriority, selectPriority }: Props) => (
 	<div className='mt-6 flex items-center justify-between'>
-		{priorities.map(({ priority, name, color }) => (
+		{priorities.map(({ priority, name }) => (
 			<div
 				className={`flex w-40 cursor-pointer items-center justify-center gap-2 rounded py-1.5 duration-200 ${
 					selectedPriority === priority ? 'bg-teal' : 'bg-cyan hover:bg-teal'
@@ -20,7 +20,7 @@ const PrioritySelector = ({ selectedPriority, selectPriority }: Props) => (
 				onClick={() => selectPriority(priority as Priority)}
 				key={priority}
 			>
-				<div className={`h-5 w-5 rounded-full ${color}`} />
+				<div className={`h-5 w-5 rounded-full ${getPriorityColor(priority as Priority)}`} />
 				<div className='font-semibold'>{name}</div>
 			</div>
 		))}
