@@ -8,7 +8,7 @@ import { useCreateTaskModal } from '@/components/Modals/hooks'
 import { useAuth, useCreateTask } from '@/hooks'
 import { Priority, User } from '@/types'
 
-import { DateSelector, PrioritySelector, UserSelector } from './components'
+import { DatePicker, PrioritySelector, UserSelector } from './components'
 
 type FormFields = {
 	title: string
@@ -67,7 +67,7 @@ const Form = () => {
 
 			<div className='mt-4 flex items-center justify-between'>
 				<UserSelector user={user} selectUser={setUser} />
-				<DateSelector selectedDate={date} setSelectedDate={setDate} />
+				<DatePicker selectedDate={date} setSelectedDate={setDate} />
 			</div>
 
 			<div className='mx-auto mt-12 flex w-fit gap-5'>

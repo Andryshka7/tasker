@@ -23,6 +23,13 @@ const roleColors = {
 	user: 'bg-green-600'
 }
 
+const priorities = [
+	{ priority: 1, name: 'Mandatory', color: 'bg-red-500' },
+	{ priority: 2, name: 'Essential', color: 'bg-yellow-400' },
+	{ priority: 3, name: 'Necessary', color: 'bg-green-500' },
+	{ priority: 4, name: 'Trivial', color: 'bg-neutral-400' }
+]
+
 const priorityColors = {
 	1: 'bg-red-500',
 	2: 'bg-yellow-400',
@@ -55,6 +62,7 @@ const formatDate = (date: string) => {
 export {
 	monthNames,
 	roles,
+	priorities,
 	roleColors,
 	priorityColors,
 	isToday,

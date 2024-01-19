@@ -2,20 +2,8 @@
 
 import { Dispatch, SetStateAction } from 'react'
 
+import { priorities } from '@/helpers'
 import { Priority } from '@/types'
-
-type Priorities = {
-	priority: Priority
-	name: string
-	color: string
-}[]
-
-const priorities: Priorities = [
-	{ priority: 1, name: 'Mandatory', color: 'bg-red-500' },
-	{ priority: 2, name: 'Essential', color: 'bg-yellow-400' },
-	{ priority: 3, name: 'Necessary', color: 'bg-green-500' },
-	{ priority: 4, name: 'Trivial', color: 'bg-neutral-400' }
-]
 
 interface Props {
 	selectedPriority: number
@@ -29,7 +17,7 @@ const PrioritySelector = ({ selectedPriority, selectPriority }: Props) => (
 				className={`flex w-40 cursor-pointer items-center justify-center gap-2 rounded py-1.5 duration-200 ${
 					selectedPriority === priority ? 'bg-teal' : 'bg-cyan hover:bg-teal'
 				}`}
-				onClick={() => selectPriority(priority)}
+				onClick={() => selectPriority(priority as Priority)}
 				key={priority}
 			>
 				<div className={`h-5 w-5 rounded-full ${color}`} />

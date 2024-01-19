@@ -8,7 +8,7 @@ import { useEditTaskModal } from '@/components/Modals/hooks'
 import { useUpdateTask } from '@/hooks'
 import { Priority, Task, User } from '@/types'
 
-import { PrioritySelector, UserSelector } from './components'
+import { DatePicker, PrioritySelector, UserSelector } from './components'
 import { getUpdateFields } from './helpers'
 
 type FormFields = {
@@ -19,7 +19,7 @@ type FormFields = {
 const Form = (task: Task) => {
 	const [priority, setPriority] = useState<Priority>(task.priority)
 	const [user, setUser] = useState<User | null>(task.user)
-	const [due, setDue] = useState<string>(new Date().toISOString())
+	const [date, setDate] = useState<string>(task.due)
 
 	const updateTask = useUpdateTask(task.id)
 
@@ -33,7 +33,7 @@ const Form = (task: Task) => {
 	})
 
 	const onSubmit = async (data: FormFields) => {
-		const updateFields = getUpdateFields(task, { ...data, priority, user, due })
+		const updateFields = getUpdateFields(task, { ...data, priority, user, due: date })
 		await updateTask(updateFields)
 		close()
 	}
@@ -64,7 +64,11 @@ const Form = (task: Task) => {
 			/>
 
 			<PrioritySelector selectedPriority={priority} selectPriority={setPriority} />
-			<UserSelector user={user} selectUser={setUser} />
+
+			<div className='mt-4 flex items-center justify-between'>
+				<UserSelector user={user} selectUser={setUser} />
+				<DatePicker selectedDate={date} setSelectedDate={setDate} />
+			</div>
 
 			<div className='mx-auto mt-12 flex w-fit gap-5'>
 				<button
