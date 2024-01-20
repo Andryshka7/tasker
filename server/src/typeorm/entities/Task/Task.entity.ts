@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Priority } from 'types'
 
-import { UserEntity } from '../'
+import { TeamEntity, UserEntity } from '../'
 
 @Entity({ name: 'tasks' })
 export class TaskEntity {
@@ -26,6 +26,9 @@ export class TaskEntity {
 	@ManyToOne(() => UserEntity, (user) => user.tasks)
 	user: UserEntity
 
-	@ManyToOne(() => UserEntity, (user) => user.createdTasks)
+	@ManyToOne(() => TeamEntity, (team) => team.tasks)
+	team: TeamEntity
+
+	@ManyToOne(() => UserEntity)
 	creator: UserEntity
 }

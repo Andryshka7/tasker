@@ -9,9 +9,9 @@ import { LuCalendarRange } from 'react-icons/lu'
 import { RiFileListLine } from 'react-icons/ri'
 import { TbSquareCheck } from 'react-icons/tb'
 
-import { useCreateTaskModal } from '@/components/Modals/hooks'
 import { useAuth } from '@/hooks'
 import { useSignOut } from '@/hooks/api-communication/auth'
+import { useCreateTaskModal } from '@/hooks/modals'
 
 import { MenuItem } from './components'
 

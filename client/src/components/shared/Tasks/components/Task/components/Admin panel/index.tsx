@@ -2,9 +2,9 @@ import { MouseEvent } from 'react'
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { useConfirmationModal, useEditTaskModal } from '@/components/Modals/hooks'
 import { Avatar } from '@/components/ui'
 import { useAuth, useDeleteTask, useUpdateTask } from '@/hooks'
+import { useConfirmationModal, useEditTaskModal } from '@/hooks/modals'
 import { Task } from '@/types'
 
 interface Props {

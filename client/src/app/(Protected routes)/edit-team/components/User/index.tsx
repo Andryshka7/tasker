@@ -3,10 +3,10 @@
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { useConfirmationModal, useEditUserModal } from '@/components/Modals/hooks'
 import { Avatar } from '@/components/ui'
 import { roles } from '@/helpers'
 import { useAuth, useDeleteUser } from '@/hooks'
+import { useConfirmationModal, useEditUserModal } from '@/hooks/modals'
 import { User as UserType } from '@/types'
 
 import { RoleSelector } from './components'

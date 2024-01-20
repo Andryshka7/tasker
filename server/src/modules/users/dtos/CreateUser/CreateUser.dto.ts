@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
-import { Role } from 'types'
+import { Role, Team } from 'types'
 
 export class CreateUserDto {
 	@IsNotEmpty()
@@ -17,6 +17,10 @@ export class CreateUserDto {
 	@IsNotEmpty()
 	@IsString()
 	password: string
+
+	@IsNotEmpty()
+	@IsString()
+	team: Team
 
 	@IsNotEmpty()
 	@IsString()

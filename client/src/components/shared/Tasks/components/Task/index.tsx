@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 
-import { useTaskPreviewModal } from '@/components/Modals/hooks'
 import { formatDate, getPriorityColor } from '@/helpers'
 import { useAuth } from '@/hooks'
+import { useTaskPreviewModal } from '@/hooks/modals'
 import { Task as TaskType } from '@/types'
 
 import { AdminPanel, UserPanel } from './components'

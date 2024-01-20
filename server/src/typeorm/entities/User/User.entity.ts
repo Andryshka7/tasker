@@ -1,7 +1,7 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Role } from 'types'
 
-import { TaskEntity } from '../'
+import { TaskEntity, TeamEntity } from '../'
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -29,9 +29,9 @@ export class UserEntity {
 	@Column({ default: null })
 	avatar: string
 
+	@ManyToOne(() => TeamEntity, (team) => team.users)
+	team: TeamEntity
+
 	@OneToMany(() => TaskEntity, (task) => task.user)
 	tasks: TaskEntity[]
-
-	@OneToMany(() => TaskEntity, (task) => task.creator)
-	createdTasks: TaskEntity[]
 }

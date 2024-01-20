@@ -9,7 +9,7 @@ interface Task {
 	completed: string | null
 	due: string
 	user: User
-	creator: User
+	team: Team
 }
 
 interface User {
@@ -21,8 +21,15 @@ interface User {
 	password: string
 	lastActive: null | string
 	avatar: string | null
+	team: Team
 	tasks: Task[]
-	createdTasks: Task[]
+}
+
+interface Team {
+	id: number
+	name: string
+	users: User[]
+	tasks: Task[]
 }
 
 interface Credentials {
@@ -32,11 +39,11 @@ interface Credentials {
 
 type UserFromRequest = Pick<User, 'id' | 'email' | 'role'>
 
-type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks' | 'lastActive'> & {
+type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'lastActive'> & {
 	avatar: string | null
 }
 
-type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'createdTasks' | 'lastActive'> & {
+type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'team' | 'tasks' | 'lastActive'> & {
 	avatar: string | null
 }
 
@@ -60,6 +67,7 @@ export {
 	type Priority,
 	type Task,
 	type User,
+	type Team,
 	type Credentials,
 	type UserFromRequest,
 	type RefreshToken,

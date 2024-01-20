@@ -2,8 +2,8 @@
 
 import { BiMessageSquareAdd } from 'react-icons/bi'
 
-import { useCreateUserModal } from '@/components/Modals/hooks'
 import { useUsers } from '@/hooks'
+import { useCreateUserModal } from '@/hooks/modals'
 
 import { User } from './components'
 

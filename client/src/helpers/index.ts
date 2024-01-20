@@ -24,25 +24,6 @@ const priorities = [
 	{ priority: 4, name: 'Trivial' }
 ]
 
-const getRoleColor = (role: Role) => {
-	const roleColors = {
-		admin: 'bg-orange-500',
-		moderator: 'bg-purple-600',
-		user: 'bg-green-600'
-	}
-	return roleColors[role]
-}
-
-const getPriorityColor = (priority: Priority) => {
-	const priorityColors = {
-		1: 'bg-red-500',
-		2: 'bg-yellow-400',
-		3: 'bg-green-500',
-		4: 'bg-neutral-400'
-	}
-	return priorityColors[priority]
-}
-
 const capitalize = (string: string) => string[0].toLocaleUpperCase() + string.slice(1)
 
 const isToday = (date: string) => new Date(date).toDateString() === new Date().toDateString()
@@ -65,15 +46,34 @@ const formatDate = (date: string) => {
 	return isToday(date) ? 'Today' : `${day} ${month}`
 }
 
+const getRoleColor = (role: Role) => {
+	const roleColors = {
+		admin: 'bg-orange-500',
+		moderator: 'bg-purple-600',
+		user: 'bg-green-600'
+	}
+	return roleColors[role]
+}
+
+const getPriorityColor = (priority: Priority) => {
+	const priorityColors = {
+		1: 'bg-red-500',
+		2: 'bg-yellow-400',
+		3: 'bg-green-500',
+		4: 'bg-neutral-400'
+	}
+	return priorityColors[priority]
+}
+
 export {
 	monthNames,
 	roles,
 	priorities,
-	getRoleColor,
-	getPriorityColor,
 	isToday,
 	formatDate,
 	isTheSameDay,
 	swapElements,
-	capitalize
+	capitalize,
+	getRoleColor,
+	getPriorityColor
 }

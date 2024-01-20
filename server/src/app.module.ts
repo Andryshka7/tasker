@@ -7,6 +7,8 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { AuthModule, TasksModule, UsersModule } from './modules'
+import { TeamsController } from './modules/teams/controllers/teams/teams.controller';
+import { TeamsService } from './modules/teams/services/teams/teams.service';
 
 @Module({
 	imports: [
@@ -20,7 +22,7 @@ import { AuthModule, TasksModule, UsersModule } from './modules'
 		TasksModule,
 		AuthModule
 	],
-	controllers: [],
-	providers: []
+	controllers: [TeamsController],
+	providers: [TeamsService]
 })
 export class AppModule {}
