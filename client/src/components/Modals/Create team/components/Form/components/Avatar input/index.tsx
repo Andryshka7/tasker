@@ -22,7 +22,7 @@ const AvatarInput = ({ avatar, setAvatar }: Props) => {
 		<>
 			{avatar ? (
 				<div
-					className='relative h-40 w-40 rounded-full'
+					className='relative h-32 w-32 rounded-full'
 					onMouseEnter={() => setIsHovering(true)}
 					onMouseLeave={() => setIsHovering(false)}
 				>
@@ -53,9 +53,9 @@ const AvatarInput = ({ avatar, setAvatar }: Props) => {
 			) : (
 				<label
 					htmlFor='avatar-input'
-					className='flex h-40 w-40 cursor-pointer items-center justify-center rounded-full bg-neutral-500'
+					className='flex h-32 w-32 cursor-pointer items-center justify-center rounded-full bg-neutral-500'
 				>
-					<MdOutlineLibraryAdd size={60} />
+					<MdOutlineLibraryAdd size={55} />
 				</label>
 			)}
 

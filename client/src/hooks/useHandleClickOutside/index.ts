@@ -7,7 +7,11 @@ const useHandleClickOutside = <T extends HTMLElement>(
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (ref.current && !ref.current.contains(event.target as Node)) {
-				action()
+				const handleMouseClick = () => {
+					action()
+					window.removeEventListener('mouseup', handleMouseClick)
+				}
+				window.addEventListener('mouseup', handleMouseClick)
 			}
 		}
 

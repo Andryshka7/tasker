@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import { CreateTeamModal } from '@/components/Modals'
+import { ConfirmationModal, CreateTeamModal } from '@/components/Modals'
 import { Logo } from '@/components/ui'
 
 const Layout = ({ children }: PropsWithChildren) => (
@@ -8,6 +8,7 @@ const Layout = ({ children }: PropsWithChildren) => (
 		<Logo />
 		{children}
 		<CreateTeamModal />
+		<ConfirmationModal />
 	</main>
 )
 
