@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io'
 import { IoClose } from 'react-icons/io5'
 
-import { useHandleClickOuthide } from '@/hooks'
+import { useCreateTeam, useHandleClickOuthide } from '@/hooks'
 import { useCreateTeamModal } from '@/hooks/modals'
 
 import { AvatarInput } from './components'
@@ -16,7 +16,7 @@ type FormFields = {
 	email: string
 	password: string
 	confirmPassword: string
-	team: string
+	teamName: string
 }
 
 const Form = () => {
@@ -29,13 +29,17 @@ const Form = () => {
 
 	const [avatar, setAvatar] = useState<File | null>(null)
 
+	const createTeam = useCreateTeam()
+
 	const name = watch('name')
 	const surname = watch('surname')
 
 	useHandleClickOuthide(ref, close)
 
 	const onSubmit = async (data: FormFields) => {
-		// close()
+		await createTeam({ ...data, avatar })
+
+		close()
 	}
 
 	const getStyle = (scrollPosition: 1 | 2 | 3) => {
@@ -61,7 +65,7 @@ const Form = () => {
 				ref={ref}
 			>
 				<div className='flex w-[700px] flex-col p-10 pb-8 pt-10'>
-					<h1 className='text-3xl font-semibold'>Create profile</h1>
+					<h1 className='text-ellipsis text-3xl font-semibold'>Create profile</h1>
 					<div className='mt-8 flex items-center justify-between'>
 						<div className='-ml-2 flex w-64 flex-col items-center'>
 							<AvatarInput avatar={avatar} setAvatar={setAvatar} />
@@ -88,37 +92,37 @@ const Form = () => {
 							/>
 						</div>
 					</div>
-					<button
-						className='ml-auto mt-auto flex h-10 w-10 items-center justify-center gap-2 rounded-full bg-sky-600'
+					<div
+						className='ml-auto mt-auto flex h-10 w-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-sky-600'
 						onClick={() => setScrollPosition(2)}
 					>
 						<IoMdArrowRoundForward size={20} />
-					</button>
+					</div>
 				</div>
 				<div className='flex w-[700px] flex-col gap-10 rounded-md p-10'>
 					<h1 className='text-3xl font-semibold'>Create team</h1>
 					<div className='mx-auto mt-4 flex items-center gap-10'>
 						<img src='/team.png' className='h-24 w-24' alt='' />
 						<input
-							{...register('team')}
+							{...register('teamName')}
 							className='block w-80 border-b-2 border-neutral-500 bg-transparent px-3 py-2 text-xl font-semibold'
 							placeholder='Team name'
 						/>
 					</div>
 
 					<div className='mt-auto flex items-center justify-between'>
-						<button
-							className='flex h-10 w-10 items-center justify-center gap-2 rounded-full bg-sky-600'
+						<div
+							className='flex h-10 w-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-sky-600'
 							onClick={() => setScrollPosition(1)}
 						>
 							<IoMdArrowRoundBack size={20} />
-						</button>
-						<button
-							className='flex h-10 w-10 items-center justify-center gap-2 rounded-full bg-sky-600'
+						</div>
+						<div
+							className='flex h-10 w-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-sky-600'
 							onClick={() => setScrollPosition(3)}
 						>
 							<IoMdArrowRoundForward size={20} />
-						</button>
+						</div>
 					</div>
 				</div>
 				<div className='flex w-[700px] flex-col gap-10 rounded-md p-10'>
@@ -147,12 +151,12 @@ const Form = () => {
 						</div>
 					</div>
 
-					<button
-						className='mt-auto flex h-10 w-10 items-center justify-center gap-2 rounded-full bg-sky-600'
+					<div
+						className='mt-auto flex h-10 w-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-sky-600'
 						onClick={() => setScrollPosition(2)}
 					>
 						<IoMdArrowRoundBack size={20} />
-					</button>
+					</div>
 				</div>
 			</form>
 		</div>

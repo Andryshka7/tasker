@@ -10,3 +10,4 @@ export { default as useHandleClickOuthide } from './useHandleClickOutside'
 
 export { useCreateTask, useUpdateTask, useDeleteTask } from './api-communication/tasks'
 export { useCreateUser, useUpdateUser, useDeleteUser } from './api-communication/users'
+export { useCreateTeam } from './api-communication/teams'

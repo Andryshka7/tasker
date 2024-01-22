@@ -18,10 +18,10 @@ const monthNames = [
 const roles: Role[] = ['user', 'moderator', 'admin']
 
 const priorities = [
-	{ priority: 1, name: 'Mandatory' },
-	{ priority: 2, name: 'Essential' },
-	{ priority: 3, name: 'Necessary' },
-	{ priority: 4, name: 'Trivial' }
+	{ priority: 1 as Priority, name: 'Mandatory' },
+	{ priority: 2 as Priority, name: 'Essential' },
+	{ priority: 3 as Priority, name: 'Necessary' },
+	{ priority: 4 as Priority, name: 'Trivial' }
 ]
 
 const capitalize = (string: string) => string[0].toLocaleUpperCase() + string.slice(1)

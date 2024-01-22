@@ -27,6 +27,7 @@ interface User {
 
 interface Team {
 	id: number
+	creator: User
 	name: string
 	users: User[]
 	tasks: Task[]

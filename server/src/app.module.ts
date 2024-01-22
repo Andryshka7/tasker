@@ -6,9 +6,7 @@ import { MulterModule } from '@nestjs/platform-express'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { AuthModule, TasksModule, UsersModule } from './modules'
-import { TeamsController } from './modules/teams/controllers/teams/teams.controller';
-import { TeamsService } from './modules/teams/services/teams/teams.service';
+import { AuthModule, TasksModule, TeamsModule, UsersModule } from './modules'
 
 @Module({
 	imports: [
@@ -20,9 +18,8 @@ import { TeamsService } from './modules/teams/services/teams/teams.service';
 		TypeOrmModule.forRoot(config),
 		UsersModule,
 		TasksModule,
+		TeamsModule,
 		AuthModule
-	],
-	controllers: [TeamsController],
-	providers: [TeamsService]
+	]
 })
 export class AppModule {}

@@ -17,10 +17,10 @@ const PrioritySelector = ({ selectedPriority, selectPriority }: Props) => (
 				className={`flex w-40 cursor-pointer items-center justify-center gap-2 rounded py-1.5 duration-200 ${
 					selectedPriority === priority ? 'bg-teal' : 'bg-cyan hover:bg-teal'
 				}`}
-				onClick={() => selectPriority(priority as Priority)}
+				onClick={() => selectPriority(priority)}
 				key={priority}
 			>
-				<div className={`h-5 w-5 rounded-full ${getPriorityColor(priority as Priority)}`} />
+				<div className={`h-5 w-5 rounded-full ${getPriorityColor(priority)}`} />
 				<div className='font-semibold'>{name}</div>
 			</div>
 		))}

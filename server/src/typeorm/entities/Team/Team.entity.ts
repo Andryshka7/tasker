@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 import { TaskEntity, UserEntity } from '../'
 
@@ -9,6 +9,9 @@ export class TeamEntity {
 
 	@Column()
 	name: string
+
+	@OneToOne(() => UserEntity)
+	creator: UserEntity
 
 	@OneToMany(() => UserEntity, (user) => user.team)
 	users: UserEntity[]
