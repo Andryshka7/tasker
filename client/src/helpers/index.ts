@@ -57,8 +57,8 @@ const getRoleColor = (role: Role) => {
 
 const getPriorityColor = (priority: Priority) => {
 	const priorityColors = {
-		1: 'bg-red-500',
 		2: 'bg-yellow-400',
+		1: 'bg-red-500',
 		3: 'bg-green-500',
 		4: 'bg-neutral-400'
 	}

@@ -28,6 +28,7 @@ export class TeamsService {
 			userDetails.avatar = `${server}/images/${fileName}`
 		}
 		const user = this.usersRepository.create(userDetails)
+
 		return await this.usersRepository.save(user)
 	}
 

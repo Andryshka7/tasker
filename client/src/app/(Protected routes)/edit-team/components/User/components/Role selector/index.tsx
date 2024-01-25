@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 
-import { capitalize, getRoleColor, roles } from '@/helpers'
+import { capitalize, roles } from '@/helpers'
 import { useAuth, useHandleClickOuthide, useOptimistic, useUpdateUser } from '@/hooks'
 import { Role } from '@/types'
 
@@ -12,6 +12,9 @@ type Props = {
 	userId: number
 	editable?: boolean
 }
+
+const getRoleColor = (role: Role) =>
+	role === 'admin' ? 'bg-orange-500' : role === 'moderator' ? 'bg-purple-600' : 'bg-green-600'
 
 const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
 	const ref = useRef<HTMLDivElement | null>(null)
