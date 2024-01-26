@@ -1,7 +1,16 @@
-import { Body, Controller, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Post,
+	Res,
+	UploadedFile,
+	UseInterceptors,
+	UsePipes
+} from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 
 import { CreateTeamDto } from '../../dtos'
+import { HashPasswordPipe, ValidateEmailPipe } from '../../pipes'
 import { TeamsService, TokensService } from '../../services'
 
 @Controller('teams')
@@ -13,6 +22,7 @@ export class TeamsController {
 
 	@Post()
 	@UseInterceptors(FileInterceptor('image'))
+	@UsePipes(HashPasswordPipe, ValidateEmailPipe)
 	async createTeam(
 		@Res({ passthrough: true }) response,
 		@UploadedFile() file: Express.Multer.File,

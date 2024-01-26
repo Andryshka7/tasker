@@ -2,13 +2,20 @@
 
 import { Dispatch, SetStateAction } from 'react'
 
-import { getPriorityColor, priorities } from '@/helpers'
+import { PriorityIndicator } from '@/components/shared'
 import { Priority } from '@/types'
 
 interface Props {
 	selectedPriority: number
 	selectPriority: Dispatch<SetStateAction<Priority>>
 }
+
+const priorities = [
+	{ priority: 1 as Priority, name: 'Mandatory' },
+	{ priority: 2 as Priority, name: 'Essential' },
+	{ priority: 3 as Priority, name: 'Necessary' },
+	{ priority: 4 as Priority, name: 'Trivial' }
+]
 
 const PrioritySelector = ({ selectedPriority, selectPriority }: Props) => (
 	<div className='mt-6 flex items-center justify-between'>
@@ -20,7 +27,7 @@ const PrioritySelector = ({ selectedPriority, selectPriority }: Props) => (
 				onClick={() => selectPriority(priority)}
 				key={priority}
 			>
-				<div className={`h-5 w-5 rounded-full ${getPriorityColor(priority)}`} />
+				<PriorityIndicator className='h-5 w-5 rounded-full' priority={priority} />
 				<div className='font-semibold'>{name}</div>
 			</div>
 		))}

@@ -3,7 +3,8 @@
 import { useRef } from 'react'
 import { IoClose } from 'react-icons/io5'
 
-import { formatDate, getPriorityColor } from '@/helpers'
+import { PriorityIndicator } from '@/components/shared'
+import { formatDate } from '@/helpers'
 import { useAuth, useHandleClickOuthide } from '@/hooks'
 import { useTaskPreviewModal } from '@/hooks/modals'
 import { Task as TaskType } from '@/types'
@@ -28,7 +29,7 @@ const Task = (task: TaskType) => {
 			/>
 			<div className='flex items-center justify-between'>
 				<div className='flex items-center gap-3'>
-					<div className={`h-6 w-6 rounded-full ${getPriorityColor(task.priority)}`} />
+					<PriorityIndicator className='h-5 w-5 rounded-full' priority={task.priority} />
 					<h2 className='text-4xl font-semibold'>{task.title}</h2>
 				</div>
 				<div className='rounded bg-cyan px-4 py-0.5 font-medium'>

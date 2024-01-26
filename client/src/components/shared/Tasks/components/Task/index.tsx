@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 
-import { formatDate, getPriorityColor } from '@/helpers'
+import { PriorityIndicator } from '@/components/shared'
+import { formatDate } from '@/helpers'
 import { useAuth } from '@/hooks'
 import { useTaskPreviewModal } from '@/hooks/modals'
 import { Task as TaskType } from '@/types'
@@ -30,7 +31,7 @@ const Task = (task: TaskType) => {
 
 			<div className='flex h-[88px] flex-col justify-center'>
 				<div className='flex items-center gap-3'>
-					<div className={`h-5 w-5 rounded-full ${getPriorityColor(task.priority)}`} />
+					<PriorityIndicator className='h-5 w-5 rounded-full' priority={task.priority} />
 					<h2 className='text-3xl font-semibold'>{task.title}</h2>
 				</div>
 				<div className='ml-9 mt-1 flex items-center'>
