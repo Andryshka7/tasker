@@ -23,7 +23,7 @@ export class TaskEntity {
 	@Column()
 	due: string
 
-	@ManyToOne(() => UserEntity, (user) => user.tasks)
+	@ManyToOne(() => UserEntity)
 	user: UserEntity
 
 	@ManyToOne(() => TeamEntity, (team) => team.tasks)

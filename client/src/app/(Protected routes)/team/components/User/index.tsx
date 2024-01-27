@@ -1,6 +1,12 @@
 import { Avatar } from '@/components/ui'
-import { capitalize, getRoleColor } from '@/helpers'
+import { capitalize } from '@/helpers'
 import { User as UserType } from '@/types'
+
+const roleColors = {
+	admin: 'bg-orange-500',
+	moderator: 'bg-purple-600',
+	user: 'bg-green-600'
+}
 
 const User = (user: UserType) => (
 	<div className='flex items-center justify-between rounded-md bg-blue px-10 py-5'>
@@ -11,9 +17,9 @@ const User = (user: UserType) => (
 			</h3>
 		</div>
 		<div
-			className={`flex h-7 w-32 items-center justify-center rounded text-xs font-semibold ${getRoleColor(
-				user.role
-			)}`}
+			className={`flex h-7 w-32 items-center justify-center rounded text-xs font-semibold ${
+				roleColors[user.role]
+			}`}
 		>
 			{capitalize(user.role)}
 		</div>

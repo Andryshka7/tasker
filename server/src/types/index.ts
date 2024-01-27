@@ -22,7 +22,6 @@ interface User {
 	lastActive: null | string
 	avatar: string | null
 	team: Team
-	tasks: Task[]
 }
 
 interface Team {
@@ -38,13 +37,18 @@ interface Credentials {
 	password: string
 }
 
-type UserFromRequest = Pick<User, 'id' | 'email' | 'role'>
+type UserFromRequest = {
+	id: number
+	email: string
+	role: Role
+	team: Team
+}
 
-type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'tasks' | 'lastActive'> & {
+type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'lastActive'> & {
 	avatar: string | null
 }
 
-type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'team' | 'tasks' | 'lastActive'> & {
+type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'team' | 'lastActive'> & {
 	avatar: string | null
 }
 
@@ -53,14 +57,6 @@ type CreateTaskPayload = Omit<Task, 'id' | 'creator' | 'completed'>
 interface RefreshToken {
 	token: string
 	user: User
-}
-
-interface JwtPayload {
-	id: number
-	email: string
-	role: string
-	iat: number
-	exp: number
 }
 
 export {
@@ -72,7 +68,6 @@ export {
 	type Credentials,
 	type UserFromRequest,
 	type RefreshToken,
-	type JwtPayload,
 	type CreateUserPayload,
 	type UpdateUserPayload,
 	type CreateTaskPayload

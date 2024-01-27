@@ -1,4 +1,6 @@
+import { GetUser } from 'common/decorators'
 import { IsModeratorGuard } from 'common/guards'
+import { UserFromRequest } from 'types'
 
 import {
 	Body,
@@ -26,18 +28,23 @@ export class UsersController {
 
 	@Get()
 	@UseGuards(AuthGuard('jwt-access-token'))
-	async fetchUsers() {
-		return await this.usersService.fetchUsers()
+	async fetchUsers(@GetUser() userFromRequest: UserFromRequest) {
+		const { team } = userFromRequest
+		const teamUsers = await this.usersService.fetchTeamUsers(team)
+		return teamUsers
 	}
 
 	@Post()
 	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	@UseInterceptors(FileInterceptor('image'))
 	async createUser(
+		@GetUser() userFromRequest: UserFromRequest,
 		@UploadedFile() file: Express.Multer.File,
 		@Body(HashPasswordPipe, ValidateEmailPipe) createUserDto: CreateUserDto
 	) {
-		return await this.usersService.createUser(file, createUserDto)
+		const { team } = userFromRequest
+		const user = await this.usersService.createUser(file, { ...createUserDto, team })
+		return user
 	}
 
 	@Patch(':id')
@@ -48,13 +55,15 @@ export class UsersController {
 		@Param('id', ParseIntPipe) id: number,
 		@Body(HashPasswordPipe) updateUserDto: UpdateUserDto
 	) {
-		return await this.usersService.updateUser(id, file, updateUserDto)
+		const user = await this.usersService.updateUser(id, file, updateUserDto)
+		return user
 	}
 
 	@Delete(':id')
 	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	@UseInterceptors(FileInterceptor('image'))
 	async deleteUser(@Param('id', ParseIntPipe) id: number) {
-		return await this.usersService.deleteUser(id)
+		await this.usersService.deleteUser(id)
+		return true
 	}
 }

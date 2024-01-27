@@ -26,6 +26,7 @@ interface User {
 	surname: string
 	email: string
 	role: Role
+	team: Team
 	lastActive: string | null
 	avatar: string | null
 }

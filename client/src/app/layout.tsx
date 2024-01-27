@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 import { Toaster } from 'react-hot-toast'
 
+import { ConfirmationModal } from '@/components/Modals'
 import { ReactQueryProvider } from '@/components/Providers'
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ const RootLayout = ({ children }: PropsWithChildren) => (
 				{children}
 				<Toaster />
 			</ReactQueryProvider>
+			<ConfirmationModal />
 			<div id='portal' />
 		</body>
 	</html>

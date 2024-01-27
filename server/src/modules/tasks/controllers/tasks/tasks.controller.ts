@@ -17,25 +17,31 @@ import { AuthGuard } from '@nestjs/passport'
 
 import { CreateTaskDto, UpdateTaskDto } from '../../dtos'
 import { ValidateTaskPipe } from '../../pipes'
-import { TaskService } from '../../services'
+import { TasksService, UsersService } from '../../services'
 
 @Controller('tasks')
 export class TaskController {
-	constructor(private tasksService: TaskService) {}
+	constructor(
+		private tasksService: TasksService,
+		private usersService: UsersService
+	) {}
 
 	@Get()
 	@UseGuards(AuthGuard('jwt-access-token'))
-	async fetchTasks() {
-		return await this.tasksService.fetchTasks()
+	async fetchTasks(@GetUser() userFromRequest: UserFromRequest) {
+		const { team } = userFromRequest
+		return await this.tasksService.fetchTeamTasks(team)
 	}
 
 	@Post()
 	@UseGuards(AuthGuard('jwt-access-token'))
 	async createTask(
-		@GetUser() user: UserFromRequest,
+		@GetUser() userFromRequest: UserFromRequest,
 		@Body(ValidateTaskPipe) createTaskDto: CreateTaskDto
 	) {
-		return this.tasksService.createTask(createTaskDto, user)
+		const user = await this.usersService.fetchUserBy(userFromRequest)
+		const task = await this.tasksService.createTask(createTaskDto, user)
+		return task
 	}
 
 	@Patch(':id')
@@ -44,12 +50,14 @@ export class TaskController {
 		@Param('id', ParseIntPipe) id: number,
 		@Body(ValidateTaskPipe) updateTaskDto: UpdateTaskDto
 	) {
-		await this.tasksService.updateTask(id, updateTaskDto)
+		const task = await this.tasksService.updateTask(id, updateTaskDto)
+		return task
 	}
 
 	@Delete(':id')
 	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	async deleteUser(@Param('id', ParseIntPipe) id: number) {
-		return await this.tasksService.deleteTask(id)
+		await this.tasksService.deleteTask(id)
+		return true
 	}
 }

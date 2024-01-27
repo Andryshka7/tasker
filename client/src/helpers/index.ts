@@ -39,22 +39,4 @@ const formatDate = (date: string) => {
 	return isToday(date) ? 'Today' : `${day} ${month}`
 }
 
-const getRoleColor = (role: Role) => {
-	const roleColors = {
-		admin: 'bg-orange-500',
-		moderator: 'bg-purple-600',
-		user: 'bg-green-600'
-	}
-	return roleColors[role]
-}
-
-export {
-	monthNames,
-	roles,
-	isToday,
-	formatDate,
-	isTheSameDay,
-	swapElements,
-	capitalize,
-	getRoleColor
-}
+export { monthNames, roles, isToday, formatDate, isTheSameDay, swapElements, capitalize }

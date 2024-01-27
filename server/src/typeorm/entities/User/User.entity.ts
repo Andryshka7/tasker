@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Role } from 'types'
 
-import { TaskEntity, TeamEntity } from '../'
+import { TeamEntity } from '../'
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -31,7 +31,4 @@ export class UserEntity {
 
 	@ManyToOne(() => TeamEntity, (team) => team.users)
 	team: TeamEntity
-
-	@OneToMany(() => TaskEntity, (task) => task.user)
-	tasks: TaskEntity[]
 }

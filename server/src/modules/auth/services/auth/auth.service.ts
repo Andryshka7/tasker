@@ -11,7 +11,7 @@ export class AuthService {
 	constructor(@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>) {}
 
 	async signIn({ email, password }: Credentials) {
-		const user = await this.usersRepository.findOneBy({ email })
+		const user = await this.usersRepository.findOne({ where: { email }, relations: ['team'] })
 
 		if (!user || !(await compare(password, user.password))) {
 			throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
@@ -23,7 +23,7 @@ export class AuthService {
 	}
 
 	async fetchMe(id: number) {
-		const user = await this.usersRepository.findOneBy({ id })
+		const user = await this.usersRepository.findOne({ where: { id }, relations: ['team'] })
 		return user
 	}
 }

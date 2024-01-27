@@ -2,7 +2,7 @@ import { hash } from 'bcrypt'
 
 import { Injectable, PipeTransform } from '@nestjs/common'
 
-import { CreateTeamDto } from '../../dtos/CreateTeam/CreateTeam.dto'
+import { CreateTeamDto } from '../../dtos'
 
 @Injectable()
 export class HashPasswordPipe implements PipeTransform {

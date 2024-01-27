@@ -1,6 +1,5 @@
 import { GetRefreshToken, GetUser } from 'common/decorators'
 import { Response } from 'express'
-import { SignInDto } from 'modules/auth/dtos'
 import { User, UserFromRequest } from 'types'
 
 import {
@@ -15,6 +14,7 @@ import {
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 
+import { SignInDto } from '../../dtos'
 import { AuthService, TokensService } from '../../services'
 
 @Controller('auth')
@@ -26,8 +26,8 @@ export class AuthController {
 
 	@Get()
 	@UseGuards(AuthGuard('jwt-access-token'))
-	async getMe(@GetUser() user: UserFromRequest) {
-		const { password, ...userDetails } = await this.authService.fetchMe(user.id)
+	async getMe(@GetUser() userFromRequest: UserFromRequest) {
+		const { password, ...userDetails } = await this.authService.fetchMe(userFromRequest.id)
 		return userDetails
 	}
 
@@ -62,18 +62,27 @@ export class AuthController {
 
 	@Post('refresh')
 	@UseGuards(AuthGuard('jwt-refresh-token'))
-	async refreshTokens(@GetRefreshToken() refreshToken: string, @GetUser() user: UserFromRequest) {
-		const tokenExists = await this.tokensService.tokenExists({ refreshToken, user })
+	async refreshTokens(
+		@GetRefreshToken() refreshToken: string,
+		@GetUser() userFromRequest: UserFromRequest
+	) {
+		const tokenExists = await this.tokensService.tokenExists({
+			refreshToken,
+			user: userFromRequest
+		})
 		if (!tokenExists) {
 			throw new HttpException('Refresh token malformed', HttpStatus.BAD_REQUEST)
 		}
-		await this.tokensService.updateRefreshToken(refreshToken, user.id)
+		await this.tokensService.updateRefreshToken(refreshToken, userFromRequest.id)
 	}
 
 	@Post('signout')
 	@UseGuards(AuthGuard('jwt-access-token'))
-	async signOut(@Res({ passthrough: true }) response: Response, @GetUser() user: User) {
-		await this.tokensService.revokeRefreshToken({ user })
+	async signOut(
+		@Res({ passthrough: true }) response: Response,
+		@GetUser() userFromRequest: User
+	) {
+		await this.tokensService.revokeRefreshToken({ user: userFromRequest })
 		response.clearCookie('accessToken')
 		response.clearCookie('refreshToken')
 	}

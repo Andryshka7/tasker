@@ -1,8 +1,8 @@
 import { server } from 'config'
 import { uploadFile } from 'helpers'
-import { Repository } from 'typeorm'
+import { FindOptionsWhere, Repository } from 'typeorm'
 import { TeamEntity, UserEntity } from 'typeorm/entities'
-import { Role, Team } from 'types'
+import { Role } from 'types'
 import { v4 as uuid } from 'uuid'
 
 import { Injectable } from '@nestjs/common'
@@ -13,30 +13,35 @@ import { CreateTeamDto } from '../../dtos'
 @Injectable()
 export class TeamsService {
 	constructor(
-		@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>,
-		@InjectRepository(TeamEntity) private teamsRepository: Repository<TeamEntity>
+		@InjectRepository(TeamEntity) private teamsRepository: Repository<TeamEntity>,
+		@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>
 	) {}
 
-	async createUser(
-		file: Express.Multer.File,
-		createUserDto: Pick<CreateTeamDto, 'name' | 'surname' | 'email' | 'password'>
-	) {
-		const userDetails = { ...createUserDto, role: 'admin' as Role, avatar: null }
+	async fetchBy(options: FindOptionsWhere<UserEntity> | FindOptionsWhere<UserEntity>) {
+		const team = await this.usersRepository.findBy(options)
+		return team
+	}
+
+	async createTeam(file, teamDetails: CreateTeamDto) {
+		const { teamName, ...user } = teamDetails
+		const userDetails = { ...user, role: 'admin' as Role, avatar: null }
 
 		if (file) {
 			const fileName = uploadFile(file, uuid())
 			userDetails.avatar = `${server}/images/${fileName}`
 		}
-		const user = this.usersRepository.create(userDetails)
+		const creator = this.usersRepository.create(userDetails)
 
-		return await this.usersRepository.save(user)
-	}
-
-	async createTeam(teamDetails: Pick<Team, 'name' | 'creator'>) {
 		const team = await this.teamsRepository.create({
-			...teamDetails,
-			users: [teamDetails.creator]
+			name: teamName,
+			users: [creator]
 		})
-		return team
+
+		creator.team = team
+
+		const createdTeam = await this.teamsRepository.save(team)
+		const createdUser = await this.usersRepository.save(creator)
+
+		return [createdUser, createdTeam] as [UserEntity, TeamEntity]
 	}
 }

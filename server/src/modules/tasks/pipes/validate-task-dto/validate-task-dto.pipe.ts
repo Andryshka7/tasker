@@ -1,6 +1,6 @@
 import { Injectable, PipeTransform } from '@nestjs/common'
 
-import { CreateTaskDto } from '../../dtos/CreateTask/CreateTask.dto'
+import { CreateTaskDto } from '../../dtos'
 
 @Injectable()
 export class ValidateTaskPipe implements PipeTransform {

@@ -36,9 +36,14 @@ const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
 	options[0] = role
 
 	const getOptionStyle = (index: number) => {
-		const visibility = !isOpen && index > 0 ? 'hidden' : 'visible'
+		const roleColors = {
+			admin: 'bg-orange-500',
+			moderator: 'bg-purple-600',
+			user: 'bg-green-600'
+		}
 
-		const color = getRoleColor(options[index])
+		const color = roleColors[options[index]]
+		const visibility = !isOpen && index > 0 ? 'hidden' : 'visible'
 
 		let rounded = !isOpen ? 'rounded-md' : ''
 		if (isOpen && index === 0) rounded += 'rounded-t-md'

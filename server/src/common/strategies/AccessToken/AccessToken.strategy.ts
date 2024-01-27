@@ -1,7 +1,6 @@
 import { jwt_secret } from 'config'
 import { Request } from 'express'
 import { Strategy } from 'passport-jwt'
-import { JwtPayload } from 'types'
 
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
@@ -15,8 +14,8 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt-access-
 		})
 	}
 
-	validate(payload: JwtPayload) {
-		const { id, email, role } = payload
-		return { id, email, role }
+	validate(payload) {
+		console.log(payload)
+		return payload
 	}
 }

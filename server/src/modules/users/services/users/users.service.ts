@@ -1,20 +1,21 @@
 import { server } from 'config'
 import { deleteFile, getFilePath, uploadFile } from 'helpers'
-import { CreateUserDto, UpdateUserDto } from 'modules/users/dtos'
 import { FindOptionsWhere, Repository } from 'typeorm'
-import { UserEntity } from 'typeorm/entities/User/User.entity'
-import { UpdateUserPayload } from 'types'
+import { UserEntity } from 'typeorm/entities'
+import { CreateUserPayload, Team, UpdateUserPayload } from 'types'
 import { v4 as uuid } from 'uuid'
 
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
+import { UpdateUserDto } from '../../dtos'
+
 @Injectable()
 export class UsersService {
 	constructor(@InjectRepository(UserEntity) private usersRepository: Repository<UserEntity>) {}
 
-	async fetchUsers() {
-		const users = await this.usersRepository.find()
+	async fetchTeamUsers(team: Team) {
+		const users = await this.usersRepository.find({ where: { team }, relations: ['team'] })
 		return users.map(({ password, ...user }) => user)
 	}
 
@@ -23,7 +24,7 @@ export class UsersService {
 		return user
 	}
 
-	async createUser(file: Express.Multer.File, createUserDto: CreateUserDto) {
+	async createUser(file: Express.Multer.File, createUserDto: Omit<CreateUserPayload, 'avatar'>) {
 		const userDetails = { ...createUserDto, avatar: null }
 
 		if (file) {
