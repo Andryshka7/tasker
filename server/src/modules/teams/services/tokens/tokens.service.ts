@@ -20,11 +20,11 @@ export class TokensService {
 		const { id, email, role, team } = user
 
 		const accessToken = await this.jwtService.signAsync(
-			{ id, email, role, team },
+			{ id, email, role, team }, // JwtPayload
 			{ secret: jwt_secret, expiresIn: '1h' }
 		)
 		const refreshToken = await this.jwtService.signAsync(
-			{ id, email, role, team },
+			{ id, email, role, team }, // JwtPayload
 			{ secret: jwt_secret, expiresIn: '7d' }
 		)
 

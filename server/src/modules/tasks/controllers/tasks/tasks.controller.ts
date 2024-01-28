@@ -39,8 +39,9 @@ export class TaskController {
 		@GetUser() userFromRequest: UserFromRequest,
 		@Body(ValidateTaskPipe) createTaskDto: CreateTaskDto
 	) {
+		const { team } = userFromRequest
 		const user = await this.usersService.fetchUserBy(userFromRequest)
-		const task = await this.tasksService.createTask(createTaskDto, user)
+		const task = await this.tasksService.createTask({ ...createTaskDto, team }, user)
 		return task
 	}
 

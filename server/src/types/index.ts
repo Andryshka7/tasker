@@ -44,6 +44,15 @@ type UserFromRequest = {
 	team: Team
 }
 
+interface JwtPayload {
+	id: number
+	email: string
+	role: string
+	team: Team
+	iat: number
+	exp: number
+}
+
 type CreateUserPayload = Omit<User, 'id' | 'avatar' | 'lastActive'> & {
 	avatar: string | null
 }
@@ -67,6 +76,7 @@ export {
 	type Team,
 	type Credentials,
 	type UserFromRequest,
+	type JwtPayload,
 	type RefreshToken,
 	type CreateUserPayload,
 	type UpdateUserPayload,

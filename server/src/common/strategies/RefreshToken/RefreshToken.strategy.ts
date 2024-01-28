@@ -1,6 +1,7 @@
 import { jwt_secret } from 'config'
 import { Request } from 'express'
 import { Strategy } from 'passport-jwt'
+import { JwtPayload } from 'types'
 
 import { PassportStrategy } from '@nestjs/passport'
 
@@ -12,7 +13,8 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refres
 		})
 	}
 
-	validate(payload) {
-		return payload
+	validate(payload: JwtPayload) {
+		const { id, email, role, team } = payload
+		return { id, email, role, team }
 	}
 }

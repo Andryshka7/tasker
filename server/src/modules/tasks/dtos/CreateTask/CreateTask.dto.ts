@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator'
-import { Priority, Team, User } from 'types'
+import { Priority, User } from 'types'
 
 export class CreateTaskDto {
 	@IsString()
@@ -17,9 +17,6 @@ export class CreateTaskDto {
 	@IsNotEmpty()
 	@IsString()
 	due: string
-
-	@IsNotEmpty()
-	team: Team
 
 	@IsOptional()
 	user: User
