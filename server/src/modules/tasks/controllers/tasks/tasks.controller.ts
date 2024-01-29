@@ -1,6 +1,6 @@
-import { GetUser } from 'common/decorators'
+import { GetTeam, GetUser } from 'common/decorators'
 import { IsModeratorGuard } from 'common/guards'
-import { UserFromRequest } from 'types'
+import { Team, UserFromRequest } from 'types'
 
 import {
 	Body,
@@ -37,11 +37,11 @@ export class TaskController {
 	@UseGuards(AuthGuard('jwt-access-token'))
 	async createTask(
 		@GetUser() userFromRequest: UserFromRequest,
+		@GetTeam() team: Team,
 		@Body(ValidateTaskPipe) createTaskDto: CreateTaskDto
 	) {
-		const { team } = userFromRequest
-		const user = await this.usersService.fetchUserBy(userFromRequest)
-		const task = await this.tasksService.createTask({ ...createTaskDto, team }, user)
+		const creator = await this.usersService.fetchUserBy(userFromRequest)
+		const task = await this.tasksService.createTask({ ...createTaskDto, creator, team })
 		return task
 	}
 

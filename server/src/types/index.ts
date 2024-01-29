@@ -8,6 +8,7 @@ interface Task {
 	priority: Priority
 	completed: string | null
 	due: string
+	creator: User
 	user: User
 	team: Team
 }
@@ -61,7 +62,7 @@ type UpdateUserPayload = Omit<User, 'id' | 'avatar' | 'team' | 'lastActive'> & {
 	avatar: string | null
 }
 
-type CreateTaskPayload = Omit<Task, 'id' | 'creator' | 'completed'>
+type CreateTaskPayload = Omit<Task, 'id' | 'completed'>
 
 interface RefreshToken {
 	token: string

@@ -1,2 +1,3 @@
-export { GetUser } from './GetUser/getUser.decorator'
-export { GetRefreshToken } from './RefreshToken/getRefreshToken.decorator'
+export { GetUser } from './Get user/getUser.decorator'
+export { GetTeam } from './Get team/getTeam.decorator'
+export { GetRefreshToken } from './Get refreshToken/getRefreshToken.decorator'

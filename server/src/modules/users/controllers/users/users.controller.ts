@@ -1,6 +1,6 @@
-import { GetUser } from 'common/decorators'
+import { GetTeam } from 'common/decorators'
 import { IsModeratorGuard } from 'common/guards'
-import { UserFromRequest } from 'types'
+import { Team } from 'types'
 
 import {
 	Body,
@@ -28,8 +28,7 @@ export class UsersController {
 
 	@Get()
 	@UseGuards(AuthGuard('jwt-access-token'))
-	async fetchUsers(@GetUser() userFromRequest: UserFromRequest) {
-		const { team } = userFromRequest
+	async fetchUsers(@GetTeam() team: Team) {
 		const teamUsers = await this.usersService.fetchTeamUsers(team)
 		return teamUsers
 	}
@@ -38,11 +37,10 @@ export class UsersController {
 	@UseGuards(AuthGuard('jwt-access-token'), IsModeratorGuard)
 	@UseInterceptors(FileInterceptor('image'))
 	async createUser(
-		@GetUser() userFromRequest: UserFromRequest,
+		@GetTeam() team: Team,
 		@UploadedFile() file: Express.Multer.File,
 		@Body(HashPasswordPipe, ValidateEmailPipe) createUserDto: CreateUserDto
 	) {
-		const { team } = userFromRequest
 		const user = await this.usersService.createUser(file, { ...createUserDto, team })
 		return user
 	}

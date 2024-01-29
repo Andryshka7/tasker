@@ -14,10 +14,11 @@ interface Task {
 	title: string
 	description: string
 	priority: Priority
+	creator: User
+	user: User | null
+	team: Team
 	completed: string | null
 	due: string
-	user: User | null
-	creator: User
 }
 
 interface User {
@@ -42,7 +43,6 @@ type CreateTeamPayload = { teamName: string } & Pick<User, 'name' | 'surname' | 
 	}
 
 type CreateTaskPayload = Omit<Task, 'id' | 'completed'>
-
 type UpdateTaskPayload = Partial<Omit<Task, 'id'>>
 
 type CreateUserPayload = Omit<User, 'avatar' | 'id' | 'lastActive'> & {
@@ -54,6 +54,7 @@ type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar' | 'lastActive'>> & {
 	removeAvatar?: string
 	password?: string
 }
+
 export {
 	type Role,
 	type Priority,

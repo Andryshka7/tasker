@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm'
 import { TaskEntity } from 'typeorm/entities'
-import { CreateTaskPayload, Team, User } from 'types'
+import { CreateTaskPayload, Team } from 'types'
 
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -27,8 +27,8 @@ export class TasksService {
 		})
 	}
 
-	async createTask(taskDetails: CreateTaskPayload, creator: User) {
-		const created = this.tasksRepository.create({ ...taskDetails, creator })
+	async createTask(taskDetails: CreateTaskPayload) {
+		const created = this.tasksRepository.create(taskDetails)
 		return await this.tasksRepository.save(created)
 	}
 
