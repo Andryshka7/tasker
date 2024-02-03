@@ -42,7 +42,7 @@ type CreateTeamPayload = { teamName: string } & Pick<User, 'name' | 'surname' | 
 		avatar: File | null
 	}
 
-type CreateTaskPayload = Omit<Task, 'id' | 'completed'>
+type CreateTaskPayload = Omit<Task, 'id' | 'team'| 'completed'>
 type UpdateTaskPayload = Partial<Omit<Task, 'id'>>
 
 type CreateUserPayload = Omit<User, 'avatar' | 'id' | 'lastActive'> & {

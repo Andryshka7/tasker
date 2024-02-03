@@ -22,6 +22,7 @@ type FormFields = {
 const Form = () => {
 	const ref = useRef<HTMLFormElement | null>(null)
 
+	const [isSubmitted, setIsSubmitted] = useState(false)
 	const [scrollPosition, setScrollPosition] = useState<1 | 2 | 3>(1)
 
 	const { close } = useCreateTeamModal()
@@ -37,9 +38,8 @@ const Form = () => {
 	useHandleClickOuthide(ref, close)
 
 	const onSubmit = async (data: FormFields) => {
-		await createTeam({ ...data, avatar })
-
-		close()
+		setIsSubmitted(true)
+		// await createTeam({ ...data, avatar })
 	}
 
 	const getStyle = (scrollPosition: 1 | 2 | 3) => {
@@ -144,7 +144,9 @@ const Form = () => {
 							/>
 							<button
 								type='submit'
-								className='mx-auto mt-7 block h-7 w-32 rounded bg-green-600 text-sm font-semibold'
+								className={`mx-auto mt-7 block h-7 w-32 rounded bg-green-600 text-sm font-semibold duration-200 ${
+									isSubmitted ? 'opacity-70' : ''
+								}`}
 							>
 								Continue
 							</button>
@@ -152,7 +154,9 @@ const Form = () => {
 					</div>
 
 					<div
-						className='mt-auto flex h-10 w-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-sky-600'
+						className={`mt-auto flex h-10 w-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-sky-600 duration-200 ${
+							isSubmitted ? 'opacity-70' : ''
+						}`}
 						onClick={() => setScrollPosition(2)}
 					>
 						<IoMdArrowRoundBack size={20} />
