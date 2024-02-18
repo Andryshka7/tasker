@@ -11,13 +11,14 @@ import { TbSquareCheck } from 'react-icons/tb'
 
 import { useAuth } from '@/hooks'
 import { useSignOut } from '@/hooks/api-communication/auth'
-import { useCreateTaskModal } from '@/hooks/modals'
+import { useCreateTaskModal, useReportBugModal } from '@/hooks/modals'
 
 import { MenuItem } from './components'
 
 const Menu = () => {
 	const { data: me } = useAuth()
 	const { open: openCreateTaskModal } = useCreateTaskModal()
+	const { open: openReportBugModal } = useReportBugModal()
 
 	const signOut = useSignOut()
 
@@ -48,7 +49,7 @@ const Menu = () => {
 			<h3 className='mt-4 text-xs font-bold'>TOOLS</h3>
 			<div className='my-1'>
 				<MenuItem icon={BiHelpCircle} title='About tasker' to='/about' />
-				<MenuItem icon={AiFillBug} title='Report a bug' action={() => {}} />
+				<MenuItem icon={AiFillBug} title='Report a bug' action={openReportBugModal} />
 			</div>
 			<div
 				className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2'

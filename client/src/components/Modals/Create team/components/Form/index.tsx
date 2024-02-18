@@ -25,7 +25,7 @@ const Form = () => {
 	const [isSubmitted, setIsSubmitted] = useState(false)
 	const [scrollPosition, setScrollPosition] = useState<1 | 2 | 3>(1)
 
-	const { close } = useCreateTeamModal()
+	const { close: closeCreateTeamModal } = useCreateTeamModal()
 	const { watch, handleSubmit, register } = useForm<FormFields>()
 
 	const [avatar, setAvatar] = useState<File | null>(null)
@@ -35,11 +35,18 @@ const Form = () => {
 	const name = watch('name')
 	const surname = watch('surname')
 
+	const close = () => {
+		if (!isSubmitted) {
+			closeCreateTeamModal()
+		}
+	}
+
 	useHandleClickOuthide(ref, close)
 
 	const onSubmit = async (data: FormFields) => {
 		setIsSubmitted(true)
-		// await createTeam({ ...data, avatar })
+		await createTeam({ ...data, avatar })
+		closeCreateTeamModal()
 	}
 
 	const getStyle = (scrollPosition: 1 | 2 | 3) => {
@@ -53,15 +60,9 @@ const Form = () => {
 
 	return (
 		<div className='relative flex w-[700px] overflow-hidden rounded-md bg-blue'>
-			<IoClose
-				onClick={close}
-				size={30}
-				color='white'
-				className='absolute right-5 top-4 cursor-pointer'
-			/>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
-				className={`flex w-[2100px] duration-200 ${getStyle(scrollPosition)}`}
+				className={`relative flex w-[2100px] duration-200 ${getStyle(scrollPosition)}`}
 				ref={ref}
 			>
 				<div className='flex w-[700px] flex-col p-10 pb-8 pt-10'>
@@ -163,6 +164,14 @@ const Form = () => {
 					</div>
 				</div>
 			</form>
+			<IoClose
+				onClick={close}
+				size={30}
+				color='white'
+				className={`absolute right-5 top-4 ${
+					!isSubmitted ? 'cursor-pointer' : 'pointer-events-none'
+				}`}
+			/>
 		</div>
 	)
 }

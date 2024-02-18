@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { TeamsController } from './controllers'
 import { TeamsService, TokensService } from './services'
-import { UsersService } from './services/users/users.service';
+import { UsersService } from './services/users/users.service'
 
 @Module({
 	imports: [

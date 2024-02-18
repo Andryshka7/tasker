@@ -18,7 +18,7 @@ const useCreateTeam = () => {
 		}
 
 		await toast.promise(createTask(), {
-			success: 'Team has been created',
+			success: 'Team has been created, redirecting...',
 			loading: 'Creating a team...',
 			error: 'Could not create a team!'
 		})

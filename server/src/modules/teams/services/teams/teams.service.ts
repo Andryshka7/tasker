@@ -23,6 +23,8 @@ export class TeamsService {
 	}
 
 	async createTeam(file, teamDetails: CreateTeamDto) {
+		const date = new Date()
+
 		const { teamName, ...user } = teamDetails
 		const userDetails = { ...user, role: 'admin' as Role, avatar: null }
 
@@ -30,7 +32,11 @@ export class TeamsService {
 			const fileName = uploadFile(file, uuid())
 			userDetails.avatar = `${server}/images/${fileName}`
 		}
-		const creator = this.usersRepository.create(userDetails)
+
+		const creator = this.usersRepository.create({
+			...userDetails,
+			lastActive: date.toISOString()
+		})
 
 		const team = await this.teamsRepository.create({
 			name: teamName,

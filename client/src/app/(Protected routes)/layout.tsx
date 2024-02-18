@@ -1,7 +1,12 @@
 import { PropsWithChildren } from 'react'
 
 import {
-	CreateTaskModal, CreateUserModal, EditTaskModal, EditUserModal, TaskPreview
+	CreateTaskModal,
+	CreateUserModal,
+	EditTaskModal,
+	EditUserModal,
+	ReportBugModal,
+	TaskPreview
 } from '@/components/Modals'
 import { DataProvider } from '@/components/Providers'
 import { Logo, Menu } from '@/components/ui'
@@ -17,9 +22,10 @@ const Layout = ({ children }: PropsWithChildren) => (
 		</div>
 		<CreateUserModal />
 		<EditUserModal />
-		<TaskPreview />
 		<CreateTaskModal />
 		<EditTaskModal />
+		<TaskPreview />
+		<ReportBugModal />
 	</DataProvider>
 )
 
