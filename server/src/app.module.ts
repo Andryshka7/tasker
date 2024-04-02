@@ -7,6 +7,7 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { AuthModule, TasksModule, TeamsModule, UsersModule } from './modules'
+import { ReportsModule } from './modules/reports/reports.module';
 
 @Module({
 	imports: [
@@ -19,7 +20,8 @@ import { AuthModule, TasksModule, TeamsModule, UsersModule } from './modules'
 		UsersModule,
 		TasksModule,
 		TeamsModule,
-		AuthModule
+		AuthModule,
+		ReportsModule
 	]
 })
 export class AppModule {}

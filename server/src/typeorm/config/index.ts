@@ -1,5 +1,12 @@
 import { database, host, password, username } from 'config'
-import { RefreshTokenEntity, TaskEntity, TeamEntity, UserEntity } from 'typeorm/entities'
+import {
+	RefreshTokenEntity,
+	ReportEntity,
+	ReportImageEntity,
+	TaskEntity,
+	TeamEntity,
+	UserEntity
+} from 'typeorm/entities'
 
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
@@ -9,7 +16,14 @@ const config: TypeOrmModuleOptions = {
 	username,
 	password,
 	database,
-	entities: [UserEntity, TaskEntity, TeamEntity, RefreshTokenEntity],
+	entities: [
+		UserEntity,
+		TaskEntity,
+		TeamEntity,
+		RefreshTokenEntity,
+		ReportEntity,
+		ReportImageEntity
+	],
 	synchronize: true
 }
 

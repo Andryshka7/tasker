@@ -45,7 +45,7 @@ const Form = (user: User) => {
 	useHandleClickOuthide(ref, close)
 
 	const onSubmit = async (data: FormFields) => {
-		const updateFields = getUpdateFields(user, { ...data, team: me!.team, role, avatar })
+		const updateFields = getUpdateFields(user, { ...data, role, avatar })
 		await updateUser(updateFields)
 		close()
 	}

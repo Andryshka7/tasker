@@ -20,11 +20,11 @@ const ImagesInput = ({ images, setImages }: Props) => (
 		<label
 			htmlFor='images'
 			className={`flex items-center justify-center rounded border-2 border-sky-300 ${
-				images.length ? 'aspect-video w-24' : 'w-fit gap-3 px-5 py-3'
+				images.length ? 'aspect-video w-24' : 'w-60 gap-3.5 px-5 py-3'
 			}`}
 		>
 			<TbFileUpload size={30} className='text-sky-300' />
-			{!images.length && <p>Upload images</p>}
+			{!images.length && <p className='font-medium'>Upload images</p>}
 		</label>
 		<input
 			type='file'

@@ -42,17 +42,23 @@ type CreateTeamPayload = { teamName: string } & Pick<User, 'name' | 'surname' | 
 		avatar: File | null
 	}
 
-type CreateTaskPayload = Omit<Task, 'id' | 'team'| 'completed'>
-type UpdateTaskPayload = Partial<Omit<Task, 'id'>>
+type CreateTaskPayload = Omit<Task, 'id' | 'team' | 'completed'>
+type UpdateTaskPayload = Partial<Omit<Task, 'id' | 'team'>>
 
-type CreateUserPayload = Omit<User, 'avatar' | 'id' | 'lastActive'> & {
+type CreateUserPayload = Omit<User, 'avatar' | 'id' | 'lastActive' | 'team'> & {
 	avatar: File | null
 	password: string
 }
-type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar' | 'lastActive'>> & {
+type UpdateUserPayload = Partial<Omit<User, 'id' | 'avatar' | 'lastActive' | 'team'>> & {
 	avatar?: File | null
 	removeAvatar?: string
 	password?: string
+}
+
+type CreateReportPayload = {
+	name: string
+	description: string
+	images: File[] | null
 }
 
 export {
@@ -60,10 +66,11 @@ export {
 	type Priority,
 	type Task,
 	type User,
+	type Credentials,
 	type CreateTeamPayload,
 	type CreateTaskPayload,
 	type UpdateTaskPayload,
-	type Credentials,
 	type CreateUserPayload,
-	type UpdateUserPayload
+	type UpdateUserPayload,
+	type CreateReportPayload
 }

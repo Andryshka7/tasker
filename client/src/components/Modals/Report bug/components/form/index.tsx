@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { IoClose } from 'react-icons/io5'
 
 import { useHandleClickOuthide } from '@/hooks'
+import { useCreateReport } from '@/hooks/api-communication/reports'
 import { useReportBugModal } from '@/hooks/modals'
 
 import { ImagesInput } from './components'
@@ -22,10 +23,12 @@ const Form = () => {
 	const { register, handleSubmit } = useForm<FormFields>()
 	const { close } = useReportBugModal()
 
+	const createReport = useCreateReport()
+
 	useHandleClickOuthide(ref, close)
 
-	const onSubmit = (data: FormFields) => {
-		console.log(data)
+	const onSubmit = async (data: FormFields) => {
+		await createReport({ ...data, images })
 	}
 
 	return (
@@ -57,7 +60,7 @@ const Form = () => {
 
 			<button
 				type='submit'
-				className='mx-auto mt-5 block rounded bg-green-600 px-8 py-1 text-lg font-semibold'
+				className='mx-auto mt-6 block rounded bg-green-600 px-8 py-1 text-lg font-semibold'
 			>
 				Submit
 			</button>

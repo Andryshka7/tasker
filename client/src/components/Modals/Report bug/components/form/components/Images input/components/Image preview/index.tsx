@@ -11,8 +11,6 @@ interface Props {
 const ImagePreview = ({ image, deleteImage }: Props) => {
 	const [isHovering, setIsHovering] = useState(false)
 
-	console.log(isHovering)
-
 	return (
 		<div
 			className='relative aspect-video w-24'
@@ -20,7 +18,7 @@ const ImagePreview = ({ image, deleteImage }: Props) => {
 			onMouseLeave={() => setIsHovering(false)}
 		>
 			<img
-				className='absolute left-0 top-0 h-full w-full rounded bg-cover'
+				className='absolute left-0 top-0 h-full w-full rounded object-cover'
 				src={URL.createObjectURL(image)}
 			/>
 			<Transition
@@ -32,7 +30,7 @@ const ImagePreview = ({ image, deleteImage }: Props) => {
 				<div className='absolute left-0 top-0 flex h-full w-full items-center justify-center rounded bg-black opacity-70'>
 					<MdDeleteOutline
 						size={30}
-						className='cursor-pointer duration-200'
+						className='cursor-pointer duration-200 hover:scale-110'
 						onClick={deleteImage}
 					/>
 				</div>
