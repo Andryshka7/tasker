@@ -1,15 +1,22 @@
 import { CreateReportDto } from 'modules/reports/dtos'
+import { ReportsService } from 'modules/reports/services'
 
-import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { FilesInterceptor } from '@nestjs/platform-express'
 
 @Controller('reports')
 export class ReportsController {
+	constructor(private reportsService: ReportsService) {}
+
 	@Post()
 	@UseGuards(AuthGuard('jwt-access-token'))
-	@UseInterceptors(FileInterceptor('image'))
-	createReport(@Body() createReportDto: CreateReportDto, @UploadedFile() file) {
-		console.log(createReportDto, file)
+	@UseInterceptors(FilesInterceptor('image'))
+	async createReport(
+		@Body() createReportDto: CreateReportDto,
+		@UploadedFiles() files: Express.Multer.File[]
+	) {
+		const report = await this.reportsService.createReport(files, createReportDto)
+		return report
 	}
 }

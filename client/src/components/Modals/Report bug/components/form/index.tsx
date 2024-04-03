@@ -29,6 +29,7 @@ const Form = () => {
 
 	const onSubmit = async (data: FormFields) => {
 		await createReport({ ...data, images })
+		close()
 	}
 
 	return (

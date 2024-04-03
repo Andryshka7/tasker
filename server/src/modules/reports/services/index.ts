@@ -1,1 +1,1 @@
-export { ServicesService } from './reports/services.service'
+export { ReportsService } from './reports/reports.service'

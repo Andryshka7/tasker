@@ -22,10 +22,10 @@ export class TeamsService {
 		return team
 	}
 
-	async createTeam(file, teamDetails: CreateTeamDto) {
+	async createTeam(file, createTeamDto: CreateTeamDto) {
 		const date = new Date()
 
-		const { teamName, ...user } = teamDetails
+		const { teamName, ...user } = createTeamDto
 		const userDetails = { ...user, role: 'admin' as Role, avatar: null }
 
 		if (file) {
@@ -38,7 +38,7 @@ export class TeamsService {
 			lastActive: date.toISOString()
 		})
 
-		const team = await this.teamsRepository.create({
+		const team = this.teamsRepository.create({
 			name: teamName,
 			users: [creator]
 		})

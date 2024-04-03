@@ -10,7 +10,7 @@ export class ReportEntity {
 	@Column()
 	name: string
 
-	@Column()
+	@Column({ length: 500 })
 	description: string
 
 	@OneToMany(() => ReportImageEntity, (reportImage) => reportImage.report)

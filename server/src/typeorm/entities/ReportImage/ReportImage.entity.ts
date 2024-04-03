@@ -11,5 +11,5 @@ export class ReportImageEntity {
 	name: string
 
 	@ManyToOne(() => ReportEntity, (report) => report.images)
-	report: number
+	report: ReportEntity
 }
