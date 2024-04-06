@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { AiFillBug } from 'react-icons/ai'
 import { BiHelpCircle, BiMessageSquareAdd, BiMessageSquareEdit } from 'react-icons/bi'
 import { FaSignOutAlt } from 'react-icons/fa'
@@ -16,6 +17,8 @@ import { useCreateTaskModal, useReportBugModal } from '@/hooks/modals'
 import { MenuItem } from './components'
 
 const Menu = () => {
+	const [isOpen, setIsOpen] = useState(true)
+
 	const { data: me } = useAuth()
 	const { open: openCreateTaskModal } = useCreateTaskModal()
 	const { open: openReportBugModal } = useReportBugModal()
@@ -26,10 +29,10 @@ const Menu = () => {
 		<menu className='mt-20 w-64 rounded-r-lg bg-blue px-8 py-4'>
 			<div className='flex items-center justify-between'>
 				<h2 className='text-xl font-bold'>Menu</h2>
-				<HiMenu size={25} />
+				<HiMenu size={25} className='cursor-pointer' />
 			</div>
-			<h3 className='mt-4 text-xs font-bold'>TASKS</h3>
-			<div className='my-1'>
+			<h3 className='mt-5 text-xs font-bold'>TASKS</h3>
+			<div className='my-1.5'>
 				<MenuItem icon={LuCalendarRange} title='Task list' to='/' />
 				<MenuItem icon={RiFileListLine} title='My tasks' to='/my-tasks' />
 				<MenuItem icon={TbSquareCheck} title='Completed' to='/completed' />
@@ -40,14 +43,14 @@ const Menu = () => {
 				/>
 			</div>
 			<h3 className='mt-4 text-xs font-bold'>TEAM</h3>
-			<div className='my-1'>
+			<div className='my-1.5'>
 				<MenuItem icon={IoPeopleSharp} title='Team' to='/team' />
 				{me!.role !== 'user' && (
 					<MenuItem icon={BiMessageSquareEdit} title='Edit team' to='/edit-team' />
 				)}
 			</div>
 			<h3 className='mt-4 text-xs font-bold'>TOOLS</h3>
-			<div className='my-1'>
+			<div className='my-1.5'>
 				<MenuItem icon={BiHelpCircle} title='About tasker' to='/about' />
 				<MenuItem icon={AiFillBug} title='Report a bug' action={openReportBugModal} />
 			</div>
