@@ -14,7 +14,7 @@ import { Logo, Menu } from '@/components/ui'
 const Layout = ({ children }: PropsWithChildren) => (
 	<DataProvider>
 		<div className='flex'>
-			<div className='min-w-fit'>
+			<div className='min-w-64'>
 				<Logo />
 				<Menu />
 			</div>

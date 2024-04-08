@@ -28,8 +28,14 @@ const Menu = () => {
 
 	return (
 		<>
+			<button
+				className={`menu-open-button absolute top-1/2 flex h-20 w-5 -translate-y-1/2 items-center justify-center rounded-r-xl bg-blue`}
+				onClick={() => setIsOpen(true)}
+			>
+				<IoIosArrowForward />
+			</button>
 			<menu
-				className={`z-20 mt-56 w-64 rounded-r-lg bg-blue px-8 py-4 duration-200 ${
+				className={`absolute top-1/4 w-64 rounded-r-lg bg-blue px-8 py-4 duration-200 ${
 					!isOpen && '-translate-x-full'
 				}`}
 			>
@@ -68,12 +74,6 @@ const Menu = () => {
 					<h3 className='font-bold'>Sign out</h3>
 				</div>
 			</menu>
-			<button
-				className={`menu-open-button absolute top-1/2 z-10 flex h-20 w-5 -translate-y-1/2 items-center justify-center rounded-r-xl bg-blue`}
-				onClick={() => setIsOpen(true)}
-			>
-				<IoIosArrowForward />
-			</button>
 		</>
 	)
 }

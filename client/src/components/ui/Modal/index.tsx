@@ -20,7 +20,7 @@ const Modal = ({ children, visible }: Props) => {
 	return (
 		visible &&
 		createPortal(
-			<div className='absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70'>
+			<div className='absolute left-0 top-0 z-30 flex h-full w-full items-center justify-center bg-black bg-opacity-70'>
 				{children}
 			</div>,
 			document.getElementById('portal')!
