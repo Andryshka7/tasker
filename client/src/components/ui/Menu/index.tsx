@@ -34,6 +34,7 @@ const Menu = () => {
 			>
 				<IoIosArrowForward />
 			</button>
+
 			<menu
 				className={`absolute top-1/4 w-64 rounded-r-lg bg-blue px-8 py-4 duration-200 ${
 					!isOpen && '-translate-x-full'
@@ -43,6 +44,7 @@ const Menu = () => {
 					<h2 className='text-xl font-bold'>Menu</h2>
 					<HiMenu size={25} className='cursor-pointer' onClick={() => setIsOpen(false)} />
 				</div>
+
 				<h3 className='mt-5 text-xs font-bold'>TASKS</h3>
 				<div className='my-1.5'>
 					<MenuItem icon={LuCalendarRange} title='Task list' to='/' />
@@ -54,6 +56,7 @@ const Menu = () => {
 						action={openCreateTaskModal}
 					/>
 				</div>
+
 				<h3 className='mt-4 text-xs font-bold'>TEAM</h3>
 				<div className='my-1.5'>
 					<MenuItem icon={IoPeopleSharp} title='Team' to='/team' />
@@ -61,11 +64,13 @@ const Menu = () => {
 						<MenuItem icon={BiMessageSquareEdit} title='Edit team' to='/edit-team' />
 					)}
 				</div>
+
 				<h3 className='mt-4 text-xs font-bold'>TOOLS</h3>
 				<div className='my-1.5'>
 					<MenuItem icon={BiHelpCircle} title='About tasker' to='/about' />
 					<MenuItem icon={AiFillBug} title='Report a bug' action={openReportBugModal} />
 				</div>
+
 				<div
 					className='mx-auto mb-3 mt-7 flex w-fit cursor-pointer items-center gap-2'
 					onClick={signOut}

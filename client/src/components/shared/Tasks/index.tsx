@@ -12,29 +12,21 @@ const Tasks = ({ title, tasks }: Props) => {
 
 	return tasks.length > 1 ? (
 		<div className='mt-28'>
-			<div className='hidden flex-wrap justify-center 2xl:flex'>
-				<div className='w-1/2'>
-					<h1 className='absolute -translate-y-12 text-3xl font-bold'>
-						{title || 'Tasks'}
-					</h1>
-					{jsxTasks.filter((_, index) => index % 2 === 0)}
-				</div>
-				<div className='w-1/2'>{jsxTasks.filter((_, index) => index % 2 === 1)}</div>
+			<h1 className='mx-auto w-[500px] px-1.5 text-3xl font-bold lg:w-3/4 2xl:w-full'>
+				{title || 'Tasks'}
+			</h1>
+
+			<div className='mt-3 hidden 2xl:flex'>
+				<div className='w-1/2 px-1.5'>{jsxTasks.filter((_, index) => index % 2 === 0)}</div>
+				<div className='w-1/2 px-1.5'>{jsxTasks.filter((_, index) => index % 2 === 1)}</div>
 			</div>
 
-			<div className='flex flex-wrap justify-center 2xl:hidden'>
-				<div className='w-[500px] px-1.5 lg:w-3/4'>
-					<h1 className='absolute -translate-y-12 text-3xl font-bold'>
-						{title || 'Tasks'}
-					</h1>
-					{jsxTasks}
-				</div>
-			</div>
+			<div className='mx-auto mt-3 w-[500px] px-1.5 lg:w-3/4 2xl:hidden'>{jsxTasks}</div>
 		</div>
 	) : (
 		<div className='mx-auto mt-28 w-[500px] lg:w-3/4'>
-			<h1 className='absolute -translate-y-12 text-3xl font-bold'>{title || 'Tasks'}</h1>
-			{jsxTasks}
+			<h1 className='text-3xl font-bold'>{title || 'Tasks'}</h1>
+			<div className='mt-3'>{jsxTasks}</div>
 		</div>
 	)
 }
