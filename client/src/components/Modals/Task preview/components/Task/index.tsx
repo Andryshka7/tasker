@@ -20,7 +20,7 @@ const Task = (task: TaskType) => {
 	useHandleClickOuthide(ref, close)
 
 	return (
-		<div className='relative w-[700px] rounded bg-blue px-16 py-8' ref={ref}>
+		<div className='relative w-[800px] rounded bg-blue px-16 py-8' ref={ref}>
 			<IoClose
 				onClick={close}
 				size={30}

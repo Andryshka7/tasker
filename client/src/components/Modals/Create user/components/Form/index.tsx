@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { IoClose } from 'react-icons/io5'
 
 import { useCreateUser, useHandleClickOuthide } from '@/hooks'
@@ -35,8 +36,12 @@ const Form = () => {
 	useHandleClickOuthide(ref, close)
 
 	const onSubmit = async (data: FormFields) => {
-		await createUser({ ...data, role, avatar })
-		close()
+		if (data.password === data.confirmPassword) {
+			await createUser({ ...data, role, avatar })
+			close()
+		} else {
+			toast.error('Passwords don`t match!')
+		}
 	}
 
 	return (

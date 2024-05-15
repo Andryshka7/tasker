@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io'
 import { IoClose } from 'react-icons/io5'
 
@@ -44,9 +45,13 @@ const Form = () => {
 	useHandleClickOuthide(ref, close)
 
 	const onSubmit = async (data: FormFields) => {
-		setIsSubmitted(true)
-		await createTeam({ ...data, avatar })
-		closeCreateTeamModal()
+		if (data.password === data.confirmPassword) {
+			setIsSubmitted(true)
+			await createTeam({ ...data, avatar })
+			closeCreateTeamModal()
+		} else {
+			toast.error('Passwords don`t match!')
+		}
 	}
 
 	const getStyle = (scrollPosition: 1 | 2 | 3) => {
@@ -80,16 +85,19 @@ const Form = () => {
 								{...register('name')}
 								className='my-2 block w-80 border-b-2 border-neutral-500 bg-transparent p-2 font-semibold'
 								placeholder='Name'
+								tabIndex={-1}
 							/>
 							<input
 								{...register('surname')}
 								className='my-4 block w-80 border-b-2 border-neutral-500 bg-transparent p-2 font-semibold'
 								placeholder='Surname'
+								tabIndex={-1}
 							/>
 							<input
 								{...register('email')}
 								className='my-4 block w-80 border-b-2 border-neutral-500 bg-transparent p-2 font-semibold'
 								placeholder='Email'
+								tabIndex={-1}
 							/>
 						</div>
 					</div>
@@ -108,6 +116,7 @@ const Form = () => {
 							{...register('teamName')}
 							className='block w-80 border-b-2 border-neutral-500 bg-transparent px-3 py-2 text-xl font-semibold'
 							placeholder='Team name'
+							tabIndex={-1}
 						/>
 					</div>
 
@@ -136,18 +145,21 @@ const Form = () => {
 								{...register('password')}
 								className='block w-80 border-b-2 border-neutral-500 bg-transparent p-2 font-semibold'
 								placeholder='Password'
+								tabIndex={-1}
 							/>
 							<input
 								type='password'
 								{...register('confirmPassword')}
 								className='mt-4 block w-80 border-b-2 border-neutral-500 bg-transparent p-2 font-semibold'
 								placeholder='Confirm password'
+								tabIndex={-1}
 							/>
 							<button
 								type='submit'
 								className={`mx-auto mt-7 block h-7 w-32 rounded bg-green-600 text-sm font-semibold duration-200 ${
 									isSubmitted ? 'opacity-70' : ''
 								}`}
+								tabIndex={-1}
 							>
 								Continue
 							</button>

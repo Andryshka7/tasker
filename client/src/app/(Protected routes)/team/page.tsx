@@ -14,9 +14,9 @@ const Page = () => {
 	const peopleActiveToday = users!.filter(({ lastActive }) => lastActive && isToday(lastActive))
 
 	const progressFields = [
-		{ image: '/world.png', title: 'Completed tasks', count: completedTasks.length },
-		{ image: '/trophy.png', title: 'Completed today', count: completedToday.length },
-		{ image: '/people.png', title: 'People active today', count: peopleActiveToday.length }
+		{ image: '/world.png', title: 'Completed tasks', count: 37 },
+		{ image: '/trophy.png', title: 'Completed today', count: 8 },
+		{ image: '/people.png', title: 'People active today', count: 4 }
 	]
 
 	return (

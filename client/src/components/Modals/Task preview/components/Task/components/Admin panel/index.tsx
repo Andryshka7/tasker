@@ -23,26 +23,28 @@ const AdminPanel = ({ task }: Props) => {
 
 	const takeTask = async (e: MouseEvent) => {
 		e.stopPropagation()
-		await updateTask({ user: me })
 		close()
+		await updateTask({ user: me })
 	}
 	const unCompleteTask = async (e: MouseEvent) => {
 		e.stopPropagation()
-		await updateTask({ completed: null })
 		close()
+		await updateTask({ completed: null })
 	}
 	const completeTask = async (e: MouseEvent) => {
 		e.stopPropagation()
-		await updateTask({ completed: new Date().toISOString() })
 		close()
+		await updateTask({ completed: new Date().toISOString() })
 	}
 
 	const startEditing = (e: MouseEvent) => {
 		e.stopPropagation()
+		close()
 		openEditTaskModal(task)
 	}
 	const proposeDeleting = async (e: MouseEvent) => {
 		e.stopPropagation()
+		close()
 		openConfirmationModal({
 			name: 'Delete task',
 			text: `Are you certain about your decision to delete this task from the team taskboard?`,
