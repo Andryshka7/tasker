@@ -1,25 +1,23 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import imageKit from './image kit'
 
-const uploadFile = (file: Express.Multer.File, name: string) => {
+const uploadFile = async (file: Express.Multer.File, name: string) => {
 	const extension = file.originalname.split('.')[1]
-	const directory = path.join(__dirname, '..', '..', 'images', `${name}.${extension}`)
-	fs.writeFile(directory, file.buffer, (err) => {
-		if (err) console.log('Error while uploading file', err)
+
+	const { url } = await imageKit.upload({
+		file: file.buffer,
+		fileName: `${name}.${extension}`
 	})
 
-	return `${name}.${extension}`
+	return url
 }
 
-const deleteFile = (filePath: string) => {
-	fs.unlink(filePath, (err) => {
-		if (err) console.log('An error occured while deleting file:', filePath)
-	})
+const deleteFile = async (path: string) => {
+	const filePath = path.split('/')
+	const fileName = filePath[filePath.length - 1]
+
+	const { fileId } = (await imageKit.listFiles({ name: fileName }))[0]
+
+	await imageKit.deleteFile(fileId)
 }
 
-const getFilePath = (fileName: string) => {
-	const directory = path.join(__dirname, '..', '..', 'images', fileName)
-	return directory
-}
-
-export { uploadFile, deleteFile, getFilePath }
+export { uploadFile, deleteFile }

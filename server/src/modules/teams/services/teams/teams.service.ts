@@ -29,8 +29,7 @@ export class TeamsService {
 		const userDetails = { ...user, role: 'admin' as Role, avatar: null }
 
 		if (file) {
-			const fileName = uploadFile(file, uuid())
-			userDetails.avatar = `${server}/images/${fileName}`
+			userDetails.avatar = await uploadFile(file, uuid())
 		}
 
 		const creator = this.usersRepository.create({

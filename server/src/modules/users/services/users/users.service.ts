@@ -1,5 +1,4 @@
-import { server } from 'config'
-import { deleteFile, getFilePath, uploadFile } from 'helpers'
+import { deleteFile, uploadFile } from 'helpers'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities'
 import { CreateUserPayload, Team, UpdateUserPayload } from 'types'
@@ -28,8 +27,7 @@ export class UsersService {
 		const userDetails = { ...createUserDto, avatar: null }
 
 		if (file) {
-			const fileName = uploadFile(file, uuid())
-			userDetails.avatar = `${server}/images/${fileName}`
+			userDetails.avatar = await uploadFile(file, uuid())
 		}
 
 		const user = this.usersRepository.create(userDetails)
@@ -45,12 +43,11 @@ export class UsersService {
 
 		if (removeAvatar) {
 			updateUserPayload.avatar = null
-			deleteFile(getFilePath(avatar.slice(29)))
+			await deleteFile(avatar)
 		}
 
 		if (file) {
-			const fileName = uploadFile(file, uuid())
-			updateUserPayload.avatar = `http://localhost:4000/images/${fileName}`
+			updateUserPayload.avatar = await uploadFile(file, uuid())
 		}
 
 		if (Object.keys(updateUserPayload).length) {
@@ -63,7 +60,7 @@ export class UsersService {
 	async deleteUser(id: number) {
 		const { avatar } = await this.usersRepository.findOneBy({ id })
 		if (avatar) {
-			deleteFile(getFilePath(avatar.slice(29)))
+			await deleteFile(avatar)
 		}
 		await this.usersRepository.delete({ id })
 		return true

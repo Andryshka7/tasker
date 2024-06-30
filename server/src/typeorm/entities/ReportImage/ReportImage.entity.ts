@@ -8,7 +8,7 @@ export class ReportImageEntity {
 	id: number
 
 	@Column()
-	name: string
+	url: string
 
 	@ManyToOne(() => ReportEntity, (report) => report.images)
 	report: ReportEntity

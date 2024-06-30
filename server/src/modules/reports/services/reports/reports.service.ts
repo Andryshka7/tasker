@@ -16,10 +16,13 @@ export class ReportsService {
 	) {}
 
 	async createReport(files: Express.Multer.File[], createReportDto: CreateReportDto) {
-		const images = files.map((image) => {
-			const name = uploadFile(image, uuid())
-			return this.reportImagesRepository.create({ name })
-		})
+		const images = await Promise.all(
+			files.map(async (image) => {
+				const name = uuid()
+				const url = await uploadFile(image, name)
+				return this.reportImagesRepository.create({ url })
+			})
+		)
 
 		const report = this.reportsRepository.create({ ...createReportDto, images })
 		await this.reportsRepository.save(report)
