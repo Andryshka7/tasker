@@ -1,4 +1,4 @@
-import { client } from 'config'
+import { client, port } from 'config'
 import * as cookieParser from 'cookie-parser'
 
 import { ValidationPipe } from '@nestjs/common'
@@ -13,7 +13,7 @@ async function bootstrap() {
 	app.use(cookieParser())
 	app.useGlobalPipes(new ValidationPipe())
 
-	await app.listen(4000)
+	await app.listen(port)
 }
 
 bootstrap()
