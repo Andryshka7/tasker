@@ -30,7 +30,7 @@ const RoleSelector = ({ initialRole, editable = true, userId }: Props) => {
 
 	const options: Role[] = [...roles]
 
-	if (me!.role !== 'admin') options.pop()
+	if (me?.role !== 'admin') options.pop()
 
 	options[options.indexOf(role)] = options[0]
 	options[0] = role

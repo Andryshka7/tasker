@@ -19,10 +19,11 @@ const User = (user: UserType) => {
 
 	const deleteUser = useDeleteUser(user.id)
 
-	const allowEditRole =
-		me!.role !== 'user' &&
-		user.id !== me?.id &&
-		roles.indexOf(me!.role) >= roles.indexOf(user.role)
+	// const allowEditRole =
+	// 	me!.role !== 'user' &&
+	// 	user.id !== me?.id &&
+	// 	roles.indexOf(me!.role) >= roles.indexOf(user.role)
+	const allowEditRole = true
 
 	return (
 		<div className='flex items-center justify-between rounded-md bg-blue px-8 py-5'>
@@ -45,7 +46,7 @@ const User = (user: UserType) => {
 						className='cursor-pointer'
 						onClick={() => openEditUserModal(user)}
 					/>
-					{user.id !== me!.id && (
+					{user.id !== me?.id && (
 						<MdDeleteOutline
 							size={30}
 							className='cursor-pointer'

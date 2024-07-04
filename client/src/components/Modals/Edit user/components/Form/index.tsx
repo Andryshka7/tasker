@@ -50,10 +50,11 @@ const Form = (user: User) => {
 		close()
 	}
 
-	const allowEditRole =
-		me!.role !== 'user' &&
-		user.id !== me?.id &&
-		roles.indexOf(me!.role) >= roles.indexOf(user.role)
+	// const allowEditRole =
+	// 	me!.role !== 'user' &&
+	// 	user.id !== me?.id &&
+	// 	roles.indexOf(me!.role) >= roles.indexOf(user.role)
+	const allowEditRole = true
 
 	return (
 		<form

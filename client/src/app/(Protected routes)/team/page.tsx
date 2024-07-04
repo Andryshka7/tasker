@@ -9,14 +9,16 @@ const Page = () => {
 	const { data: tasks } = useTasks()
 	const { data: users } = useUsers()
 
-	const completedTasks = tasks!.filter(({ completed }) => completed)
-	const completedToday = tasks!.filter(({ completed }) => completed && isToday(completed))
-	const peopleActiveToday = users!.filter(({ lastActive }) => lastActive && isToday(lastActive))
+	if (!tasks || !users) return null
+
+	const completedTasks = tasks.filter(({ completed }) => completed)
+	const completedToday = tasks.filter(({ completed }) => completed && isToday(completed))
+	const peopleActiveToday = users.filter(({ lastActive }) => lastActive && isToday(lastActive))
 
 	const progressFields = [
-		{ image: '/world.png', title: 'Completed tasks', count: 37 },
-		{ image: '/trophy.png', title: 'Completed today', count: 8 },
-		{ image: '/people.png', title: 'People active today', count: 4 }
+		{ image: '/world.png', title: 'Completed tasks', count: completedTasks.length },
+		{ image: '/trophy.png', title: 'Completed today', count: completedToday.length },
+		{ image: '/people.png', title: 'People active today', count: peopleActiveToday.length }
 	]
 
 	return (
@@ -24,7 +26,7 @@ const Page = () => {
 			<div className='flex flex-wrap justify-center gap-x-14 gap-y-6'>
 				<div className='flex w-[500px] flex-col gap-2.5 lg:w-5/6 2xl:w-[45%]'>
 					<h1 className='text-4xl font-bold'>Your team</h1>
-					{users!.map((user) => (
+					{users.map((user) => (
 						<User {...user} key={user.id} />
 					))}
 				</div>

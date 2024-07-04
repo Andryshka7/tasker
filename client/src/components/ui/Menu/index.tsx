@@ -60,7 +60,7 @@ const Menu = () => {
 				<h3 className='mt-4 text-xs font-bold'>TEAM</h3>
 				<div className='my-1.5'>
 					<MenuItem icon={IoPeopleSharp} title='Team' to='/team' />
-					{me!.role !== 'user' && (
+					{me?.role !== 'user' && (
 						<MenuItem icon={BiMessageSquareEdit} title='Edit team' to='/edit-team' />
 					)}
 				</div>

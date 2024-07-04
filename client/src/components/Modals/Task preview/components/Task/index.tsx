@@ -38,7 +38,7 @@ const Task = (task: TaskType) => {
 			</div>
 			<hr className='my-4 h-0.5 bg-white' />
 			<p className='text-lg font-semibold'>{task.description}</p>
-			{me!.role !== 'user' ? <AdminPanel task={task} /> : <UserPanel task={task} />}
+			{me?.role !== 'user' ? <AdminPanel task={task} /> : <UserPanel task={task} />}
 		</div>
 	)
 }

@@ -6,7 +6,9 @@ import { useTasks } from '@/hooks'
 const Page = () => {
 	const { data } = useTasks()
 
-	const tasks = data!.filter((task) => !task.completed)
+	if (!data) return null
+
+	const tasks = data.filter((task) => !task.completed)
 
 	return (
 		<div className='mx-10 lg:mx-12'>

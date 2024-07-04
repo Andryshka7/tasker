@@ -13,7 +13,7 @@ const useCalculateOptions = (selectedValue: User | null) => {
 			title: 'Everyone',
 			value: null
 		},
-		...users!.map((user) => ({
+		...(users || []).map((user) => ({
 			image: user.avatar,
 			title: `${user.name} ${user.surname}`,
 			value: user
@@ -21,7 +21,7 @@ const useCalculateOptions = (selectedValue: User | null) => {
 	]
 
 	if (selectedValue) {
-		const index = options.findIndex(({ value }) => value === selectedValue)
+		const index = options.findIndex(({ value }) => value?.id === selectedValue.id)
 		swapElements(options, 0, index)
 	}
 

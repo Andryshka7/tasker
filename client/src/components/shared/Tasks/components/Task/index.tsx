@@ -32,14 +32,14 @@ const Task = (task: TaskType) => {
 			<div className='flex h-[88px] flex-col justify-center'>
 				<div className='flex items-center gap-3'>
 					<PriorityIndicator className='h-5 w-5 rounded-full' priority={task.priority} />
-					<h2 className='text-3xl font-semibold'>{task.title}</h2>
+					<h2 className='line-clamp-1 text-3xl font-semibold'>{task.title}</h2>
 				</div>
 				<div className='ml-9 mt-1 flex items-center'>
 					<p className='line-clamp-2'>{task.description}</p>
 				</div>
 			</div>
 
-			{me!.role === 'user' ? (
+			{me?.role === 'user' ? (
 				<UserPanel task={task} isHovering={isHovering} />
 			) : (
 				<AdminPanel task={task} isHovering={isHovering} />

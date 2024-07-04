@@ -13,7 +13,7 @@ const useCalculateOptions = (selectedValue: User | null) => {
 			title: 'Everyone',
 			value: null
 		},
-		...users!.map((user) => ({
+		...(users || []).map((user) => ({
 			image: user.avatar,
 			title: `${user.name} ${user.surname}`,
 			value: user
