@@ -1,6 +1,6 @@
 import { Task, UpdateTaskPayload } from '@/types'
 
-const getUpdateFields = (task: Task, data: Omit<Task, 'id' | 'creator' | 'completed'>) => {
+const getUpdateFields = (task: Task, data: Omit<Task, 'id' | 'team' | 'creator' | 'completed'>) => {
 	const updateFields: UpdateTaskPayload = {}
 
 	const { title, description, due, priority, user } = data
