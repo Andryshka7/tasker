@@ -2,11 +2,12 @@ import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { User } from './types'
+import { server } from './config'
 
 const middleware = async (request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
-	const response = await fetch('http://localhost:4000/auth', { headers: headers() })
+	const response = await fetch(`${server}/auth`, { headers: headers() })
 
 	if (!response.ok && pathname !== '/sign-in') {
 		return NextResponse.redirect(new URL('/sign-in', request.url))
