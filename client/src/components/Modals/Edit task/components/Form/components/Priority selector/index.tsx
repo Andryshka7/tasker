@@ -1,9 +1,8 @@
 'use client'
 
-import { Dispatch, SetStateAction } from 'react'
-
 import { PriorityIndicator } from '@/components/shared'
 import { Priority } from '@/types'
+import { Dispatch, SetStateAction } from 'react'
 
 interface Props {
 	selectedPriority: number

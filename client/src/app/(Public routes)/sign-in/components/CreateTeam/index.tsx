@@ -1,9 +1,8 @@
 'use client'
 
+import { useCreateTeamModal } from '@/hooks/modals'
 import { useState } from 'react'
 import { FaPlus } from 'react-icons/fa6'
-
-import { useCreateTeamModal } from '@/hooks/modals'
 
 const CreateTeamButton = () => {
 	const { open } = useCreateTeamModal()

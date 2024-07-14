@@ -1,13 +1,12 @@
 'use client'
 
+import { useCreateTeam, useHandleClickOuthide } from '@/hooks'
+import { useCreateTeamModal } from '@/hooks/modals'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io'
 import { IoClose } from 'react-icons/io5'
-
-import { useCreateTeam, useHandleClickOuthide } from '@/hooks'
-import { useCreateTeamModal } from '@/hooks/modals'
 
 import { AvatarInput } from './components'
 

@@ -1,9 +1,8 @@
+import { formatDate, isTheSameDay, monthNames } from '@/helpers'
+import { useDatePicker, useHandleClickOuthide } from '@/hooks'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { TiArrowSortedDown } from 'react-icons/ti'
-
-import { formatDate, isTheSameDay, monthNames } from '@/helpers'
-import { useDatePicker, useHandleClickOuthide } from '@/hooks'
 
 interface Props {
 	selectedDate: string

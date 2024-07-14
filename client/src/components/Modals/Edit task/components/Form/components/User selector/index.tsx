@@ -1,11 +1,10 @@
 'use client'
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react'
-import { TiArrowSortedDown } from 'react-icons/ti'
-
 import { Avatar } from '@/components/ui'
 import { useHandleClickOuthide } from '@/hooks'
 import { User } from '@/types'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
+import { TiArrowSortedDown } from 'react-icons/ti'
 
 import { useCalculateOptions } from './hooks'
 

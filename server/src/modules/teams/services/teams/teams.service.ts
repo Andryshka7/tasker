@@ -1,9 +1,7 @@
-import { server } from 'config'
 import { uploadFile } from 'helpers'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import { TeamEntity, UserEntity } from 'typeorm/entities'
 import { Role } from 'types'
-import { v4 as uuid } from 'uuid'
 
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -29,7 +27,7 @@ export class TeamsService {
 		const userDetails = { ...user, role: 'admin' as Role, avatar: null }
 
 		if (file) {
-			userDetails.avatar = await uploadFile(file, uuid())
+			userDetails.avatar = await uploadFile(file)
 		}
 
 		const creator = this.usersRepository.create({

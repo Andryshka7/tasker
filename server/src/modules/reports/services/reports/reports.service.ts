@@ -2,7 +2,6 @@ import { uploadFile } from 'helpers'
 import { CreateReportDto } from 'modules/reports/dtos'
 import { Repository } from 'typeorm'
 import { ReportEntity, ReportImageEntity } from 'typeorm/entities'
-import { v4 as uuid } from 'uuid'
 
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -18,8 +17,7 @@ export class ReportsService {
 	async createReport(files: Express.Multer.File[], createReportDto: CreateReportDto) {
 		const images = await Promise.all(
 			files.map(async (image) => {
-				const name = uuid()
-				const url = await uploadFile(image, name)
+				const url = await uploadFile(image)
 				return this.reportImagesRepository.create({ url })
 			})
 		)

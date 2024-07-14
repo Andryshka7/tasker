@@ -1,6 +1,5 @@
-import { HTMLAttributes } from 'react'
-
 import { Priority } from '@/types'
+import { HTMLAttributes } from 'react'
 
 const priorityColors = {
 	2: 'bg-yellow-400',

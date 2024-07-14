@@ -1,8 +1,7 @@
-import { useRef } from 'react'
-import { IoClose } from 'react-icons/io5'
-
 import { useHandleClickOuthide } from '@/hooks'
 import { useConfirmationModal } from '@/hooks/modals'
+import { useRef } from 'react'
+import { IoClose } from 'react-icons/io5'
 
 const Form = () => {
 	const ref = useRef<HTMLDivElement | null>(null)

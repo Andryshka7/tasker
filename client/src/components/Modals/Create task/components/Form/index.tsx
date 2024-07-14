@@ -1,12 +1,11 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { IoClose } from 'react-icons/io5'
-
 import { useAuth, useCreateTask, useHandleClickOuthide } from '@/hooks'
 import { useCreateTaskModal } from '@/hooks/modals'
 import { Priority, User } from '@/types'
+import { useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { IoClose } from 'react-icons/io5'
 
 import { DatePicker, PrioritySelector, UserSelector } from './components'
 

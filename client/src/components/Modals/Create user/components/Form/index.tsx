@@ -1,13 +1,12 @@
 'use client'
 
+import { useCreateUser, useHandleClickOuthide } from '@/hooks'
+import { useCreateUserModal } from '@/hooks/modals'
+import { Role } from '@/types'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoClose } from 'react-icons/io5'
-
-import { useCreateUser, useHandleClickOuthide } from '@/hooks'
-import { useCreateUserModal } from '@/hooks/modals'
-import { Role } from '@/types'
 
 import { AvatarInput, RoleSelector } from './components'
 

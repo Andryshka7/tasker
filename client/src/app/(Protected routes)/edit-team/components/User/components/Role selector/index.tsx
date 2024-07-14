@@ -1,11 +1,10 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { TiArrowSortedDown } from 'react-icons/ti'
-
 import { capitalize, roles } from '@/helpers'
 import { useAuth, useHandleClickOuthide, useOptimistic, useUpdateUser } from '@/hooks'
 import { Role } from '@/types'
+import { useRef, useState } from 'react'
+import { TiArrowSortedDown } from 'react-icons/ti'
 
 type Props = {
 	initialRole: Role

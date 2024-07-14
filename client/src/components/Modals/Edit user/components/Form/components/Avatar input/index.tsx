@@ -1,10 +1,9 @@
 'use client'
 
+import { Transition } from '@headlessui/react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { AiFillEdit } from 'react-icons/ai'
 import { MdDelete, MdOutlineLibraryAdd } from 'react-icons/md'
-
-import { Transition } from '@headlessui/react'
 
 interface Props {
 	avatar: File | string | null

@@ -1,8 +1,7 @@
-import { MouseEvent } from 'react'
-
 import { Avatar } from '@/components/ui'
 import { useAuth, useUpdateTask } from '@/hooks'
 import { Task } from '@/types'
+import { MouseEvent } from 'react'
 
 interface Props {
 	task: Task

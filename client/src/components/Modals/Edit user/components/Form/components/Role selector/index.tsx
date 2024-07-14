@@ -1,11 +1,10 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { TiArrowSortedDown } from 'react-icons/ti'
-
 import { capitalize, roles } from '@/helpers'
 import { useAuth, useHandleClickOuthide } from '@/hooks'
 import { Role } from '@/types'
+import { useRef, useState } from 'react'
+import { TiArrowSortedDown } from 'react-icons/ti'
 
 const roleColors = {
 	admin: 'bg-orange-500',

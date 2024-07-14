@@ -1,8 +1,8 @@
 import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { User } from './types'
 import { server } from './config'
+import { User } from './types'
 
 const middleware = async (request: NextRequest) => {
 	const { pathname } = request.nextUrl

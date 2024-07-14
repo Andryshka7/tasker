@@ -1,11 +1,10 @@
 'use client'
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react'
-import { TiArrowSortedDown } from 'react-icons/ti'
-
 import { capitalize } from '@/helpers'
 import { useHandleClickOuthide } from '@/hooks'
 import { Role } from '@/types'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
+import { TiArrowSortedDown } from 'react-icons/ti'
 
 interface Props {
 	role: Role

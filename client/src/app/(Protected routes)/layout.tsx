@@ -1,5 +1,3 @@
-import { PropsWithChildren } from 'react'
-
 import {
 	CreateTaskModal,
 	CreateUserModal,
@@ -10,6 +8,7 @@ import {
 } from '@/components/Modals'
 import { DataProvider } from '@/components/Providers'
 import { Logo, Menu } from '@/components/ui'
+import { PropsWithChildren } from 'react'
 
 const Layout = ({ children }: PropsWithChildren) => (
 	<DataProvider>

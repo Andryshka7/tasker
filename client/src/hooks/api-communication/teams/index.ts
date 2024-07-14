@@ -1,9 +1,8 @@
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
-
 import { createTeamQuery } from '@/helpers/api/team'
 import { useRefetchQueries } from '@/hooks'
 import { CreateTeamPayload } from '@/types'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 const useCreateTeam = () => {
 	const router = useRouter()

@@ -1,9 +1,8 @@
+import { PassportStrategy } from '@nestjs/passport'
 import { jwt_secret } from 'config'
 import { Request } from 'express'
 import { Strategy } from 'passport-jwt'
 import { JwtPayload } from 'types'
-
-import { PassportStrategy } from '@nestjs/passport'
 
 export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh-token') {
 	constructor() {

@@ -1,8 +1,7 @@
-import toast from 'react-hot-toast'
-
 import { createUserQuery, deleteUserQuery, updateUserQuery } from '@/helpers/api/users'
 import { useUsers } from '@/hooks'
 import { CreateUserPayload, UpdateUserPayload } from '@/types'
+import toast from 'react-hot-toast'
 
 const useCreateUser = () => {
 	const { refetch } = useUsers()

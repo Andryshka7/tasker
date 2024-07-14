@@ -1,12 +1,11 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { IoClose } from 'react-icons/io5'
-
 import { useHandleClickOuthide } from '@/hooks'
 import { useCreateReport } from '@/hooks/api-communication/reports'
 import { useReportBugModal } from '@/hooks/modals'
+import { useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { IoClose } from 'react-icons/io5'
 
 import { ImagesInput } from './components'
 

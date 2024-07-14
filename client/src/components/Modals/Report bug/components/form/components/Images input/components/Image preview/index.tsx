@@ -1,7 +1,6 @@
+import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
-
-import { Transition } from '@headlessui/react'
 
 interface Props {
 	image: File

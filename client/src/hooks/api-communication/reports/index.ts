@@ -1,7 +1,6 @@
-import toast from 'react-hot-toast'
-
 import { createReportQuery } from '@/helpers/api/reports'
 import { CreateReportPayload } from '@/types'
+import toast from 'react-hot-toast'
 
 const useCreateReport = () => {
 	return (reportDetails: CreateReportPayload) => {

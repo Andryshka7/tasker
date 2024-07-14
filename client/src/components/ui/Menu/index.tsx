@@ -1,5 +1,8 @@
 'use client'
 
+import { useAuth } from '@/hooks'
+import { useSignOut } from '@/hooks/api-communication/auth'
+import { useCreateTaskModal, useReportBugModal } from '@/hooks/modals'
 import { useState } from 'react'
 import { AiFillBug } from 'react-icons/ai'
 import { BiHelpCircle, BiMessageSquareAdd, BiMessageSquareEdit } from 'react-icons/bi'
@@ -10,10 +13,6 @@ import { IoPeopleSharp } from 'react-icons/io5'
 import { LuCalendarRange } from 'react-icons/lu'
 import { RiFileListLine } from 'react-icons/ri'
 import { TbSquareCheck } from 'react-icons/tb'
-
-import { useAuth } from '@/hooks'
-import { useSignOut } from '@/hooks/api-communication/auth'
-import { useCreateTaskModal, useReportBugModal } from '@/hooks/modals'
 
 import { MenuItem } from './components'
 

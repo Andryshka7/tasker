@@ -1,9 +1,8 @@
 'use client'
 
-import { BiMessageSquareAdd } from 'react-icons/bi'
-
 import { useUsers } from '@/hooks'
 import { useCreateUserModal } from '@/hooks/modals'
+import { BiMessageSquareAdd } from 'react-icons/bi'
 
 import { User } from './components'
 

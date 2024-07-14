@@ -1,11 +1,10 @@
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+
 import { deleteFile, uploadFile } from 'helpers'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import { UserEntity } from 'typeorm/entities'
 import { CreateUserPayload, Team, UpdateUserPayload } from 'types'
-import { v4 as uuid } from 'uuid'
-
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 
 import { UpdateUserDto } from '../../dtos'
 
@@ -27,7 +26,7 @@ export class UsersService {
 		const userDetails = { ...createUserDto, avatar: null }
 
 		if (file) {
-			userDetails.avatar = await uploadFile(file, uuid())
+			userDetails.avatar = await uploadFile(file)
 		}
 
 		const user = this.usersRepository.create(userDetails)
@@ -47,7 +46,7 @@ export class UsersService {
 		}
 
 		if (file) {
-			updateUserPayload.avatar = await uploadFile(file, uuid())
+			updateUserPayload.avatar = await uploadFile(file)
 		}
 
 		if (Object.keys(updateUserPayload).length) {

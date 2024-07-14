@@ -1,13 +1,12 @@
 'use client'
 
-import { useRef } from 'react'
-import { IoClose } from 'react-icons/io5'
-
 import { PriorityIndicator } from '@/components/shared'
 import { formatDate } from '@/helpers'
 import { useAuth, useHandleClickOuthide } from '@/hooks'
 import { useTaskPreviewModal } from '@/hooks/modals'
 import { Task as TaskType } from '@/types'
+import { useRef } from 'react'
+import { IoClose } from 'react-icons/io5'
 
 import { AdminPanel, UserPanel } from './components'
 

@@ -1,8 +1,7 @@
-import { client, port } from 'config'
-import * as cookieParser from 'cookie-parser'
-
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { client, port } from 'config'
+import * as cookieParser from 'cookie-parser'
 
 import { AppModule } from './app.module'
 

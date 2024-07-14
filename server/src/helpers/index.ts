@@ -1,23 +1,20 @@
-import imageKit from './image kit'
+import { server } from 'config'
+import { unlink, writeFile } from 'fs/promises'
+import { extname, join } from 'path'
+import { v4 as uuid } from 'uuid'
 
-const uploadFile = async (file: Express.Multer.File, name: string) => {
-	const extension = file.originalname.split('.')[1]
+const uploadFile = async (file: Express.Multer.File) => {
+	const fileName = uuid() + extname(file.originalname)
 
-	const { url } = await imageKit.upload({
-		file: file.buffer,
-		fileName: `${name}.${extension}`
-	})
+	const filePath = join(__dirname, '..', '..', '..', fileName)
+	await writeFile(filePath, file.buffer)
 
-	return url
+	return `${server}/images/${fileName}`
 }
 
-const deleteFile = async (path: string) => {
-	const filePath = path.split('/')
-	const fileName = filePath[filePath.length - 1]
-
-	const { fileId } = (await imageKit.listFiles({ name: fileName }))[0]
-
-	await imageKit.deleteFile(fileId)
+const deleteFile = async (fileName: string) => {
+	const filePath = join(__dirname, '..', '..', '..', fileName)
+	await unlink(filePath)
 }
 
-export { uploadFile, deleteFile }
+export { deleteFile, uploadFile }

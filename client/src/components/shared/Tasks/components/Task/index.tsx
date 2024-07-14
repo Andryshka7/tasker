@@ -1,12 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-
 import { PriorityIndicator } from '@/components/shared'
 import { formatDate } from '@/helpers'
 import { useAuth } from '@/hooks'
 import { useTaskPreviewModal } from '@/hooks/modals'
 import { Task as TaskType } from '@/types'
+import { useState } from 'react'
 
 import { AdminPanel, UserPanel } from './components'
 

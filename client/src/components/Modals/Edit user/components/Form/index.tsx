@@ -1,13 +1,12 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { IoClose } from 'react-icons/io5'
-
 import { roles } from '@/helpers'
 import { useAuth, useHandleClickOuthide, useUpdateUser } from '@/hooks'
 import { useEditUserModal } from '@/hooks/modals'
 import { Role, User } from '@/types'
+import { useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { IoClose } from 'react-icons/io5'
 
 import { AvatarInput, RoleSelector } from './components'
 import { getUpdateFields } from './helpers'

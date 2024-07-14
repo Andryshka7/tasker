@@ -1,3 +1,4 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { database, host, password, username } from 'config'
 import {
 	RefreshTokenEntity,
@@ -7,8 +8,6 @@ import {
 	TeamEntity,
 	UserEntity
 } from 'typeorm/entities'
-
-import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
 const config: TypeOrmModuleOptions = {
 	type: 'mysql',

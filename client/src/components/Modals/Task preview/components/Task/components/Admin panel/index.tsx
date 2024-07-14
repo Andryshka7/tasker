@@ -1,11 +1,10 @@
-import { MouseEvent } from 'react'
-import { BiEditAlt } from 'react-icons/bi'
-import { MdDeleteOutline } from 'react-icons/md'
-
 import { Avatar } from '@/components/ui'
 import { useAuth, useDeleteTask, useUpdateTask } from '@/hooks'
 import { useConfirmationModal, useEditTaskModal, useTaskPreviewModal } from '@/hooks/modals'
 import { Task } from '@/types'
+import { MouseEvent } from 'react'
+import { BiEditAlt } from 'react-icons/bi'
+import { MdDeleteOutline } from 'react-icons/md'
 
 interface Props {
 	task: Task
