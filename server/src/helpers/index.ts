@@ -12,8 +12,9 @@ const uploadFile = async (file: Express.Multer.File) => {
 	return `${server}/images/${fileName}`
 }
 
-const deleteFile = async (fileName: string) => {
-	const filePath = join(__dirname, '..', '..', '..', fileName)
+const deleteFile = async (url: string) => {
+	const fileName = url.replace(`${server}/images/`, '')
+	const filePath = join(__dirname, '..', '..', '..', 'images', fileName)
 	await unlink(filePath)
 }
 
