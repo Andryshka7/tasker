@@ -47,11 +47,13 @@ export class AuthController {
 
 		response.cookie('accessToken', accessToken, {
 			maxAge: 1000 * 60 * 60 * 1,
+			sameSite: 'none',
 			secure: true,
 			httpOnly: true
 		})
 		response.cookie('refreshToken', refreshToken, {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
+			sameSite: 'none',
 			secure: true,
 			httpOnly: true,
 			path: '/auth/refresh'

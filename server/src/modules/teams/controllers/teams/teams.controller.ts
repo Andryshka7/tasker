@@ -26,12 +26,14 @@ export class TeamsController {
 		await this.tokensService.saveRefreshToken({ token: refreshToken, user: creator })
 
 		response.cookie('accessToken', accessToken, {
-			maxAge: 1000 * 60 * 60 * 1,
+			maxAge: 1000 * 60 * 60 * 1,			
+			sameSite: 'none',
 			secure: true,
 			httpOnly: true
 		})
 		response.cookie('refreshToken', refreshToken, {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
+			sameSite: 'none',
 			secure: true,
 			httpOnly: true,
 			path: '/auth/refresh'
