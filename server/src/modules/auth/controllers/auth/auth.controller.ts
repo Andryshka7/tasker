@@ -13,10 +13,9 @@ import {
 	UseGuards
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-
 import { SignInDto } from '../../dtos'
 import { AuthService, TokensService } from '../../services'
-import { client } from 'config'
+import { domainName } from 'config'
 
 @Controller('auth')
 export class AuthController {
@@ -51,14 +50,14 @@ export class AuthController {
 			sameSite: 'none',
 			secure: true,
 			httpOnly: true,
-			domain: client
+			domain: domainName
 		})
 		response.cookie('refreshToken', refreshToken, {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			sameSite: 'none',
 			secure: true,
 			httpOnly: true,
-			domain: client,
+			domain: domainName,
 			path: '/auth/refresh'
 		})
 
