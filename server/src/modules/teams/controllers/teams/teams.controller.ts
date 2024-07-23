@@ -4,6 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { CreateTeamDto } from '../../dtos'
 import { HashPasswordPipe, ValidateEmailPipe } from '../../pipes'
 import { TeamsService, TokensService } from '../../services'
+import { client } from 'config'
 
 @Controller('teams')
 export class TeamsController {
@@ -26,16 +27,18 @@ export class TeamsController {
 		await this.tokensService.saveRefreshToken({ token: refreshToken, user: creator })
 
 		response.cookie('accessToken', accessToken, {
-			maxAge: 1000 * 60 * 60 * 1,			
+			maxAge: 1000 * 60 * 60 * 1,
 			sameSite: 'none',
 			secure: true,
-			httpOnly: true
+			httpOnly: true,
+			domain: client
 		})
 		response.cookie('refreshToken', refreshToken, {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			sameSite: 'none',
 			secure: true,
 			httpOnly: true,
+			domain: client,
 			path: '/auth/refresh'
 		})
 
