@@ -2,7 +2,7 @@ import { signInQuery, signOutQuery } from '@/helpers/api/auth'
 import { useRefetchQueries } from '@/hooks'
 import { Credentials } from '@/types'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const useSignIn = () => {
@@ -35,10 +35,6 @@ const useSignIn = () => {
 
 const useSignOut = () => {
 	const router = useRouter()
-
-	useEffect(() => {
-		router.prefetch('/sign-in')
-	}, [router])
 
 	return () => {
 		const signOut = async () => {
