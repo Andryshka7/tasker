@@ -18,8 +18,6 @@ const jwt_secret = process.env.JWT_SECRET
 const client = process.env.CLIENT
 const server = process.env.SERVER
 
-const domainName = process.env.DOMAIN_NAME
-
 export {
 	port,
 	host,
@@ -29,7 +27,6 @@ export {
 	jwt_secret,
 	client,
 	server,
-	domainName,
 	publicKey,
 	privateKey,
 	urlEndpoint

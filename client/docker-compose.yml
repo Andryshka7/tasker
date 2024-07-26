@@ -2,8 +2,7 @@ services:
     tasker-client:
         container_name: tasker-client
         volumes:
-            - ./src:/app/src
-            - ./public:/app/public
+            - ./:/app
         build:
             context: .
             dockerfile: Dockerfile
