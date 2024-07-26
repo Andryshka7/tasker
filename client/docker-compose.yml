@@ -1,0 +1,13 @@
+services:
+    tasker-client:
+        container_name: tasker-client
+        volumes:
+            - ./src:/app/src
+            - ./public:/app/public
+        build:
+            context: .
+            dockerfile: Dockerfile
+        env_file:
+            - .env
+        ports:
+            - 3000:3000

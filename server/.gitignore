@@ -2,10 +2,15 @@
 dist
 node_modules
 
-.dockerignore
-
 # Environment
 .env
+
+# docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# local images
 
 images/*.jpg
 images/*.jpeg

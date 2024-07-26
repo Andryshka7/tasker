@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid'
 const uploadFile = async (file: Express.Multer.File) => {
 	const fileName = uuid() + extname(file.originalname)
 
-	const filePath = join(__dirname, '..', '..', '..', fileName)
+	const filePath = join(__dirname, '..', '..', 'images', fileName)
 	await writeFile(filePath, file.buffer)
 
 	return `${server}/images/${fileName}`
@@ -14,7 +14,7 @@ const uploadFile = async (file: Express.Multer.File) => {
 
 const deleteFile = async (url: string) => {
 	const fileName = url.replace(`${server}/images/`, '')
-	const filePath = join(__dirname, '..', '..', '..', 'images', fileName)
+	const filePath = join(__dirname, '..', '..', 'images', fileName)
 	await unlink(filePath)
 }
 

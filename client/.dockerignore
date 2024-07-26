@@ -1,0 +1,16 @@
+# Node.js dependencies
+node_modules
+
+# Build artifacts
+build
+dist
+
+# Environment files
+.env
+
+# Git files
+.git
+.gitignore
+
+# IDE/editor configurations
+.vscode
